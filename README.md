@@ -126,10 +126,10 @@ And other features are currently under development(upload images, paied, receipt
 
 ## 🛠 Skills
 
-    Tool : Post man
-    Configuration layer for Jwt.
-    Exceptions Handle.
-    Sending email(helper.addAttachment(...))
+- Tool : Post man
+- Configuration layer for Jwt.
+- Exceptions Handle.
+- Sending email(helper.addAttachment(...))
     
 
 
