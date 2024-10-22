@@ -24,7 +24,7 @@ public class Const {
 		public final static long EXPIRE_DURATION_JWT_MINUTES = 6 * 60;
 		public final static long EXPIRE_DURATION_JWT_CHANGE_PASSWORD = 15 * 60 * 1000; // 15 munites(milliseconds )
 		public final static long EXPIRE_DURATION_SESSION_CHANGE_PASSWORD = 15; // 15 (minutes)
-		
+
 	}
 
 	public final static class VIEW {
@@ -60,17 +60,15 @@ public class Const {
 		public static final String SCHEDULE_ERROR = "Schedule's id required"; // DOCTOR NEED USER DON'T
 		public final static String PLACE_ERROR = "Need information at least area.";
 
-		
-		
 		public static final String DOC_ACHIEVEMENT = "Doctor's academic program required!"; // DOCTOR NEED USER DON'T
 		public final static String DOC_TRAINING_PROCESS = "Training process required !";
 		public final static String DOC_CLINIC_ERROR = "Clinic's id required !";
 		public final static String DOC_SPECIALIZATION = "Specialization's id(s) required !";
 		public final static String DOC_SPECIALIZATION_ID_ERROR = "Specialization id not found !";
-	
+
 	}
 
-	public final static class MESSENGER_ERROR {		
+	public final static class MESSENGER_ERROR {
 		public final static String SECURITY_ERROR = "URL need to JWT ! ";
 		public final static String FOLDER_EMPTY = "File upload location can not be Empty.";
 		public final static String FILE_EMPTY = "Failed to store empty files.";
@@ -94,33 +92,30 @@ public class Const {
 		public final static String PASSOWRD_REGISTER_ERROR = "Password need have ";
 		public final static String FORBIDDEN_MESSENGER = "The password needs to be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character.";
 
-
-		
 	}
 
 	public final static class MESSENGER {
-		public final static String SUCCESS_FUNTION 		= "Success function before return !";
-		public final static String SUCCESS 				= "Method success !!!";
-		public final static String SEE_DOCTOR_SUCCESS 	= "Creating a date see doctor success !";
-		public final static String PASSWORD_SUCCESS 	= "Change password success!";
-		public final static String LOGIN_SUCCESS 		= "Login success and jwt created : ";
-		public final static String CREATE_DOCTOR 		= "Create new doctor success! ";
-		public final static String CREATE_USER 			= "Create user success! ";
-		public final static String CHANGE_ACTIVE 		= "Changing active user success!";
-		public final static String SEND_EMAIL_SUCCESS 	= "Email send success. Check mail please. ";
+		public final static String SUCCESS_FUNTION = "Success function before return !";
+		public final static String SUCCESS = "Method success !!!";
+		public final static String SEE_DOCTOR_SUCCESS = "Creating a date see doctor success !";
+		public final static String PASSWORD_SUCCESS = "Change password success!";
+		public final static String LOGIN_SUCCESS = "Login success and jwt created : ";
+		public final static String CREATE_DOCTOR = "Create new doctor success! ";
+		public final static String CREATE_USER = "Create user success! ";
+		public final static String CHANGE_ACTIVE = "Changing active user success!";
+		public final static String SEND_EMAIL_SUCCESS = "Email send success. Check mail please. ";
 		public final static String HEADER_MAIL_PASSWORD = "Reseting email ";
-		public final static String HEADER_MAIL_DOC		= "Medical examination results.";
-		
-		public final static String UPDATE_INFO 			= "Update infomation success !";
-		public final static String USER_INFO 			= "Basic user's infomations.";
-		public final static String DOCTOR_INFO 			= "Basic user's infomations.";
-		public final static String PATIENT_INFO 		= "Patient infomations.";
-		public final static String MAIL_SUCCESS 		= "Email sent successfully";
+		public final static String HEADER_MAIL_DOC = "Medical examination results.";
 
-		
+		public final static String UPDATE_INFO = "Update infomation success !";
+		public final static String USER_INFO = "Basic user's infomations.";
+		public final static String DOCTOR_INFO = "Basic user's infomations.";
+		public final static String PATIENT_INFO = "Patient infomations.";
+		public final static String MAIL_SUCCESS = "Email sent successfully";
+
 		public final static String LOCKED_SUCCESS = "This account lock success !";
 		public final static String UNLOCK_SUCCESS = "This account active.";
-	
+
 	}
 
 	public final static class MESSENGER_NOT_FOUND {
@@ -134,11 +129,11 @@ public class Const {
 		public final static String SESSION_NOT_FOUND = "Session doesn't exit !";
 		public final static String SCHEDULE_NOT_FOUND = "Doctor's schedule not found!";
 		public final static String STATUS_NOT_FOUND = "Status's name not ! (ok,no,non)";
-		
+
 	}
 
 	public final static class ACTIVE {
-		
+
 		public final static int DENICE = -1;
 		public final static int NONE = 0;
 		public final static int ACCEPT = 1;
@@ -148,13 +143,20 @@ public class Const {
 		public final static String ACC_LOCK = "This account has been locked.";
 		public final static String ACC_UNLOCK = "Normal account.";
 	}
+
 	public final static class KEY {
 		public final static String VALUE = "Key-";
+		public final static String ENCODER_TYPE = "RSA";
+		public final static String KEYTOOL_PASSWORD = "123456";
+		public final static String FILE_KEYTOOL_NAME = "mykeystore.jks";
+		public final static String KEYTOOL_ALIAS = "mykey";
+		public final static String KEY_STORE_CERTIFICATES = "JKS";
 
 	}
-	
-	public final static class PASSWORD{
-		public final static Set<Character> SPECIAL_CHACTERLIST = new HashSet<>(Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+'));
+
+	public final static class PASSWORD {
+		public final static Set<Character> SPECIAL_CHACTERLIST = new HashSet<>(
+				Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+'));
 
 	}
 }

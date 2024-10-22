@@ -1,6 +1,11 @@
 package com.example.doctorcare.service;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +38,7 @@ public interface UserService {
 	
 	void delete(UserEntity entity);
 	
-	JwtResponse userLogin(LoginRequest loginRequest);
+	JwtResponse userLogin(LoginRequest loginRequest) throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException;
 	
 	UserDtoResponse updateUser(String email,UserUpdateRequest request);
 	
@@ -47,7 +52,7 @@ public interface UserService {
 
 	UserEntity createrUser(SignupRequest signUpRequest, RoleEntity role);
 
-	UserEntity changingPassword(ChangePasswordRequest request,Session session);
+	UserEntity changingPassword(ChangePasswordRequest request,Session session) throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException;
 	
 	UserDtoPatientResponse getUserInfo(String email); // ROLE_USER using this method.
 	

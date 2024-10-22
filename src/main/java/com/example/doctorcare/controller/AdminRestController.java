@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,31 +94,36 @@ public class AdminRestController {
 
 	/*
 	 * 5.3.2. Khóa/hủy khóa tài khoản của bệnh nhân.
-	 * @PreAuthorize("hasAuthority('ROLE_ADMIN')") 
-	 * Using same thing HttpSecurity authorizeHttpRequests config->cofig.requestMathcher("/lock-patient/**").hasRole("ADMIN")
+	 * 
+	 * @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	 * Using same thing HttpSecurity authorizeHttpRequests
+	 * config->cofig.requestMathcher("/lock-patient/**").hasRole("ADMIN")
 	 * 
 	 */
 	@PutMapping("/lock-patient/{id}")
-	//@PreAuthorize("hasAuthority('ROLE_ADMIN')") 
+	// @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<UserDtoResponse> activeAccountPatient(@PathVariable Integer id, @RequestParam String reason) {
 		UserDtoResponse result = userService.lockPatient(id, reason);
 		return ResponseEntity.ok(result);
 	}
 
 	@PutMapping("/unlock-patient/{id}")
-	public ResponseEntity<UserDtoResponse> activeAccountUnlockPatien(@PathVariable Integer id, @RequestParam String reason) {
+	public ResponseEntity<UserDtoResponse> activeAccountUnlockPatien(@PathVariable Integer id,
+			@RequestParam String reason) {
 		UserDtoResponse result = userService.unlockPatient(id, reason);
 		return ResponseEntity.ok(result);
 	}
 
 	@PutMapping("/lock-doc/{id}")
-	public ResponseEntity<DoctorDtoResponse> activeAccountLockDoc(@PathVariable Integer id, @RequestParam String reason) {
+	public ResponseEntity<DoctorDtoResponse> activeAccountLockDoc(@PathVariable Integer id,
+			@RequestParam String reason) {
 		DoctorDtoResponse result = doctorService.lockDoc(id, reason);
 		return ResponseEntity.ok(result);
 	}
 
 	@PutMapping("/unlock-doc/{id}")
-	public ResponseEntity<DoctorDtoResponse> activeAccountUnlockDoc(@PathVariable Integer id, @RequestParam String reason) {
+	public ResponseEntity<DoctorDtoResponse> activeAccountUnlockDoc(@PathVariable Integer id,
+			@RequestParam String reason) {
 		DoctorDtoResponse result = doctorService.unlockDoc(id, reason);
 		return ResponseEntity.ok(result);
 	}

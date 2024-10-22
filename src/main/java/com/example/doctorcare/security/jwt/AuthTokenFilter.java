@@ -2,7 +2,6 @@ package com.example.doctorcare.security.jwt;
 
 import java.io.IOException;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,6 @@ import jakarta.servlet.http.HttpServletResponse;
  * 
  */
 
-
-
 public class AuthTokenFilter extends OncePerRequestFilter {
   @Autowired
   private JwtUtils jwtUtils;
@@ -59,20 +56,19 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken authentication =
-            new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities());										
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); 
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+            userDetails,
+            null,
+            userDetails.getAuthorities());
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     } catch (Exception e) {
       logger.error("Cannot set user authentication: {}", e);
-      
+
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      response.setContentType("application/json"); 
+      response.setContentType("application/json");
       ObjectMapper objectMapper = new ObjectMapper();
       String errorMessage = "Unauthorized";
       MessageResponse errorResponse = new MessageResponse(errorMessage);
@@ -92,4 +88,3 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     return null;
   }
 }
-

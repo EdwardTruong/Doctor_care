@@ -1,5 +1,10 @@
 package com.example.doctorcare.service.impl;
 
+import java.io.FileNotFoundException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
@@ -23,6 +28,7 @@ import com.example.doctorcare.utils.Const.MESSENGER_ERROR;
 import com.example.doctorcare.utils.Const.MESSENGER_NOT_FOUND;
 import com.example.doctorcare.utils.Const.TIME;
 
+import io.jsonwebtoken.io.IOException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -62,7 +68,7 @@ public class SessionServiceImpl implements SessionService {
 		Optional<Session> result = sDao.findById(id);
 		return result.orElse(null);
 	}
-	
+
 	@Override
 	public Session findByKey(String key) {
 		Optional<Session> result = sDao.findByKey(key);
@@ -75,18 +81,18 @@ public class SessionServiceImpl implements SessionService {
 		return result.orElseThrow(() -> new SessionNotFoundException(MESSENGER_NOT_FOUND.KEY_NOT_FOUND));
 	}
 
-
 	@Override
 	@Transactional
 	public Session createSessionLogin(String email, String token) {
 
 		String getSessionValue = this.createKey(email);
-		
+
 		Session session = this.findByKey(getSessionValue);
-		if (session == null) { 
-			session = saveNewSession(getSessionValue,token,TIME.EXPIRE_DURATION_JWT_MINUTES);//6h	
-		} else { 
-			session= this.updateSession(session,getSessionValue,token, session.getCreateAt(),TIME.EXPIRE_DURATION_JWT_MINUTES);
+		if (session == null) {
+			session = saveNewSession(getSessionValue, token, TIME.EXPIRE_DURATION_JWT_MINUTES);// 6h
+		} else {
+			session = this.updateSession(session, getSessionValue, token, session.getCreateAt(),
+					TIME.EXPIRE_DURATION_JWT_MINUTES);
 		}
 
 		logger.info("Calling form appUtils.getCurrentDateTimeBeforeSaveDb() : " + LocalDateTime.now().toString());
@@ -94,7 +100,6 @@ public class SessionServiceImpl implements SessionService {
 		return session;
 	}
 
-	
 	public String createKey(String email) {
 
 		if (email.length() >= 36) {
@@ -131,31 +136,34 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public Session sendEmailCreateKeyURl(UserEntity user) {
-		String jwt = jwtUtils.generateTokenFromUsername(user.getEmail()); 
-		
-		String key = this.createKey(user.getEmail());				
-		
-		String newKey = this.createRandomSessionId();					
+	public Session sendEmailCreateKeyURl(UserEntity user)
+			throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+			CertificateException, FileNotFoundException, java.io.IOException {
+		String jwt = jwtUtils.generateTokenFromUsername(user.getEmail());
 
-		Session currentSession = this.findByKey(key);					
+		String key = this.createKey(user.getEmail());
+
+		String newKey = this.createRandomSessionId();
+
+		Session currentSession = this.findByKey(key);
 		if (currentSession != null) {
 			currentSession.setKey(newKey);
 			currentSession.setData(jwt);
 			currentSession.setUpdateAt(LocalDateTime.now());
 			currentSession.setExpires(LocalDateTime.now().plusMinutes(TIME.EXPIRE_DURATION_SESSION_CHANGE_PASSWORD));
 			this.update(currentSession);
-			
-		}else {
-			currentSession = this.saveNewSession(newKey,jwt,TIME.EXPIRE_DURATION_SESSION_CHANGE_PASSWORD);//15m
+
+		} else {
+			currentSession = this.saveNewSession(newKey, jwt, TIME.EXPIRE_DURATION_SESSION_CHANGE_PASSWORD);// 15m
 		}
-		return currentSession;						
-		
+		return currentSession;
+
 	}
 
 	@Transactional
-	public Session updateSession(Session currentSession, String value,String jwtKey,LocalDateTime dateCreated, Long expires) {
-		
+	public Session updateSession(Session currentSession, String value, String jwtKey, LocalDateTime dateCreated,
+			Long expires) {
+
 		currentSession.setKey(value);
 		currentSession.setData(jwtKey);
 		currentSession.setUpdateAt(LocalDateTime.now());
@@ -164,19 +172,19 @@ public class SessionServiceImpl implements SessionService {
 		this.update(currentSession);
 		return currentSession;
 	}
-	
+
 	@Transactional
 	@Override
-	public Session saveNewSession(String key,String jwtKey, Long expires) {
+	public Session saveNewSession(String key, String jwtKey, Long expires) {
 		Session session = Session.builder()
-						.key(key)
-						.data(jwtKey)
-						.createAt(LocalDateTime.now())
-						.expires(LocalDateTime.now().plusMinutes(expires))
+				.key(key)
+				.data(jwtKey)
+				.createAt(LocalDateTime.now())
+				.expires(LocalDateTime.now().plusMinutes(expires))
 				.build();
 
 		this.save(session);
 		return session;
 	}
-	
+
 }

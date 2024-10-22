@@ -1,7 +1,15 @@
 package com.example.doctorcare.service;
 
+import java.io.FileNotFoundException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+
 import com.example.doctorcare.entity.Session;
 import com.example.doctorcare.entity.UserEntity;
+
+import io.jsonwebtoken.io.IOException;
 
 public interface SessionService {
 	
@@ -25,5 +33,5 @@ public interface SessionService {
 	
 	Session getSessionTakeEmailChangePassword(String key);
 	
-	Session sendEmailCreateKeyURl(UserEntity user);
+	Session sendEmailCreateKeyURl(UserEntity user) throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, java.io.IOException;
 }

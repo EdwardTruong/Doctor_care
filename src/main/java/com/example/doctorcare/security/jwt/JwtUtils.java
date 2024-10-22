@@ -1,12 +1,28 @@
 package com.example.doctorcare.security.jwt;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -16,12 +32,16 @@ import com.example.doctorcare.security.custom.UserDetailsCustom;
 import com.example.doctorcare.utils.Const;
 import com.example.doctorcare.utils.Const.TIME;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.io.IOException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -43,7 +63,16 @@ import jakarta.servlet.http.HttpServletRequest;
  * 
  * 5. The validateJwt method using check Jwt.
  *  
- *  */
+ *  
+ */
+
+/*
+ * This is the second way i make jwt with asymmetrical type : 
+ * Server sẽ sử dụng private key để tạo chữ ký cho JWT khi người dùng đăng nhập thành công và yêu cầu token.
+ * JWT bao gồm payload chứa thông tin người dùng và một chữ ký được tạo bởi private key.
+ * 
+ *
+ */
 
 @Component
 public class JwtUtils {
@@ -51,84 +80,110 @@ public class JwtUtils {
 	@Value("${app.jwt.jwtCookieName}")
 	private String jwtCookie;
 
+	@Autowired
+	KeyManger keyManger;
 
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-	// key
-	SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
-	SecretKey key = Keys.secretKeyFor(algorithm);
-
-	
-	public String getUserNameFromJwtToken(String token) {
-		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+	// Asymetrical Key Using KeyPair.
+	public KeyPair generateKeyPair() throws NoSuchAlgorithmException {
+		KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");// Sử dụng thuật toán RSA để tạo cặp
+																				// khóa
+		keyPairGenerator.initialize(2048); // Độ dài khóa 2048 bits
+		return keyPairGenerator.generateKeyPair();
 	}
 
+	public String getUserNameFromJwtToken(String token)
+			throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+			CertificateException, FileNotFoundException, java.io.IOException {
+		PrivateKey privateKey = keyManger.getPrivateKey();
+		return Jwts.parserBuilder().setSigningKey(privateKey).build().parseClaimsJws(token).getBody().getSubject();
+	}
 
-	// Using for login
-	public String generateJwt(Authentication authentication) {
+	/*
+	 * New code for generateJwt using private key : PrivateKey privateKey =
+	 * this.getPrivateKey(); and using SignatureAlgorithm.RS256 of RSA
+	 */
+	public String generateJwt(Authentication authentication)
+			throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+			CertificateException, FileNotFoundException, java.io.IOException {
+
+		PrivateKey privateKey = keyManger.getPrivateKey();
+		
+		SecretKey secretKey = Keys.hmacShaKeyFor(privateKey.getEncoded());
 
 		UserDetailsCustom userAuthenticated = (UserDetailsCustom) authentication.getPrincipal();
 
 		return Jwts.builder().setSubject((userAuthenticated.getUsername())).setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + TIME.EXPIRE_DURATION_JWT))	// 6h
-				.signWith(key, SignatureAlgorithm.HS256).compact();
+				.setExpiration(new Date((new Date()).getTime() + TIME.EXPIRE_DURATION_JWT)) // 6h
+				.signWith(privateKey, SignatureAlgorithm.RS256).compact();
 	}
 
-	
-	// Using for change password
-	public String generateTokenFromUsername(String email) {
+	public PublicKey getPublicKey() throws KeyStoreException, IOException, UnrecoverableKeyException,
+			NoSuchAlgorithmException, CertificateException,
+			FileNotFoundException, java.io.IOException {
+		KeyStore keyStore = KeyStore.getInstance(Const.KEY.KEY_STORE_CERTIFICATES);
+		keyStore.load(new FileInputStream(Const.KEY.FILE_KEYTOOL_NAME), Const.KEY.KEYTOOL_PASSWORD.toCharArray());
 
-		logger.info("Key calling form generateTokenFromUsername : " + key.toString());
+		Certificate cert = keyStore.getCertificate(Const.KEY.KEYTOOL_ALIAS);
+		PublicKey publicKey = cert.getPublicKey(); //
+		return publicKey;
+	}
+
+	// Using for change password
+	public String generateTokenFromUsername(String email)
+			throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+			CertificateException, FileNotFoundException, java.io.IOException {
+
+		PrivateKey privateKey = keyManger.getPrivateKey();
+		logger.info("Key calling form generateTokenFromUsername : " + keyManger.toString());
 
 		return Jwts.builder().setSubject(email).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + TIME.EXPIRE_DURATION_JWT_CHANGE_PASSWORD)) // 15m
-				.signWith(key, SignatureAlgorithm.HS256).compact();
+				.signWith(privateKey, SignatureAlgorithm.RS256).compact();
 	}
 
-	//Using for change password:  Giải mã JWT và lấy thông tin claims 
-	public String getUserNameFromJwt(String toke) {
-		return Jwts.parserBuilder().setSigningKey(key).build()
+	// Using for change password: Giải mã JWT và lấy thông tin claims
+	public String getUserNameFromJwt(String toke) throws IOException, UnrecoverableKeyException, KeyStoreException,
+			NoSuchAlgorithmException, CertificateException, FileNotFoundException, java.io.IOException {
+		PrivateKey privateKey = keyManger.getPrivateKey();
+		return Jwts.parserBuilder().setSigningKey(
+				privateKey).build()
 				.parseClaimsJws(toke).getBody().getSubject();
 	}
 
-	public boolean validateJwtToken(String authToken) {
-		try {
-			Jwts.parserBuilder().setSigningKey(key).build().parse(authToken);
-			return true;
-		} catch (MalformedJwtException e) {
-			logger.error("Invalid JWT token: {}", e.getMessage());
-		} catch (ExpiredJwtException e) {
-			logger.error("JWT token is expired: {}", e.getMessage());
-		} catch (UnsupportedJwtException e) {
-			logger.error("JWT token is unsupported: {}", e.getMessage());
-		} catch (IllegalArgumentException e) {
-			logger.error("JWT claims string is empty: {}", e.getMessage());
-		}
+	/*
+	 * This method using check private key is correct.
+	 * If private key in signiture of claimsJwt dose not mathes into KeyStore then
+	 * exception was throse
+	 */
+	public boolean validateJwtToken(String jwt)
+			throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
+			UnrecoverableKeyException, FileNotFoundException, java.io.IOException {
+		PublicKey publicKey = this.getPublicKey();
 
-		return false;
+		Jws<Claims> claimsJws = Jwts.parserBuilder()
+				.setSigningKey(publicKey)
+				.build()
+				.parseClaimsJws(jwt);
+
+		return true; // Nếu không có exception, JWT là hợp lệ
 	}
 
-	// FOR cookies . Make it later !
-	public String getJwtFromCookies(HttpServletRequest request) {
-		Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-		if (cookie != null) {
-			return cookie.getValue();
-		} else {
-			return null;
-		}
-	}
-
-	public ResponseCookie getCleanJwtCookie() {
-		ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/api").build();
-		return cookie;
-	}
-
-	public ResponseCookie generateJwtCookie(Authentication authentication) {
-		String jwt = generateJwt(authentication);
-		ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(Const.TIME.EXPIRE_DURATION_JWT)
-				.httpOnly(true) // 6h
-				.build();
-		return cookie;
-	}
+	/*
+	 * // FOR cookies . Make it later ! public String
+	 * getJwtFromCookies(HttpServletRequest request) { Cookie cookie =
+	 * WebUtils.getCookie(request, jwtCookie); if (cookie != null) { return
+	 * cookie.getValue(); } else { return null; } }
+	 * 
+	 * public ResponseCookie getCleanJwtCookie() { ResponseCookie cookie =
+	 * ResponseCookie.from(jwtCookie, null).path("/api").build(); return cookie; }
+	 * 
+	 * public ResponseCookie generateJwtCookie(Authentication authentication) {
+	 * String jwt = generateJwt(authentication); ResponseCookie cookie =
+	 * ResponseCookie.from(jwtCookie,
+	 * jwt).path("/api").maxAge(Const.TIME.EXPIRE_DURATION_JWT) .httpOnly(true) //
+	 * 6h .build(); return cookie; }
+	 */
 
 }
