@@ -13,9 +13,35 @@ This is a project using Spring Boot version 3.2.2 with Spring Security for autho
  - Spring MVC
  - Spring Boot Restful API
  - Spring Security
- - Jwt
+ - Jwt (Asymmetrical) 
 
 
+
+
+## Setup
+To setup Private key and Public key using Keytool : with name mykeystore.jks 
+The password I set for my keytool is 123456. You can set your own password without having to match mine.
+
+	keytool -genkeypair -alias mykey -keyalg RSA -keysize 2048 -keystore mykeystore.jks
+
+ To extract public key : 
+
+  	keytool -exportcert -alias mykey -keystore mykeystore.jks -file public.key
+
+To extract public key and private key in mykeystore.jks : 
+	You can save this key to a file.txt to facilitate quick file reading. 
+ 	For me, I have not saved to any txt file but use the public.key file directly.
+
+	keytool -list -rfc --keystore mykeystore.jks | openssl x509 -inform pem -pubkey
+
+To extract private key : (In the case of a private key, according to the advice of everyone I have read online, they rarely extract it. Only in a few specific cases will they do so, and once again the advice is not to extract the private key)
+	It have 2 steps : 
+
+  	keytool -importkeystore -srckeystore keystore.jks -destkeystore extracted_private_key.p12 -deststoretype PKCS12 -srcalias mykey -deststorepass 123456
+   	openssl pkcs12 -in extracted_private_key.p12 -out private_key.pem
+
+
+    
 
 ## Functions
 
