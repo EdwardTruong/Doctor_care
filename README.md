@@ -38,6 +38,8 @@ To extract private key : (In the case of a private key, according to the advice 
 	It have 2 steps : 
 
   	keytool -importkeystore -srckeystore keystore.jks -destkeystore extracted_private_key.p12 -deststoretype PKCS12 -srcalias mykey -deststorepass 123456
+And :
+
    	openssl pkcs12 -in extracted_private_key.p12 -out private_key.pem
 
 
