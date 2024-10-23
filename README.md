@@ -171,8 +171,8 @@ And other features are currently under development(upload images, paied, receipt
 
 ## 🛠 Skills
 
-- Tool : Post man
-- Configuration layer for Jwt.
+- Tool : Post man, Keytool
+- Configuration layer for Jwt with asymmetrical and symmetrical.
 - Exceptions Handle.
 - Sending email(helper.addAttachment(...))
     
