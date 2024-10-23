@@ -19,6 +19,7 @@ This is a project using Spring Boot version 3.2.2 with Spring Security for autho
 
 
 ## Setup
+For jwt (asymmetrical) function :
 To setup Private key and Public key using Keytool : with name mykeystore.jks 
 The password I set for my keytool is 123456. You can set your own password without having to match mine.
 
@@ -41,6 +42,20 @@ To extract private key : (In the case of a private key, according to the advice 
 And :
 
    	openssl pkcs12 -in extracted_private_key.p12 -out private_key.pem
+
+=============================================================================
+For email function :
+ Go to 
+ 
+     https://www.google.com/settings/security/lesssecureapps
+ And : 
+         
+         Allow less secure apps : ON
+  If the email account does not allow that feature, it needs to be changed to another email.
+
+  ---> In the application.properties, I have an example email which has the email sending feature turned off. You can replace it with your email and follow the steps above to make the function work efficiently
+  
+ ![Screenshot 2024-10-23 144139](https://github.com/user-attachments/assets/f425bbda-3c25-4778-b146-6e4f447fa0d0)
 
 
     
