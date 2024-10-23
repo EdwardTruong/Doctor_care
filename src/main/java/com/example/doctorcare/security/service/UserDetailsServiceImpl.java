@@ -19,19 +19,18 @@ import com.example.doctorcare.utils.Const.*;
  * 	When user login, user's information saved in UserDetailsCustom;
  */
 
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	UserRepository userDao;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity userEntity = userDao.findUserByEmail(username).orElseThrow(()-> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL + username));
+		UserEntity userEntity = userDao.findUserByEmail(username)
+				.orElseThrow(() -> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL + username));
 		logger.info("User login and save user's infomations into UserDetailsCustom. !");
 		return UserDetailsCustom.build(userEntity);
 	}

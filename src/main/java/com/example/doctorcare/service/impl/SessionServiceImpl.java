@@ -109,7 +109,7 @@ public class SessionServiceImpl implements SessionService {
 	}
 
 	@Override
-	public String createRandomSessionId() {
+	public String createRandomSessionId(String email) {
 		int leftLimit = 97; // letter 'a'
 		int rightLimit = 122; // letter 'z'
 		int targetStringLength = 36;
@@ -118,7 +118,7 @@ public class SessionServiceImpl implements SessionService {
 		String generatedString = random.ints(leftLimit, rightLimit + 1).limit(targetStringLength)
 				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
 
-		return generatedString;
+		return generatedString + email;
 	}
 
 	@Override
@@ -135,6 +135,8 @@ public class SessionServiceImpl implements SessionService {
 		return session;
 	}
 
+
+	
 	@Override
 	public Session sendEmailCreateKeyURl(UserEntity user)
 			throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
@@ -143,7 +145,7 @@ public class SessionServiceImpl implements SessionService {
 
 		String key = this.createKey(user.getEmail());
 
-		String newKey = this.createRandomSessionId();
+		String newKey = this.createRandomSessionId(user.getEmail());
 
 		Session currentSession = this.findByKey(key);
 		if (currentSession != null) {

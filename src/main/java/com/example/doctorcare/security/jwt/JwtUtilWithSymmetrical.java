@@ -20,6 +20,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 
+
+/*
+ * On this jwt i read on https://www.javaguides.net/2023/05/spring-boot-spring-security-jwt-mysql.html
+ * 
+ */
+
 public class JwtUtilWithSymmetrical {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtilWithSymmetrical.class);

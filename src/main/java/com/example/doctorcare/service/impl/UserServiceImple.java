@@ -370,4 +370,6 @@ public class UserServiceImple implements UserService {
 		return Math.max(count, 8 - password.length());
 	}
 
+
+
 }

@@ -12,26 +12,27 @@ import com.example.doctorcare.entity.UserEntity;
 import io.jsonwebtoken.io.IOException;
 
 public interface SessionService {
-	
+
 	void save(Session session);
 
 	void update(Session session);
-		
+
 	void delete(Session session);
-	
-	Session saveNewSession(String newSid,String jwtKey, Long expires);
-	
+
+	Session saveNewSession(String newSid, String jwtKey, Long expires);
+
 	Session createSessionLogin(String email, String token);
-	
+
 	Session findById(Integer id);
-	
+
 	Session findByKey(String key);
-	
+
 	Session findByData(String data);
-	
-	String createRandomSessionId();
-	
+
+	String createRandomSessionId(String email);
+
 	Session getSessionTakeEmailChangePassword(String key);
-	
-	Session sendEmailCreateKeyURl(UserEntity user) throws IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, java.io.IOException;
+
+	Session sendEmailCreateKeyURl(UserEntity user) throws IOException, UnrecoverableKeyException, KeyStoreException,
+			NoSuchAlgorithmException, CertificateException, FileNotFoundException, java.io.IOException;
 }

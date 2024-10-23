@@ -1,7 +1,9 @@
 package com.example.doctorcare.exception;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 public class UserNotFoundException extends RuntimeException {
-	
+
 	/**
 	 * 
 	 */
@@ -21,11 +23,11 @@ public class UserNotFoundException extends RuntimeException {
 	public UserNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
+
 	}
 
 	public UserNotFoundException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	public UserNotFoundException(Throwable cause) {
@@ -33,5 +35,4 @@ public class UserNotFoundException extends RuntimeException {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 }
