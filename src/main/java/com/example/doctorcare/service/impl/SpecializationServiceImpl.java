@@ -5,57 +5,52 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.dao.SpecializationRepository;
-import com.example.doctorcare.entity.Specializations;
-import com.example.doctorcare.exception.SpecializationNotFoundException;
+import com.example.doctorcare.common.utils.Const.*;
+import com.example.doctorcare.exception.notfound.SpecializationNotFoundException;
+import com.example.doctorcare.model.entity.Specializations;
+import com.example.doctorcare.repository.SpecializationRepository;
 import com.example.doctorcare.service.SpecializationService;
-import com.example.doctorcare.utils.Const.*;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class SpecializationServiceImpl implements SpecializationService {
 
-	@Autowired
-	SpecializationRepository sDao;
+	private final SpecializationRepository specializationRepository;
 
 	@Override
 	public Specializations findById(Integer id) {
-		Optional<Specializations> result = sDao.findById(id);
+		Optional<Specializations> result = specializationRepository.findById(id);
 		return result
 				.orElseThrow(() -> new SpecializationNotFoundException(MESSENGER_NOT_FOUND.SPECIALIZATION_NOTFOUND));
 	}
 
 	@Override
 	public Specializations findByName(String name) {
-		Optional<Specializations> result = sDao.findByName(name);
+		Optional<Specializations> result = specializationRepository.findByName(name);
 		return result
 				.orElseThrow(() -> new SpecializationNotFoundException(MESSENGER_NOT_FOUND.SPECIALIZATION_NOTFOUND));
 
 	}
 
 	@Override
-	public void save(Specializations specialization) {
-		sDao.save(specialization);
-
-	}
-
-	@Override
-	public void update(Specializations specialization) {
-		sDao.saveAndFlush(specialization);
+	public void create(Specializations specialization) {
+		specializationRepository.save(specialization);
 
 	}
 
 	@Override
 	public void delete(Specializations specialization) {
-		sDao.delete(specialization);
+		specializationRepository.delete(specialization);
 
 	}
 
 	@Override
 	public List<Specializations> topSpecializations() {
-		return sDao.topSpecializations();
+		return specializationRepository.topSpecializations();
 	}
 
 	@Override
@@ -67,11 +62,22 @@ public class SpecializationServiceImpl implements SpecializationService {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public String getSpecializationNameFormPatient(Integer patientId) {
-		Optional<String> result = sDao.findNameOfSpecialization(patientId);
-		return result.orElseThrow(()-> new SpecializationNotFoundException(MESSENGER_NOT_FOUND.SPECIALIZATION_NOTFOUND));
+		Optional<String> result = specializationRepository.findNameOfSpecialization(patientId);
+		return result
+				.orElseThrow(() -> new SpecializationNotFoundException(MESSENGER_NOT_FOUND.SPECIALIZATION_NOTFOUND));
+	}
+
+	@Override
+	public Specializations update(Specializations specialization) {
+		return specializationRepository.saveAndFlush(specialization);
+	}
+
+	@Override
+	public List<Specializations> findAll() {
+		return specializationRepository.findAll();
 	}
 
 }

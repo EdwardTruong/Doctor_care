@@ -1,6 +1,6 @@
 package com.example.doctorcare.validation;
 
-import com.example.doctorcare.dto.request.SignupRequest;
+import com.example.doctorcare.model.dto.request.SignupRequest;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

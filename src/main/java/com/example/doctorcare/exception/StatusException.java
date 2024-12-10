@@ -1,34 +1,34 @@
 package com.example.doctorcare.exception;
 
+import java.io.Serial;
+
 public class StatusException extends RuntimeException {
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = -3672273367001108325L;
 
+	private static final String DEFAULT_MESSAGE = """
+			Status not mathing !
+			""";
+
+	/**
+	 * Constructs a new {@link UserNotFoundException} with the default message.
+	 */
 	public StatusException() {
-		// TODO Auto-generated constructor stub
+		super(DEFAULT_MESSAGE);
 	}
 
-	public StatusException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
-	}
-
-	public StatusException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public StatusException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public StatusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructs a new {@link StatusException} with the default message and
+	 * an additional message.
+	 *
+	 * @param message the additional message to include.
+	 */
+	public StatusException(final String message) {
+		super(DEFAULT_MESSAGE + " " + message);
 	}
 
 }

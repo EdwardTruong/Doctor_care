@@ -20,41 +20,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.doctorcare.dto.request.DoctorUpdateRequest;
-import com.example.doctorcare.dto.request.ScheduleRequest;
-import com.example.doctorcare.dto.response.DoctorDtoResponse;
-import com.example.doctorcare.dto.response.PatientDtoDoctorResponse;
-import com.example.doctorcare.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.entity.Schedule;
-import com.example.doctorcare.entity.UserEntity;
+import com.example.doctorcare.auth.service.UserService;
+import com.example.doctorcare.common.utils.Const.MESSENGER;
+import com.example.doctorcare.model.dto.request.DoctorUpdateRequest;
+import com.example.doctorcare.model.dto.request.ScheduleRequest;
+import com.example.doctorcare.model.dto.response.DoctorDtoResponse;
+import com.example.doctorcare.model.dto.response.PatientDtoDoctorResponse;
+import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
+import com.example.doctorcare.model.entity.Schedule;
+import com.example.doctorcare.model.entity.UserEntity;
 import com.example.doctorcare.service.DoctorService;
 import com.example.doctorcare.service.PatientService;
 import com.example.doctorcare.service.ScheduleService;
 import com.example.doctorcare.service.StatuseService;
-import com.example.doctorcare.service.UserService;
-import com.example.doctorcare.utils.Const.MESSENGER;
+import com.example.doctorcare.service.AccountService;
 
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @RestController
 @RequestMapping("/api/doctor")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DoctorController {
 
-	@Autowired
 	ScheduleService scheduleService;
 
-	@Autowired
 	DoctorService doctorService;
 
-	@Autowired
 	UserService userService;
 
-	@Autowired
 	PatientService patientService;
-
-	@Autowired
-	StatuseService statusService;
 
 	private static final Logger logger = LoggerFactory.getLogger(DoctorController.class);
 
@@ -100,12 +99,11 @@ public class DoctorController {
 	}
 
 	/*
-	 * 6.1. Gửi thông tin về email cá nhân của bệnh nhân. Maybe not DONE ! 
+	 * 6.1. Gửi thông tin về email cá nhân của bệnh nhân. Maybe not DONE !
 	 */
 	@PostMapping("/send-result")
-	public ResponseEntity<String> sendReultToPatien(@RequestParam("toMail") String toMail
-						,@RequestParam("file") MultipartFile file
-			) throws MessagingException, IOException {
+	public ResponseEntity<String> sendReultToPatien(@RequestParam("toMail") String toMail,
+			@RequestParam("file") MultipartFile file) throws MessagingException, IOException {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserEntity toUser = userService.findByEmail(toMail);
 		String result = doctorService.doctorSendEmail(email, toUser, file);
@@ -123,15 +121,15 @@ public class DoctorController {
 		logger.info(MESSENGER.SUCCESS + createSchedule.toString());
 		return new ResponseEntity<>(createSchedule, HttpStatus.OK);
 	}
-	
+
 	/*
 	 * For testing
 	 */
 	@GetMapping("/get-schedules")
-	public ResponseEntity<List<ScheduleDtoResponse>> docSchedules(){
+	public ResponseEntity<List<ScheduleDtoResponse>> docSchedules() {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserEntity user = userService.findByEmail(email);
 		List<ScheduleDtoResponse> result = scheduleService.getAllSchedulesByDocId(user.getDoctorEntity());
-		return  ResponseEntity.ok(result);
+		return ResponseEntity.ok(result);
 	}
 }

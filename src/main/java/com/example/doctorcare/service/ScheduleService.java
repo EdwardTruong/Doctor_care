@@ -3,13 +3,13 @@ package com.example.doctorcare.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.doctorcare.dto.request.ScheduleInfoRequest;
-import com.example.doctorcare.dto.request.ScheduleInfoTestRequest;
-import com.example.doctorcare.dto.request.ScheduleRequest;
-import com.example.doctorcare.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.entity.DoctorEntity;
-import com.example.doctorcare.entity.Schedule;
-import com.example.doctorcare.entity.UserEntity;
+import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
+import com.example.doctorcare.model.dto.request.ScheduleInfoTestRequest;
+import com.example.doctorcare.model.dto.request.ScheduleRequest;
+import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
+import com.example.doctorcare.model.entity.DoctorEntity;
+import com.example.doctorcare.model.entity.Schedule;
+import com.example.doctorcare.model.entity.UserEntity;
 
 public interface ScheduleService {
 

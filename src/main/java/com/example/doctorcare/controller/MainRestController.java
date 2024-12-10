@@ -12,7 +12,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,38 +24,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.doctorcare.dao.ScheduleRepository;
-import com.example.doctorcare.dto.DoctorDto;
-import com.example.doctorcare.dto.request.ChangePasswordRequest;
-import com.example.doctorcare.dto.request.LoginRequest;
-import com.example.doctorcare.dto.request.ScheduleInfoRequest;
-import com.example.doctorcare.dto.request.SignupRequest;
-import com.example.doctorcare.dto.response.JwtResponse;
-import com.example.doctorcare.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.dto.response.UserDtoResponse;
-import com.example.doctorcare.entity.Clinics;
-import com.example.doctorcare.entity.RoleEntity;
-import com.example.doctorcare.entity.Session;
-import com.example.doctorcare.entity.Specializations;
-import com.example.doctorcare.entity.UserEntity;
-import com.example.doctorcare.exception.PasswordNotMatchingException;
+import com.example.doctorcare.auth.exception.PasswordNotMatchingException;
+import com.example.doctorcare.auth.service.LoginService;
+import com.example.doctorcare.auth.service.RoleService;
+import com.example.doctorcare.auth.service.UserService;
+import com.example.doctorcare.common.utils.ApplicationUtils;
+import com.example.doctorcare.common.utils.ERole;
+import com.example.doctorcare.common.utils.Const.JWT_HEARD;
+import com.example.doctorcare.common.utils.Const.MESSENGER;
+import com.example.doctorcare.common.utils.Const.MESSENGER_FIELDS_ERROR;
+import com.example.doctorcare.model.dto.DoctorDto;
+import com.example.doctorcare.model.dto.request.ChangePasswordRequest;
+import com.example.doctorcare.model.dto.request.LoginRequest;
+import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
+import com.example.doctorcare.model.dto.request.SignupRequest;
+import com.example.doctorcare.model.dto.response.JwtResponse;
+import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
+import com.example.doctorcare.model.dto.response.UserDtoResponse;
+import com.example.doctorcare.model.entity.Clinics;
+import com.example.doctorcare.model.entity.RoleEntity;
+import com.example.doctorcare.model.entity.Session;
+import com.example.doctorcare.model.entity.Specializations;
+import com.example.doctorcare.model.entity.UserEntity;
+import com.example.doctorcare.model.mapper.UserMapper;
 import com.example.doctorcare.service.ClinicsService;
 import com.example.doctorcare.service.DoctorService;
-import com.example.doctorcare.service.RoleService;
+import com.example.doctorcare.service.MailService;
 import com.example.doctorcare.service.ScheduleService;
 import com.example.doctorcare.service.SessionService;
 import com.example.doctorcare.service.SpecializationService;
-import com.example.doctorcare.service.UserService;
-import com.example.doctorcare.utils.ApplicationUtils;
-import com.example.doctorcare.utils.Const.JWT_HEARD;
-import com.example.doctorcare.utils.Const.MESSENGER;
-import com.example.doctorcare.utils.Const.MESSENGER_FIELDS_ERROR;
-import com.example.doctorcare.utils.ERole;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /*
  * The registerUser method 
@@ -69,36 +73,33 @@ import jakarta.validation.Valid;
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/home")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MainRestController {
 
-	@Autowired
 	RoleService roleService;
 
-	@Autowired
 	UserService userService;
 
-	@Autowired
 	DoctorService doctorService;
 
-	@Autowired
 	SessionService sessionService;
 
-	@Autowired
 	SpecializationService specializationService;
 
-	@Autowired
 	ClinicsService clinicsService;
 
-	@Autowired
 	ScheduleService scheduleService;
 
-	@Autowired
 	ApplicationUtils appUtils;
 
-	@Autowired
-	ScheduleRepository sDao;
+	LoginService loginService;
 
-	private static final Logger logger = LoggerFactory.getLogger(MainRestController.class);
+	MailService mailService;
+
+	UserMapper userMapper;
+
+	private static Logger logger = LoggerFactory.getLogger(MainRestController.class);
 
 	/*
 	 * DONE !
@@ -107,7 +108,7 @@ public class MainRestController {
 	public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest)
 			throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
 			NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException {
-		JwtResponse newJwt = userService.userLogin(loginRequest);
+		JwtResponse newJwt = loginService.userLogin(loginRequest);
 		sessionService.createSessionLogin(loginRequest.getUsername(), newJwt.getToken());
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(JWT_HEARD.HEADER_NAME, JWT_HEARD.HEADER_VALUE + newJwt.getToken());
@@ -120,8 +121,8 @@ public class MainRestController {
 	@PostMapping("/register")
 	public ResponseEntity<UserDtoResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		RoleEntity role = roleService.findByName(ERole.ROLE_USER);
-		UserDtoResponse newUser = userService.createUserEntity(signUpRequest, role);
-		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+		UserEntity newUser = userService.createUser(signUpRequest, role);
+		return new ResponseEntity<>(userMapper.toDto(newUser, MESSENGER.CREATE_USER), HttpStatus.CREATED);
 	}
 
 	/*
@@ -138,7 +139,7 @@ public class MainRestController {
 	 * 3. The Session entity is used for changing passwords, and the generated JWT
 	 * has the same expiration time of 15 minutes.
 	 * 4. Create a URL containing the information "sid" as a suffix.
-	 * 5. Finally, send an email to the user who needs to change their password
+	 * 5. ly, send an email to the user who needs to change their password
 	 * along with the link to proceed to the next step of changing the password.
 	 * 
 	 * (Next step : The changePassword method )
@@ -158,7 +159,7 @@ public class MainRestController {
 		UserEntity userEntity = userService.findByEmail(email);
 		Session getNewSession = sessionService.sendEmailCreateKeyURl(userEntity);
 		String resetPasswordURL = request.getRequestURL().toString() + "/info/value?key=" + getNewSession.getKey();
-		Map<String, String> result = userService.sendEmailRestPassword(email, resetPasswordURL,
+		Map<String, String> result = mailService.sendEmailRestPassword(email, resetPasswordURL,
 				getNewSession.getData());
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
@@ -183,8 +184,8 @@ public class MainRestController {
 			throw new PasswordNotMatchingException(MESSENGER_FIELDS_ERROR.PASSWORD_NOT_MATHCING);
 		}
 		Session session = sessionService.getSessionTakeEmailChangePassword(key);
-		UserEntity userEntity = userService.changingPassword(request, session);
-		logger.info(appUtils.convertLocalDateTimeToString(userEntity.getUpdateAt()));
+		UserEntity userEntity = loginService.changingPassword(request, session);
+		logger.info(appUtils.convertLocalDateTimeToString(userEntity.getUpdatedAt()));
 		return ResponseEntity.ok(MESSENGER.PASSWORD_SUCCESS);
 
 	}

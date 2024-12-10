@@ -1,11 +1,11 @@
 package com.example.doctorcare.service;
 
-
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.doctorcare.dto.DataMailDto;
+import com.example.doctorcare.model.dto.DataMailDto;
 
 import jakarta.mail.MessagingException;
 
@@ -20,8 +20,9 @@ import jakarta.mail.MessagingException;
 
 public interface MailService {
 
-	
-	
-	void sendHtmlMail(DataMailDto dataMail, String templateName, MultipartFile file) throws MessagingException, IOException ;
+	void sendHtmlMail(DataMailDto dataMail, String templateName, MultipartFile file)
+			throws MessagingException, IOException;
 
+	Map<String, String> sendEmailRestPassword(String email, String tokenUrl, String data)
+			throws MessagingException, IOException;
 }

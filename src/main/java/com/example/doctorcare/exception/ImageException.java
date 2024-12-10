@@ -1,34 +1,34 @@
 package com.example.doctorcare.exception;
 
+import java.io.Serial;
+
 public class ImageException extends RuntimeException {
 
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = -4582690035169829392L;
 
+	private static final String DEFAULT_MESSAGE = """
+			Image error !
+			""";
+
+	/**
+	 * Constructs a new {@link ImageException} with the default message.
+	 */
 	public ImageException() {
-		// TODO Auto-generated constructor stub
+		super(DEFAULT_MESSAGE);
 	}
 
-	public ImageException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
-	}
-
-	public ImageException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public ImageException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public ImageException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructs a new {@link ImageException} with the default message and
+	 * an additional message.
+	 *
+	 * @param message the additional message to include.
+	 */
+	public ImageException(final String message) {
+		super(DEFAULT_MESSAGE + " " + message);
 	}
 
 }

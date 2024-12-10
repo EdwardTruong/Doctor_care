@@ -6,8 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-import com.example.doctorcare.entity.Session;
-import com.example.doctorcare.entity.UserEntity;
+import com.example.doctorcare.model.entity.Session;
+import com.example.doctorcare.model.entity.UserEntity;
 
 import io.jsonwebtoken.io.IOException;
 

@@ -12,23 +12,23 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.dao.ScheduleRepository;
-import com.example.doctorcare.dto.request.ScheduleInfoRequest;
-import com.example.doctorcare.dto.request.ScheduleInfoTestRequest;
-import com.example.doctorcare.dto.request.ScheduleRequest;
-import com.example.doctorcare.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.entity.DoctorEntity;
-import com.example.doctorcare.entity.Schedule;
-import com.example.doctorcare.entity.Specializations;
-import com.example.doctorcare.entity.UserEntity;
+import com.example.doctorcare.common.utils.ApplicationUtils;
+import com.example.doctorcare.common.utils.Const.MESSENGER_ERROR;
+import com.example.doctorcare.common.utils.Const.MESSENGER_NOT_FOUND;
 import com.example.doctorcare.exception.RequestException;
-import com.example.doctorcare.exception.ScheduleNotFoundException;
-import com.example.doctorcare.mapper.ScheduleMapper;
+import com.example.doctorcare.exception.notfound.ScheduleNotFoundException;
+import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
+import com.example.doctorcare.model.dto.request.ScheduleInfoTestRequest;
+import com.example.doctorcare.model.dto.request.ScheduleRequest;
+import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
+import com.example.doctorcare.model.entity.DoctorEntity;
+import com.example.doctorcare.model.entity.Schedule;
+import com.example.doctorcare.model.entity.Specializations;
+import com.example.doctorcare.model.entity.UserEntity;
+import com.example.doctorcare.model.mapper.ScheduleMapper;
+import com.example.doctorcare.repository.ScheduleRepository;
 import com.example.doctorcare.service.ScheduleService;
 import com.example.doctorcare.service.SpecializationService;
-import com.example.doctorcare.utils.ApplicationUtils;
-import com.example.doctorcare.utils.Const.MESSENGER_ERROR;
-import com.example.doctorcare.utils.Const.MESSENGER_NOT_FOUND;
 
 import jakarta.transaction.Transactional;
 

@@ -17,12 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.doctorcare.configuration.StorageProperties;
+import com.example.doctorcare.common.configuration.StorageProperties;
+import com.example.doctorcare.common.utils.Const.MESSENGER;
+import com.example.doctorcare.common.utils.Const.MESSENGER_ERROR;
 import com.example.doctorcare.exception.StorageException;
-import com.example.doctorcare.exception.StorageFileNotFoundException;
+import com.example.doctorcare.exception.notfound.StorageFileNotFoundException;
 import com.example.doctorcare.service.FileService;
-import com.example.doctorcare.utils.Const.MESSENGER;
-import com.example.doctorcare.utils.Const.MESSENGER_ERROR;
 
 @Service
 public class FileServiceImpl implements FileService {
