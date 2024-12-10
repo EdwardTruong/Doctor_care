@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,27 +19,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.doctorcare.dto.request.SignupDoctorRequest;
-import com.example.doctorcare.dto.response.DoctorDtoResponse;
-import com.example.doctorcare.dto.response.DoctorWithSchedulesResponse;
-import com.example.doctorcare.dto.response.PatientDtoAdminResponse;
-import com.example.doctorcare.dto.response.UserDtoResponse;
-import com.example.doctorcare.entity.Clinics;
-import com.example.doctorcare.entity.DoctorEntity;
-import com.example.doctorcare.entity.Patients;
-import com.example.doctorcare.entity.RoleEntity;
-import com.example.doctorcare.entity.Specializations;
-import com.example.doctorcare.entity.UserEntity;
+import com.example.doctorcare.auth.service.RoleService;
+import com.example.doctorcare.auth.service.UserService;
+import com.example.doctorcare.common.utils.ApplicationUtils;
+import com.example.doctorcare.common.utils.ERole;
+import com.example.doctorcare.model.dto.request.SignupDoctorRequest;
+import com.example.doctorcare.model.dto.response.DoctorDtoResponse;
+import com.example.doctorcare.model.dto.response.DoctorWithSchedulesResponse;
+import com.example.doctorcare.model.dto.response.PatientDtoAdminResponse;
+import com.example.doctorcare.model.dto.response.UserDtoResponse;
+import com.example.doctorcare.model.entity.Clinics;
+import com.example.doctorcare.model.entity.DoctorEntity;
+import com.example.doctorcare.model.entity.Patients;
+import com.example.doctorcare.model.entity.RoleEntity;
+import com.example.doctorcare.model.entity.Specializations;
+import com.example.doctorcare.model.entity.UserEntity;
 import com.example.doctorcare.service.ClinicsService;
 import com.example.doctorcare.service.DoctorService;
 import com.example.doctorcare.service.PatientService;
-import com.example.doctorcare.service.RoleService;
 import com.example.doctorcare.service.SpecializationService;
-import com.example.doctorcare.service.UserService;
-import com.example.doctorcare.utils.ApplicationUtils;
-import com.example.doctorcare.utils.ERole;
+import com.example.doctorcare.service.management.AdminService;
+import com.example.doctorcare.service.AccountService;
 
 import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 /*
  * This project have 3 roles :
@@ -52,30 +59,27 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/admin")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminRestController {
 
-	@Autowired
+	AdminService adminService;
+
 	UserService userService;
 
-	@Autowired
 	RoleService roleService;
 
-	@Autowired
 	DoctorService doctorService;
 
-	@Autowired
 	ClinicsService clinicsService;
 
-	@Autowired
 	SpecializationService specializationService;
 
-	@Autowired
 	PatientService patientService;
 
-	@Autowired
-	ApplicationUtils appUtils;
+	AccountService accountService;
 
-	private static final Logger logger = LoggerFactory.getLogger(AdminRestController.class);
+	private static Logger logger = LoggerFactory.getLogger(AdminRestController.class);
 
 	/*
 	 * 5.3.4. Thêm tài khoản của bác sĩ. DONE
@@ -85,7 +89,7 @@ public class AdminRestController {
 		Set<Specializations> specializations = specializationService.findByIds(signUpRequest.getIdsSpecializations());
 		Clinics clinic = clinicsService.findById(signUpRequest.getIdClinic());
 		RoleEntity role = roleService.findByName(ERole.ROLE_DOCTOR);
-		UserEntity userEntity = userService.createrUserForDoctorAccount(signUpRequest, role);
+		UserEntity userEntity = adminService.createrUserForDoctorAccount(signUpRequest, role);
 		DoctorDtoResponse newDoc = doctorService.createNewDoctor(signUpRequest, userEntity, specializations, clinic);
 		logger.info(newDoc.getDocEmail());
 
@@ -100,17 +104,11 @@ public class AdminRestController {
 	 * config->cofig.requestMathcher("/lock-patient/**").hasRole("ADMIN")
 	 * 
 	 */
-	@PutMapping("/lock-patient/{id}")
-	// @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PutMapping("/active-account/{id}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_DOCTOR')")
 	public ResponseEntity<UserDtoResponse> activeAccountPatient(@PathVariable Integer id, @RequestParam String reason) {
-		UserDtoResponse result = userService.lockPatient(id, reason);
-		return ResponseEntity.ok(result);
-	}
-
-	@PutMapping("/unlock-patient/{id}")
-	public ResponseEntity<UserDtoResponse> activeAccountUnlockPatien(@PathVariable Integer id,
-			@RequestParam String reason) {
-		UserDtoResponse result = userService.unlockPatient(id, reason);
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		UserDtoResponse result = accountService.lockOrUnlock(email, id, reason);
 		return ResponseEntity.ok(result);
 	}
 

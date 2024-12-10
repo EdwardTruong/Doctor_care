@@ -1,6 +1,8 @@
 package com.example.doctorcare.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -11,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import com.example.doctorcare.dto.DataMailDto;
+import com.example.doctorcare.common.utils.Const.MESSENGER;
+import com.example.doctorcare.common.utils.Const.VIEW;
+import com.example.doctorcare.model.dto.DataMailDto;
 import com.example.doctorcare.service.MailService;
 
 import jakarta.mail.MessagingException;
@@ -33,20 +37,20 @@ public class MailServiceImpl implements MailService {
 
 	@Autowired
 	private SpringTemplateEngine templateEngine;
-	
-//	@Value("${spring.mail.host}")
-//	private String host;
-//
-//	@Value("${spring.mail.port}")
-//	private Integer port;
-//	
-//	@Value("${spring.mail.isSSL}")
-//	private String isSSL;
+
+	// @Value("${spring.mail.host}")
+	// private String host;
+	//
+	// @Value("${spring.mail.port}")
+	// private Integer port;
+	//
+	// @Value("${spring.mail.isSSL}")
+	// private String isSSL;
 
 	@Override
-	public void sendHtmlMail(DataMailDto dataMail, String templateName, MultipartFile file) throws MessagingException, IOException {
-		
-		
+	public void sendHtmlMail(DataMailDto dataMail, String templateName, MultipartFile file)
+			throws MessagingException, IOException {
+
 		MimeMessage message = mailSender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
@@ -68,4 +72,27 @@ public class MailServiceImpl implements MailService {
 		mailSender.send(message);
 	}
 
+	@Override
+	public Map<String, String> sendEmailRestPassword(String email, String tokenUrl, String data)
+			throws MessagingException, IOException {
+		Map<String, Object> props = new HashMap<>();
+		props.put("tokenUrl", tokenUrl);
+
+		DataMailDto dataMail = DataMailDto.builder()
+				.to(email)
+				.subject(MESSENGER.HEADER_MAIL_PASSWORD)
+				.content(tokenUrl)
+				.props(props)
+				.build();
+
+		this.sendHtmlMail(dataMail, VIEW.EMAIL_PASSWORD, null);
+
+		Map<String, String> result = new HashMap<>();
+		result.put("Message", MESSENGER.MAIL_SUCCESS);
+		result.put("token", data);
+		result.put("type", "Bearer");
+		result.put("URL", tokenUrl);
+
+		return result;
+	}
 }

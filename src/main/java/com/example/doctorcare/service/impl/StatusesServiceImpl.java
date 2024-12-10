@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.dao.StatusRepository;
-import com.example.doctorcare.entity.Statuses;
 import com.example.doctorcare.exception.StatusException;
+import com.example.doctorcare.model.entity.Statuses;
+import com.example.doctorcare.repository.StatusRepository;
 import com.example.doctorcare.service.StatuseService;
 
 import jakarta.transaction.Transactional;
@@ -18,7 +18,7 @@ public class StatusesServiceImpl implements StatuseService {
 
 	@Autowired
 	StatusRepository sDao;
-	
+
 	@Override
 	public Statuses findById(Integer id) {
 		Optional<Statuses> resutl = sDao.findById(id);
@@ -46,15 +46,15 @@ public class StatusesServiceImpl implements StatuseService {
 	}
 
 	@Override
-	public Statuses createStatus( String reason) {
-		return Statuses.builder().createdAt(LocalDateTime.now()).name(reason).build();	
-	
+	public Statuses createStatus(String reason) {
+		return Statuses.builder().createdAt(LocalDateTime.now()).name(reason).build();
+
 	}
 
 	@Override
 	public Statuses findByName(String name) {
 		Optional<Statuses> result = sDao.findByName(name);
-		return result.orElseThrow(()-> new StatusException(name));
+		return result.orElseThrow(() -> new StatusException(name));
 	}
 
 }

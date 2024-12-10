@@ -7,14 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.doctorcare.dto.response.HttpResponse;
-import com.example.doctorcare.exception.EmailExistException;
+import com.example.doctorcare.exception.EmailException;
+import com.example.doctorcare.model.dto.response.HttpResponse;
 
 @RestControllerAdvice
 public class ApiExceptionHander {
 
-	@ExceptionHandler(EmailExistException.class)
-	public ResponseEntity<HttpResponse> emailExistException(EmailExistException exception) {
+	@ExceptionHandler(EmailException.class)
+	public ResponseEntity<HttpResponse> emailExistException(EmailException exception) {
 		return createHttpResponse(HttpStatus.CONFLICT, exception.getMessage());
 	}
 

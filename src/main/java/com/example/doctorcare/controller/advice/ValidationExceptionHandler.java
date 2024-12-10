@@ -8,12 +8,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.doctorcare.dto.response.ErrorResponse;
+import com.example.doctorcare.model.dto.response.ErrorResponse;
 
 /*
  * All errors of validate show in here
  */
-
 
 @RestControllerAdvice
 public class ValidationExceptionHandler {
@@ -25,8 +24,7 @@ public class ValidationExceptionHandler {
 		for (ObjectError error : ex.getAllErrors()) {
 			if (error.getCode().equals("PasswordMatches.signupRequest")) {
 				errors.add(error.getDefaultMessage()); // Thêm message của PasswordMatches
-			}
-			else {
+			} else {
 				errors.add(error.getDefaultMessage()); // Thêm message của các lỗi khác
 			}
 		}

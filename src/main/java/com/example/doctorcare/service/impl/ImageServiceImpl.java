@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.doctorcare.common.utils.Const.MESSENGER_ERROR;
 import com.example.doctorcare.exception.ImageException;
 import com.example.doctorcare.service.FileService;
 import com.example.doctorcare.service.ImageService;
-import com.example.doctorcare.utils.Const.MESSENGER_ERROR;
 
 @Service
 public class ImageServiceImpl implements ImageService {

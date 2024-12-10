@@ -1,6 +1,6 @@
 package com.example.doctorcare.service;
 
-import com.example.doctorcare.entity.Statuses;
+import com.example.doctorcare.model.entity.Statuses;
 
 public interface StatuseService {
 

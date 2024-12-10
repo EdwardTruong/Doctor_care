@@ -3,18 +3,11 @@ package com.example.doctorcare.service;
 import java.util.List;
 import java.util.Set;
 
-import com.example.doctorcare.entity.Specializations;
+import com.example.doctorcare.model.entity.Specializations;
+import com.example.doctorcare.service.baseService.CrudService;
 
-public interface SpecializationService {
+public interface SpecializationService extends CrudService<Specializations> {
 	Specializations findByName(String name);
-
-	Specializations findById(Integer name);
-	
-	void save(Specializations specialization);
-	
-	void update(Specializations specialization);
-	
-	void delete(Specializations specialization);
 
 	List<Specializations> topSpecializations();
 
