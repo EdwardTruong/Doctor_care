@@ -4,13 +4,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.doctorcare.common.utils.Const.MESSENGER_FIELDS_ERROR;
+import com.example.doctorcare.core.domain.BaseEntity;
+import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_FIELDS_ERROR;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -32,7 +36,12 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Clinics extends BaseEntity {
+public class Clinics extends BaseEntity<Long> {
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 
 	@NotBlank(message = MESSENGER_FIELDS_ERROR.NAME_ERROR)
 	@Size(min = 6, max = 40)

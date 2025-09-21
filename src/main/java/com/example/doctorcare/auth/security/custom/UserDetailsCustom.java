@@ -9,7 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.doctorcare.model.entity.UserEntity;
+import com.example.doctorcare.domain.system.user.User;
+
 
 public class UserDetailsCustom implements UserDetails {
 
@@ -25,9 +26,6 @@ public class UserDetailsCustom implements UserDetails {
 	
 	public UserDetailsCustom() {
 	}
-
-	
-	
 	
 	public UserDetailsCustom(int id, int idDoc, String username, String password, int isActive,
 			Collection<? extends GrantedAuthority> authorities) {
@@ -48,28 +46,30 @@ public class UserDetailsCustom implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsCustom build(UserEntity user) {
-			    List<GrantedAuthority> authorities = user.getRoles()
-			    		.stream()
-			    		.map(role -> new SimpleGrantedAuthority(role.getName().name()))
-			    		.collect(Collectors.toList());
+	public static UserDetailsCustom build(User user) {
+			//     List<GrantedAuthority> authorities = user.getRoles()
+			//     		.stream()
+			//     		.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+			//     		.collect(Collectors.toList());
 			    		
-			  if(user.getDoctorEntity() != null) {
-				  return new UserDetailsCustom(
-					        user.getId(), 
-					        user.getDoctorEntity().getId(),	
-					        user.getEmail(),
-					        user.getPassword(), 
-					        user.getActive(),
-					        authorities);
-			  }
-			  return new UserDetailsCustom(
-					  					user.getId(),
-									  user.getEmail(),
-									  user.getPassword(), 
-									  user.getActive(),
-								      authorities);	    
-			  }
+			//   if(user.getDoctorEntity() != null) {
+			// 	  return new UserDetailsCustom(
+			// 		        user.getId(), 
+			// 		        user.getDoctorEntity().getId(),	
+			// 		        user.getEmail(),
+			// 		        user.getPassword(), 
+			// 		        user.getActive(),
+			// 		        authorities);
+			//   }
+			//   return new UserDetailsCustom(
+			// 		  					user.getId(),
+			// 						  user.getEmail(),
+			// 						  user.getPassword(), 
+			// 						  user.getActive(),
+			// 					      authorities);	    
+			 
+		return null;
+		}
 
 	public int getId() {
 		return id;

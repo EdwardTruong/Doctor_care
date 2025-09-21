@@ -1,7 +1,7 @@
 package com.example.doctorcare.model.dto.request;
 
 
-import com.example.doctorcare.common.utils.Const.MESSENGER_FIELDS_ERROR;
+import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_FIELDS_ERROR;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

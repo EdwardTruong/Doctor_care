@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.auth.exception.RoleNotFoundException;
 import com.example.doctorcare.auth.service.RoleService;
-import com.example.doctorcare.common.utils.ERole;
-import com.example.doctorcare.common.utils.Const.MESSENGER_NOT_FOUND;
+import com.example.doctorcare.infrastructure.common.utils.ERole;
+import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_NOT_FOUND;
 import com.example.doctorcare.model.entity.RoleEntity;
 import com.example.doctorcare.repository.RoleRepository;
 

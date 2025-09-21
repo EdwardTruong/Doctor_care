@@ -1,5 +1,8 @@
 package com.example.doctorcare.auth.service.impl;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +13,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.auth.exception.UserNotFoundException;
 import com.example.doctorcare.auth.security.custom.UserDetailsCustom;
-import com.example.doctorcare.common.utils.Const.*;
-import com.example.doctorcare.model.entity.UserEntity;
+import com.example.doctorcare.core.security.CustomUserDetails;
+import com.example.doctorcare.domain.system.user.User;
+import com.example.doctorcare.infrastructure.common.utils.Const.*;
 import com.example.doctorcare.repository.UserRepository;
 
 /*
@@ -29,10 +33,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity userEntity = userDao.findUserByEmail(username)
+		User User = userDao.findUserByEmail(username)
 				.orElseThrow(() -> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL + username));
 		logger.info("User login and save user's infomations into UserDetailsCustom. !");
-		return UserDetailsCustom.build(userEntity);
+		return new CustomUserDetails(User, Collections.emptyList());
 	}
+
 
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import com.example.doctorcare.common.utils.ERole;
+import com.example.doctorcare.infrastructure.common.utils.ERole;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.doctorcare.core.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -22,22 +23,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
-@SuperBuilder
 @AllArgsConstructor
 @Entity
 @Table(name = "places")
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Places extends BaseEntity {
+public class Places extends BaseEntity<Long> {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	Long id;
 
 	@Column(name = "name")
 	String name;

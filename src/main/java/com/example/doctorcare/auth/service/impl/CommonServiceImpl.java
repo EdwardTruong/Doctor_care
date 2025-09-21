@@ -1,7 +1,7 @@
 package com.example.doctorcare.auth.service.impl;
 
 import com.example.doctorcare.auth.security.common.CommonService;
-import com.example.doctorcare.common.utils.Const.PASSWORD;
+import com.example.doctorcare.infrastructure.common.utils.Const.PASSWORD;
 
 import org.springframework.stereotype.Service;
 

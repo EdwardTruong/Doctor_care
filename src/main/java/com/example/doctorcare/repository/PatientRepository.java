@@ -19,14 +19,14 @@ public interface PatientRepository extends JpaRepository<Patients, Integer> {
 	
 	@Query("SELECT p FROM Patients p "
 			+ "JOIN Statuses s 		ON s.id = p.status.id "
-			+ "JOIN UserEntity u 	ON u.id = s.user.id "
+			+ "JOIN User u 	ON u.id = s.user.id "
 			+ "WHERE u.id = :idUser")
 	List<Patients> listPatientsByUserId(@Param("idUser") Integer idUser);
 
 	
 	@Query("SELECT p FROM Patients p "
 			+"JOIN Statuses s 		ON s.id = p.status.id "
-			+"JOIN UserEntity u 	ON u.id = s.user.id "
+			+"JOIN User u 	ON u.id = s.user.id "
 			+"WHERE u.id = :idUser AND p.date = :date AND p.time = :time"
 			)
 	Patients getPatientsByUserIdAndDate(@Param("idUser") Integer idUser, @Param("date") LocalDate date,@Param("time") String time);

@@ -22,8 +22,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import com.example.doctorcare.auth.security.custom.UserDetailsCustom;
-import com.example.doctorcare.common.utils.Const;
-import com.example.doctorcare.common.utils.Const.TIME;
+import com.example.doctorcare.infrastructure.common.utils.Const;
+import com.example.doctorcare.infrastructure.common.utils.Const.TIME;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -39,7 +39,7 @@ import io.jsonwebtoken.security.Keys;
  * 		- Keys.hmacShaKeyFor() create a key HMAC base on byte[] array of base64-encoded(SECRET_KEY).
  * 
  * 3. The generateJwtToken method using create a token when user logged in successfully.
- * 		-setSubject 	: The JWT Claims sub i use is username mean UserEntity's email 
+ * 		-setSubject 	: The JWT Claims sub i use is username mean User's email 
  * 		-setIssuedAt  	: Date-time jwt was created
  * 		-setExpiration	: Date-time jwt expires
  * 		-signWith		: Sign the key() method with SignatureAlgorithm.HS256.

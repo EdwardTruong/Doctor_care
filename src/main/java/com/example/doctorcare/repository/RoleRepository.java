@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.doctorcare.common.utils.ERole;
+import com.example.doctorcare.infrastructure.common.utils.ERole;
 import com.example.doctorcare.model.entity.RoleEntity;
 
 /*

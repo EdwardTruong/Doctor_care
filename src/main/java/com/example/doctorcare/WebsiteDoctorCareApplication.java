@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import com.example.doctorcare.common.configuration.StorageProperties;
-import com.example.doctorcare.service.FileService;
+import com.example.doctorcare.application.service.FileService;
+import com.example.doctorcare.infrastructure.common.configuration.StorageProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)

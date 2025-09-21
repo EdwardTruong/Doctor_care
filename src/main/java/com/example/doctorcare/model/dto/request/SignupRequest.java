@@ -3,8 +3,8 @@ package com.example.doctorcare.model.dto.request;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.example.doctorcare.common.utils.Const.MESSENGER_FIELDS_ERROR;
-import com.example.doctorcare.validation.PasswordMatches;
+import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_FIELDS_ERROR;
+import com.example.doctorcare.infrastructure.validation.PasswordMatches;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

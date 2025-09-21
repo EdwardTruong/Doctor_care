@@ -20,7 +20,7 @@ public interface DoctorRepository extends JpaRepository<DoctorEntity, Integer> {
     //Find the doctor(s) with schedule :
 	@Query("SELECT new com.example.doctorcare.dto.DoctorDto(u.name, d.achievement, sch ) "
 		    + "FROM DoctorEntity d "
-		    + "JOIN UserEntity u 				ON u.id = d.user.id "
+		    + "JOIN User u 				ON u.id = d.user.id "
 		    + "JOIN DoctorsSpecializations ds 	ON ds.doctor.id = d.id "
 		    + "JOIN Specializations s 			ON s.id = ds.specializations.id "
 		    + "JOIN Schedule sch	 			ON sch.doctorEntity.id = d.id "

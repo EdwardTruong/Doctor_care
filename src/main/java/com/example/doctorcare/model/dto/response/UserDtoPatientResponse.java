@@ -3,7 +3,7 @@ package com.example.doctorcare.model.dto.response;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.doctorcare.model.entity.Statuses;
+import com.example.doctorcare.domain.business.status_schedule.Statuses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

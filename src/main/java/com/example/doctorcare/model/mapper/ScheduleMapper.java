@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.doctorcare.common.utils.ApplicationUtils;
+import com.example.doctorcare.infrastructure.common.utils.ApplicationUtils;
 import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
 import com.example.doctorcare.model.entity.Schedule;
 
@@ -19,18 +19,20 @@ public class ScheduleMapper {
 		
 
 		
-		return ScheduleDtoResponse.builder()
-							.scheduleId(schedule.getId()) 
-							.doctorName(schedule.getDoctorEntity().getUser().getName())
-							.time(schedule.getTime())
-							.address(schedule.getDoctorEntity().getClinic().getAddress())
-							.price(appUtils.convertToVND(schedule.getPrice()))
-							.maxBooking(schedule.getMaxBooking())
-							.placeName(schedule.getDoctorEntity().getClinic().getPlace().getName())
-							.clinicName(schedule.getDoctorEntity().getClinic().getName())
-							.specializationName(schedule.getSpecialization().getName())
-							.date(schedule.getDate())
-							.build();
+		// return ScheduleDtoResponse.builder()
+		// 					.scheduleId(schedule.getId()) 
+		// 					.doctorName(schedule.getDoctorEntity().getUser().getName())
+		// 					.time(schedule.getTime())
+		// 					.address(schedule.getDoctorEntity().getClinic().getAddress())
+		// 					.price(appUtils.convertToVND(schedule.getPrice()))
+		// 					.maxBooking(schedule.getMaxBooking())
+		// 					.placeName(schedule.getDoctorEntity().getClinic().getPlace().getName())
+		// 					.clinicName(schedule.getDoctorEntity().getClinic().getName())
+		// 					.specializationName(schedule.getSpecialization().getName())
+		// 					.date(schedule.getDate())
+		// 					.build();
+
+		return null;
 	}
 	
 	public List<ScheduleDtoResponse> toBasicListDto(List<Schedule> schedules){
