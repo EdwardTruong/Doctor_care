@@ -3,7 +3,7 @@ package com.example.doctorcare.application.exception.notfound;
 import java.io.IOException;
 import java.io.Serial;
 
-import com.example.doctorcare.application.exception.StorageException;
+import com.example.doctorcare.application.exception.old.StorageException;
 
 public class StorageFileNotFoundException extends StorageException {
 

@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.io.File;
 
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.doctorcare.application.exception.ImageException;
-import com.example.doctorcare.application.service.FileService;
-import com.example.doctorcare.application.service.ImageService;
+import com.example.doctorcare.application.exception.old.ImageException;
+import com.example.doctorcare.application.service.baseService.old.FileService;
+import com.example.doctorcare.application.service.baseService.old.ImageService;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
 
 @Service

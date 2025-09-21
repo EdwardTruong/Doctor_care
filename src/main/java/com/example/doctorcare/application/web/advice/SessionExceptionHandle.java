@@ -5,14 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.doctorcare.application.exception.SessionNotFoundException;
-import com.example.doctorcare.application.exception.SessionResponeException;
+import com.example.doctorcare.application.exception.EntityNotFoundException;
+import com.example.doctorcare.application.exception.old.SessionResponeException;
 
 @RestControllerAdvice
 public class SessionExceptionHandle {
 
 	@ExceptionHandler
-	public ResponseEntity<SessionResponeException> notFound(SessionNotFoundException exception) {
+	public ResponseEntity<SessionResponeException> notFound(EntityNotFoundException exception) {
 		SessionResponeException s = new SessionResponeException(HttpStatus.NOT_FOUND.value(),
 				exception.getMessage(), System.currentTimeMillis());
 		return new ResponseEntity<>(s, HttpStatus.NOT_FOUND);

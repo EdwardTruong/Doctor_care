@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.doctorcare.application.exception.SpecializationNotFoundException;
-import com.example.doctorcare.application.exception.SpecializationResponeException;
+import com.example.doctorcare.application.exception.old.SpecializationNotFoundException;
+import com.example.doctorcare.application.exception.old.SpecializationResponeException;
 
 @RestControllerAdvice
 public class SpecializationExceptionHandle {

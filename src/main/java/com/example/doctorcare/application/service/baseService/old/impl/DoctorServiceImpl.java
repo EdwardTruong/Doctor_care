@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,13 +15,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.doctorcare.application.exception.ActiveException;
 import com.example.doctorcare.application.exception.notfound.DoctorNotFoundException;
-import com.example.doctorcare.application.service.AccountService;
-import com.example.doctorcare.application.service.DoctorService;
-import com.example.doctorcare.application.service.MailService;
-import com.example.doctorcare.application.service.ScheduleService;
-import com.example.doctorcare.application.service.SpecializationService;
+import com.example.doctorcare.application.exception.old.ActiveException;
+import com.example.doctorcare.application.service.baseService.old.AccountService;
+import com.example.doctorcare.application.service.baseService.old.DoctorService;
+import com.example.doctorcare.application.service.baseService.old.MailService;
+import com.example.doctorcare.application.service.baseService.old.ScheduleService;
+import com.example.doctorcare.application.service.baseService.old.SpecializationService;
 import com.example.doctorcare.auth.service.UserService;
 import com.example.doctorcare.infrastructure.common.utils.Const.ACTIVE;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER;
@@ -72,18 +72,18 @@ public class DoctorServiceImpl implements DoctorService {
 	private static final Logger logger = LoggerFactory.getLogger(DoctorServiceImpl.class);
 
 	@Override
-	public DoctorEntity findById(Integer idDoctor) {
-		Optional<DoctorEntity> result = doctorRepository.findById(idDoctor);
+	public Doctor findById(Integer idDoctor) {
+		Optional<Doctor> result = doctorRepository.findById(idDoctor);
 		return result.orElseThrow(() -> new DoctorNotFoundException(MESSENGER_NOT_FOUND.DOCTOR_NOT_FOUND + idDoctor));
 	}
 
 	@Override
-	public void save(DoctorEntity docter) {
+	public void save(Doctor docter) {
 		doctorRepository.save(docter);
 	}
 
 	@Override
-	public void update(DoctorEntity docter) {
+	public void update(Doctor docter) {
 		doctorRepository.saveAndFlush(docter);
 
 	}
@@ -91,7 +91,7 @@ public class DoctorServiceImpl implements DoctorService {
 	@Override
 	public DoctorDtoResponse createNewDoctor(SignupDoctorRequest request, User user,
 			Set<Specializations> specializations, Clinics clinic) {
-		DoctorEntity newDoctor = new DoctorEntity();
+		Doctor newDoctor = new Doctor();
 		// newDoctor.setCreateAt(user.getCreatedAt());
 		newDoctor.setUser(user);
 		newDoctor.setAchievement(request.getAchievement());
@@ -118,7 +118,7 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public DoctorWithSchedulesResponse getDoctorDtoWithScheduleDtoForAdmin(DoctorEntity doctor) {
+	public DoctorWithSchedulesResponse getDoctorDtoWithScheduleDtoForAdmin(Doctor doctor) {
 		List<ScheduleDtoResponse> listSchdulesOfDoctor = scheduleService.getAllSchedulesByDocId(doctor);
 		return doctorMapper.toDoctorDtoWithSchedulesDtoForAdmin(doctor, listSchdulesOfDoctor);
 	}
@@ -127,7 +127,7 @@ public class DoctorServiceImpl implements DoctorService {
 	public DoctorDtoResponse updateDoctor(String email, DoctorUpdateRequest request) {
 		UserUpdateRequest userRequest = requestMapper.toUserEditRequest(request);
 		User user = userService.findByEmail(email);
-		DoctorEntity doc = user.getDoctorEntity();
+		Doctor doc = user.getDoctorEntity();
 		doc.setDescription(request.getDescription());
 		doc.setAchievement(request.getAchievement());
 		doc.setTrainingProcess(request.getTrainingProcess());
@@ -164,7 +164,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public DoctorDtoResponse lockDoc(Integer id, String reason) {
-		DoctorEntity doc = this.findById(id);
+		Doctor doc = this.findById(id);
 		String result = "";
 		User user = doc.getUser();
 
@@ -183,7 +183,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public DoctorDtoResponse unlockDoc(Integer id, String reason) {
-		DoctorEntity doc = this.findById(id);
+		Doctor doc = this.findById(id);
 		String result = "";
 		User user = doc.getUser();
 		if (user.getActive() == ACTIVE.ACCEPT) {
@@ -205,10 +205,10 @@ public class DoctorServiceImpl implements DoctorService {
 	 */
 
 	@Override
-	public List<DoctorEntity> getListDoctor(List<Integer> idsDoctor) {
-		List<DoctorEntity> listDoctors = new ArrayList<>();
+	public List<Doctor> getListDoctor(List<Integer> idsDoctor) {
+		List<Doctor> listDoctors = new ArrayList<>();
 		for (Integer idDoctor : idsDoctor) {
-			DoctorEntity doctorEntity = this.findById(idDoctor);
+			Doctor doctorEntity = this.findById(idDoctor);
 			if (doctorEntity.getUser().getActive() != 0) {
 				listDoctors.add(doctorEntity);
 			}

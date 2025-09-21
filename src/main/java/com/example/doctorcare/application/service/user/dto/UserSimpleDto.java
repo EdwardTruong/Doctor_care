@@ -22,8 +22,6 @@ public record UserSimpleDto(
         if (user == null) {
             return null;
         }
-        // Giả định User entity có các getter tương ứng.
-        // Cần kiểm tra và bổ sung nếu User entity chưa có avatarUrl.
         return new UserSimpleDto(user.getId(), user.getUsername(), user.getFullName(), user.getEmail(), user.getAvatarUrl());
     }
 }

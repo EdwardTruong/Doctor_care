@@ -150,6 +150,47 @@
 		</dependency>
 		<!-- Mapper -->
 
+    <!-- Module lưu trữ filesystem -->
+
+	 <!-- <dependency>
+        <groupId>com.github.paulcwarren</groupId>
+        <artifactId>spring-content-fs-boot-starter</artifactId>
+        <version>3.0.14</version>
+    </dependency>
+	 -->
+    <!-- Module lưu trữ filesystem -->
+
+    <!-- Nếu muốn dùng REST để public file -->
+    <dependency>
+        <groupId>com.github.paulcwarren</groupId>
+        <artifactId>spring-content-rest-boot-starter</artifactId>
+        <version>3.0.14</version>
+    </dependency>
+    <!-- Nếu muốn dùng REST để public file -->
+
+<!-- Tika nội dung file -->
+	<dependency>
+		<groupId>org.apache.tika</groupId>
+		<artifactId>tika-core</artifactId>
+		<version>2.9.2</version>
+	</dependency>
+
+<dependency>
+    <groupId>org.apache.tika</groupId>
+    <artifactId>tika-parsers-standard-package</artifactId>
+    <version>2.9.2</version>
+</dependency>
+
+<!-- Tika nội dung file -->
+
+<!-- Hình ảnh thu nhỏ  -->
+<dependency>
+    <groupId>net.coobird</groupId>
+    <artifactId>thumbnailator</artifactId>
+    <version>0.4.20</version>
+</dependency>
+<!-- Hình ảnh thu nhỏ  -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

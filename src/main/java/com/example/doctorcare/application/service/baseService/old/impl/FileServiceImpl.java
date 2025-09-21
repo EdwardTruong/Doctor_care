@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.doctorcare.application.exception.StorageException;
 import com.example.doctorcare.application.exception.notfound.StorageFileNotFoundException;
-import com.example.doctorcare.application.service.FileService;
+import com.example.doctorcare.application.exception.old.StorageException;
+import com.example.doctorcare.application.service.baseService.old.FileService;
 import com.example.doctorcare.infrastructure.common.configuration.StorageProperties;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;

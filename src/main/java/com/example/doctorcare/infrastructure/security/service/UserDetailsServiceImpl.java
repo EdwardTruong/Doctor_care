@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.application.exception.UserNotFoundException;
+import com.example.doctorcare.application.exception.EntityNotFoundException;
+import com.example.doctorcare.application.service.baseService.old.dao.UserRepository;
 import com.example.doctorcare.auth.security.custom.UserDetailsCustom;
-import com.example.doctorcare.dao.UserRepository;
 import com.example.doctorcare.domain.system.user.User;
 import com.example.doctorcare.infrastructure.utils.Const.*;
 
@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User User = userDao.findUserByEmail(username)
-				.orElseThrow(() -> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL + username));
+				.orElseThrow(() -> new EntityNotFoundException(User.class, MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL + username));
 		logger.info("User login and save user's infomations into UserDetailsCustom. !");
 		return UserDetailsCustom.build(User);
 	}

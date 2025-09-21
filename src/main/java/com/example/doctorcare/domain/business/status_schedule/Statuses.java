@@ -3,8 +3,8 @@ package com.example.doctorcare.domain.business.status_schedule;
 import java.util.List;
 
 import com.example.doctorcare.core.domain.BaseEntity;
+import com.example.doctorcare.domain.business.patients.Patients;
 import com.example.doctorcare.domain.system.user.User;
-import com.example.doctorcare.model.entity.Patients;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

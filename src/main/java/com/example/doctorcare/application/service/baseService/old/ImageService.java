@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service;
+package com.example.doctorcare.application.service.baseService.old;
 
 import org.springframework.web.multipart.MultipartFile;
 

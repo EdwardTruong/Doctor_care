@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import com.example.doctorcare.application.service.MailService;
+import com.example.doctorcare.application.service.baseService.old.MailService;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER;
 import com.example.doctorcare.infrastructure.common.utils.Const.VIEW;
 import com.example.doctorcare.model.dto.DataMailDto;

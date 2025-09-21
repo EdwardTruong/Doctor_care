@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -8,24 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.application.exception.ActiveException;
 import com.example.doctorcare.application.exception.notfound.PatientNotFoundException;
-import com.example.doctorcare.application.service.AccountService;
-import com.example.doctorcare.application.service.PatientService;
+import com.example.doctorcare.application.exception.old.ActiveException;
+import com.example.doctorcare.application.service.baseService.old.AccountService;
+import com.example.doctorcare.application.service.baseService.old.PatientService;
 import com.example.doctorcare.auth.service.UserService;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;
 import com.example.doctorcare.infrastructure.common.utils.Const.ACTIVE;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
-import com.example.doctorcare.model.dto.request.SeeDoctorRequest;
-import com.example.doctorcare.model.dto.response.PatientDtoAdminResponse;
-import com.example.doctorcare.model.dto.response.PatientDtoDoctorResponse;
-import com.example.doctorcare.model.dto.response.PatientDtoUserAppointmentResponse;
-import com.example.doctorcare.model.entity.DoctorEntity;
-import com.example.doctorcare.model.entity.Patients;
-import com.example.doctorcare.model.entity.Schedule;
-import com.example.doctorcare.model.entity.User;
-import com.example.doctorcare.model.mapper.PatientMapper;
-import com.example.doctorcare.repository.PatientRepository;
+
 
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
@@ -73,7 +64,7 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public PatientDtoUserAppointmentResponse createPatient(SeeDoctorRequest request, User user,
-			DoctorEntity doctors, Statuses statuses, Schedule schedule) {
+			Doctor doctors, Statuses statuses, Schedule schedule) {
 		Patients newPatient = Patients.builder()
 				.date(schedule.getDate())
 				.time(request.getTime())

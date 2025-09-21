@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.example.doctorcare.application.dto.response.DoctorDtoResponse;
 import com.example.doctorcare.application.dto.response.DoctorWithSchedulesResponse;
+import com.example.doctorcare.application.dto.response.ScheduleDtoResponse;
+import com.example.doctorcare.domain.business.doctor.Doctor;
 import com.example.doctorcare.infrastructure.utils.ApplicationUtils;
-import com.example.doctorcare.model.entity.DoctorEntity;
 
 @Component
 public class DoctorMapper {
@@ -16,7 +17,7 @@ public class DoctorMapper {
 	@Autowired
 	ApplicationUtils appUtils;
 	
-	public DoctorDtoResponse toDto(DoctorEntity entity, String message) {
+	public DoctorDtoResponse toDto(Doctor entity, String message) {
 		// return  DoctorDtoResponse.builder()
 		// 		.userId(entity.getUser().getId()) 			// Show it for testing
 		// 		.docId(entity.getId())						// Show it for testing
@@ -41,7 +42,7 @@ public class DoctorMapper {
 
 	
 
-	public DoctorWithSchedulesResponse toDoctorDtoWithSchedulesDtoForAdmin(com.example.doctorcare.model.entity.DoctorEntity entity,List<com.example.doctorcare.application.dto.response.ScheduleDtoResponse> listSchdulesOfDoctor) {
+	public DoctorWithSchedulesResponse toDoctorDtoWithSchedulesDtoForAdmin(Doctor entity,List<ScheduleDtoResponse> listSchdulesOfDoctor) {
 		
 	// 	return DoctorWithSchedulesResponse.builder()
 	// 			.idDoctor(entity.getId()) 				// Show it for testing

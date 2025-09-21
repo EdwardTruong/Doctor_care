@@ -5,14 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.doctorcare.application.exception.PatientNotFoundException;
-import com.example.doctorcare.application.exception.PatientResponeException;
+import com.example.doctorcare.application.exception.EntityNotFoundException;
+import com.example.doctorcare.application.exception.old.PatientResponeException;
 
 @RestControllerAdvice
 public class PatientExceptionHandle {
 
 	@ExceptionHandler
-	public ResponseEntity<PatientResponeException> notFound(PatientNotFoundException exception) {
+	public ResponseEntity<PatientResponeException> notFound(EntityNotFoundException exception) {
 		PatientResponeException c = new PatientResponeException(HttpStatus.NOT_FOUND.value(),
 				exception.getMessage(), System.currentTimeMillis());
 		return new ResponseEntity<>(c, HttpStatus.NOT_FOUND);

@@ -8,14 +8,7 @@ import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.doctorcare.domain.system.user.User;
-import com.example.doctorcare.model.dto.DoctorDto;
-import com.example.doctorcare.model.dto.request.DoctorUpdateRequest;
-import com.example.doctorcare.model.dto.request.SignupDoctorRequest;
-import com.example.doctorcare.model.dto.response.DoctorDtoResponse;
-import com.example.doctorcare.model.dto.response.DoctorWithSchedulesResponse;
-import com.example.doctorcare.model.entity.Clinics;
-import com.example.doctorcare.model.entity.DoctorEntity;
-import com.example.doctorcare.model.entity.Specializations;
+
 
 import jakarta.mail.MessagingException;
 
@@ -27,11 +20,11 @@ import jakarta.mail.MessagingException;
  */
 
 public interface DoctorService {
-	DoctorEntity findById(Integer idDoctor);
+	Doctor findById(Integer idDoctor);
 
-	void save(DoctorEntity docter);
+	void save(Doctor docter);
 
-	void update(DoctorEntity docter);
+	void update(Doctor docter);
 
 	DoctorDtoResponse createNewDoctor(SignupDoctorRequest request, User user,
 			Set<Specializations> specializations, Clinics clinic);
@@ -40,7 +33,7 @@ public interface DoctorService {
 
 	DoctorDtoResponse getDoctorInfo(User entity);
 
-	DoctorWithSchedulesResponse getDoctorDtoWithScheduleDtoForAdmin(DoctorEntity doctor);
+	DoctorWithSchedulesResponse getDoctorDtoWithScheduleDtoForAdmin(Doctor doctor);
 
 	DoctorDtoResponse lockDoc(Integer id, String reason);
 	
@@ -52,5 +45,5 @@ public interface DoctorService {
 			throws MessagingException, IOException;
 
 	// Later
-	List<DoctorEntity> getListDoctor(List<Integer> idsDoctor);
+	List<Doctor> getListDoctor(List<Integer> idsDoctor);
 }

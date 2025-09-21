@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service;
+package com.example.doctorcare.application.service.baseService.old;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +20,7 @@ public interface PatientService extends CrudService<Patients> {
 	// void update(Patients patient);
 	// void delete(Patients patient);
 
-	PatientDtoUserAppointmentResponse createPatient(SeeDoctorRequest request, User user, DoctorEntity doctors,
+	PatientDtoUserAppointmentResponse createPatient(SeeDoctorRequest request, User user, Doctor doctors,
 			Statuses statuses, Schedule schedule);
 
 	List<PatientDtoDoctorResponse> listPatientsWithDate(String email, LocalDate date);

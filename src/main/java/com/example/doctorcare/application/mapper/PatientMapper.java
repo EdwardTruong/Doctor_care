@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.doctorcare.application.dto.response.PatientDtoAdminResponse;
+import com.example.doctorcare.application.dto.response.PatientDtoDoctorResponse;
 import com.example.doctorcare.application.dto.response.PatientDtoUserAppointmentResponse;
+import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.domain.business.patients.Patients;
+import com.example.doctorcare.domain.business.schedule.Schedule;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;
 import com.example.doctorcare.domain.system.user.User;
 
 import com.example.doctorcare.infrastructure.utils.ApplicationUtils;
-import com.example.doctorcare.infrastructure.utils.Const.MESSENGER;
-import com.example.doctorcare.model.dto.response.PatientDtoDoctorResponse;
-import com.example.doctorcare.model.entity.DoctorEntity;
-import com.example.doctorcare.model.entity.Patients;
-import com.example.doctorcare.model.entity.Schedule;
+
 
 @Component
 public class PatientMapper {
@@ -64,7 +64,7 @@ public class PatientMapper {
 	
 	
 	
-	public PatientDtoUserAppointmentResponse toDtoForUser(DoctorEntity doctor, Schedule schedule, User user,
+	public PatientDtoUserAppointmentResponse toDtoForUser(Doctor doctor, Schedule schedule, User user,
 		Statuses status, Patients newPatien) {
 	// return	PatientDtoUserAppointmentResponse.builder()
 	// 		.idUser(user.getId())

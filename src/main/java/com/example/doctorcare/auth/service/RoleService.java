@@ -1,8 +1,8 @@
 package com.example.doctorcare.auth.service;
 
+import com.example.doctorcare.domain.system.role.Role;
 import com.example.doctorcare.infrastructure.common.utils.ERole;
-import com.example.doctorcare.model.entity.RoleEntity;
 
 public interface RoleService {
-	RoleEntity findByName(ERole name);
+	Role findByName(ERole name);
 }

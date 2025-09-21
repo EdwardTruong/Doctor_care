@@ -1,4 +1,4 @@
-package vn.look.core.domain;
+package com.example.doctorcare.core.domain;
 
 /**
  * Một interface hợp đồng (contract interface) cho các đối tượng domain có một "chủ sở hữu" rõ ràng.

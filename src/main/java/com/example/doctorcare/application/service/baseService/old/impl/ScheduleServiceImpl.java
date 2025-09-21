@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.application.exception.RequestException;
 import com.example.doctorcare.application.exception.notfound.ScheduleNotFoundException;
-import com.example.doctorcare.application.service.ScheduleService;
-import com.example.doctorcare.application.service.SpecializationService;
+import com.example.doctorcare.application.exception.old.RequestException;
+import com.example.doctorcare.application.service.baseService.old.ScheduleService;
+import com.example.doctorcare.application.service.baseService.old.SpecializationService;
 import com.example.doctorcare.infrastructure.common.utils.ApplicationUtils;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_NOT_FOUND;
@@ -58,7 +58,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public Schedule getScheduleOfDoctorAndDate(DoctorEntity doctorEntity, LocalDate date) {
+	public Schedule getScheduleOfDoctorAndDate(Doctor doctorEntity, LocalDate date) {
 		Optional<Schedule> result = sDao.findScheduleByDoctor(doctorEntity.getId(), date);
 		return result.orElseThrow(() -> new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND));
 	}
@@ -89,7 +89,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	 */
 
 	@Override
-	public Schedule getScheduleOfDoctor(DoctorEntity doctor, Integer idSchedule, String time) {
+	public Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time) {
 		Schedule schedule = this.findById(idSchedule);
 
 		logger.info("Booking doctor calling + Doctor name : "+schedule.getDoctorEntity().getUser().getName());
@@ -120,7 +120,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	@Override
 	public Schedule createSchedule(ScheduleRequest request, User user) {
-		DoctorEntity doctor = user.getDoctorEntity();
+		Doctor doctor = user.getDoctorEntity();
 		
 		Specializations specialization = specializationService.findById(request.getSpecializationId());
 		
@@ -192,7 +192,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 	
 	@Override
-	public List<ScheduleDtoResponse> getAllSchedulesByDocId(DoctorEntity doc){
+	public List<ScheduleDtoResponse> getAllSchedulesByDocId(Doctor doc){
 		List<Schedule> schedules = sDao.getSchedulesOfDoctorId(doc.getId());
 		return scheduleMapper.toBasicListDto(schedules);
 

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.doctorcare.application.dto.response.ScheduleDtoResponse;
+import com.example.doctorcare.domain.business.schedule.Schedule;
 import com.example.doctorcare.infrastructure.utils.ApplicationUtils;
-import com.example.doctorcare.model.entity.Schedule;
 
 @Component
 public class ScheduleMapper {

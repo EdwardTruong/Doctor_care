@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.time.LocalDateTime;
 
@@ -6,15 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.application.exception.ActiveException;
-import com.example.doctorcare.application.service.AccountService;
+import com.example.doctorcare.application.exception.old.ActiveException;
+import com.example.doctorcare.application.service.baseService.old.AccountService;
 import com.example.doctorcare.auth.service.UserService;
 import com.example.doctorcare.domain.system.user.User;
 import com.example.doctorcare.infrastructure.common.utils.ERole;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
-import com.example.doctorcare.model.dto.response.UserDtoResponse;
-import com.example.doctorcare.model.mapper.RequestMapper;
-import com.example.doctorcare.model.mapper.UserMapper;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.application.exception.notfound.SpecializationNotFoundException;
-import com.example.doctorcare.application.service.SpecializationService;
+import com.example.doctorcare.application.service.baseService.old.SpecializationService;
 import com.example.doctorcare.infrastructure.common.utils.Const.*;
 import com.example.doctorcare.model.entity.Specializations;
 import com.example.doctorcare.repository.SpecializationRepository;

@@ -12,8 +12,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.example.doctorcare.application.dto.response.MessageResponse;
 import com.example.doctorcare.infrastructure.security.service.UserDetailsServiceImpl;
-import com.example.doctorcare.model.dto.response.MessageResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;

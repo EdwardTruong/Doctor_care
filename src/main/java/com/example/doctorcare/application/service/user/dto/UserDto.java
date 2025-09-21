@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.example.doctorcare.application.service.role.dto.RoleDto;
 import com.example.doctorcare.core.domain.BaseDto;
-import com.example.doctorcare.core.enums_NotUsedYet.Gender;
+import com.example.doctorcare.core.enums.Gender;
 import com.example.doctorcare.domain.system.user.UserType;
 
 import lombok.Builder;

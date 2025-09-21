@@ -8,9 +8,9 @@ import java.util.Set;
 import org.hibernate.annotations.BatchSize;
 
 import com.example.doctorcare.core.domain.BaseEntity;
-import com.example.doctorcare.core.enums_NotUsedYet.Gender;
+import com.example.doctorcare.core.enums.Gender;
+import com.example.doctorcare.domain.business.doctor.Doctor;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;
-import com.example.doctorcare.model.entity.DoctorEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -100,7 +100,7 @@ public class User extends BaseEntity<Long> {
     private Set<UserRole> userRoles;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	DoctorEntity doctorEntity;
+	Doctor doctor;
 
 	@OneToMany(mappedBy = "user")
 	List<Statuses> statuses;

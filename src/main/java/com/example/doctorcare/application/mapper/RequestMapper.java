@@ -2,14 +2,10 @@ package com.example.doctorcare.application.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.example.doctorcare.model.dto.request.DoctorUpdateRequest;
-import com.example.doctorcare.model.dto.request.SignupDoctorRequest;
-import com.example.doctorcare.model.dto.request.SignupRequest;
-import com.example.doctorcare.model.dto.request.UserUpdateRequest;
-
-
-
-
+import com.example.doctorcare.application.dto.request.DoctorUpdateRequest;
+import com.example.doctorcare.application.dto.request.SignupDoctorRequest;
+import com.example.doctorcare.application.dto.request.SignupRequest;
+import com.example.doctorcare.application.dto.request.UserUpdateRequest;
 
 
 @Component

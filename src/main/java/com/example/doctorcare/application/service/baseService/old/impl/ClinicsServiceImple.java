@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.impl;
+package com.example.doctorcare.application.service.baseService.old.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.application.exception.notfound.ClinicNotFoundException;
-import com.example.doctorcare.application.service.ClinicsService;
+import com.example.doctorcare.application.service.baseService.old.ClinicsService;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_NOT_FOUND;
 import com.example.doctorcare.model.entity.Clinics;
 import com.example.doctorcare.repository.ClinicsRepository;

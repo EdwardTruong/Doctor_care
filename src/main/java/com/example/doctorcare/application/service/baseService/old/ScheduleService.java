@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service;
+package com.example.doctorcare.application.service.baseService.old;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +19,8 @@ public interface ScheduleService {
 	void delete(Schedule schedule);
 	Schedule createSchedule (ScheduleRequest request ,User user);
 	
-	Schedule getScheduleOfDoctor(DoctorEntity doctor, Integer idSchedule, String time);
-	Schedule getScheduleOfDoctorAndDate(DoctorEntity doctorEntity, LocalDate date);
+	Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time);
+	Schedule getScheduleOfDoctorAndDate(Doctor doctorEntity, LocalDate date);
 
 	String getSubStringTimeOfSchedule(String bigTime, String smallTime);
 
@@ -31,6 +31,6 @@ public interface ScheduleService {
 	 * for testing
 	 */
 	List<ScheduleDtoResponse> findScheduleByExactlyPrices(ScheduleInfoTestRequest scheduleInfo);
-	List<ScheduleDtoResponse> getAllSchedulesByDocId(DoctorEntity doc);
+	List<ScheduleDtoResponse> getAllSchedulesByDocId(Doctor doc);
 
 }
