@@ -7,17 +7,30 @@ package com.example.doctorcare.domain.system.role;
  * 
  */
 public enum RoleType {
-    /**
-     * Vai trò liên quan đến một Doanh nhân.
-     * Ví dụ: Vai trò hỗ trợ doanh nhân.
-     */
-    ENTREPRENEUR,
 
     /**
-     * Vai trò được sử dụng trong phạm vi một Doanh nghiệp.
-     * Ví dụ: Quản trị viên Doanh nghiệp, Nhân viên.
+     * Vai trò người dùng chủ yếu là bệnh nhân hoặc là người đặc lịch khám.
      */
-    ENTERPRISE,
+    ROLE_USER,
+	
+	/**
+     * Vai trò người khám bệnh. 
+     * Ví dụ : Bác sỹ, Bác sỹ đầu ngành, Bác sỹ trưởng khoa, Bác sỹ chuyên khoa ..v.v..
+     */
+	ROLE_DOCTOR,
+	
+	
+    /**
+     * Vai trò liên quan đến một người đầu tư đơn lẽ.
+     * Ví dụ: Vai trò người đầu tư hoặc là người hỗ trỡ người đầu tư.
+     */
+    INDIVIDUAL,
+
+    /**
+     * Vai trò được sử dụng trong phạm vi một nhóm đầu.
+     * Ví dụ: Quản trị viên của 1 doanh nghiệp đầu tư, hoặc là người 1 tham gia vào thành 1 nhóm.
+     */
+    INSTITUTIONAL,
 
     /**
      * Vai trò được sử dụng trong phạm vi một Tổ chức (hiệp hội, CLB...).
@@ -30,4 +43,5 @@ public enum RoleType {
      * Ví dụ: Quản trị viên Hệ thống (SUPER_ADMIN).
      */
     GLOBAL
+
 }

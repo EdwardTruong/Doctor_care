@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.dto.request;
+package com.example.doctorcare.auth.service.login;
 
 import com.example.doctorcare.infrastructure.utils.Const.MESSENGER_FIELDS_ERROR;
 

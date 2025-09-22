@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.dto.request;
+package com.example.doctorcare.auth.service.login;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

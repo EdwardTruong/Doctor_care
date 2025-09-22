@@ -14,8 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import com.example.doctorcare.auth.exception.HttpResponse;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
-import com.example.doctorcare.model.dto.response.HttpResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
@@ -46,7 +46,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 					.httpStatus(HttpStatus.UNAUTHORIZED)
 					.message(MESSENGER_ERROR.SECURITY_ERROR)
 				.build();
-				
+		 		
 		OutputStream outputStream = response.getOutputStream();
 		ObjectMapper mapper = new ObjectMapper();
 

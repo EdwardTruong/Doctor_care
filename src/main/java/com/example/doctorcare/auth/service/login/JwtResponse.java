@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.dto.response;
+package com.example.doctorcare.auth.service.login;
 
 import java.util.List;
 

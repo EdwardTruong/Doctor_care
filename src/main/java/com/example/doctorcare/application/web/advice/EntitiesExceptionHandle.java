@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.doctorcare.application.dto.response.ErrorResponse;
+import com.example.doctorcare.application.dto.response.HttpResponse;
 import com.example.doctorcare.application.exception.notfound.ClinicNotFoundException;
 import com.example.doctorcare.application.exception.notfound.DoctorNotFoundException;
 import com.example.doctorcare.application.exception.notfound.PatientNotFoundException;
@@ -14,16 +16,35 @@ import com.example.doctorcare.application.exception.notfound.SessionNotFoundExce
 import com.example.doctorcare.application.exception.notfound.SpecializationNotFoundException;
 import com.example.doctorcare.application.exception.response.ClinicResponeException;
 import com.example.doctorcare.application.exception.response.DoctorResponeException;
-import com.example.doctorcare.application.exception.response.EntityResponeException;
 import com.example.doctorcare.application.exception.response.PatientResponeException;
 import com.example.doctorcare.application.exception.response.SessionResponeException;
 import com.example.doctorcare.auth.exception.UserNotFoundException;
-import com.example.doctorcare.model.dto.response.HttpResponse;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class EntitiesExceptionHandle {
+
+	    @ExceptionHandler({
+        UserNotFoundException.class,
+        DoctorNotFoundException.class,
+        SpecializationNotFoundException.class,
+        PatientNotFoundException.class,
+        SessionNotFoundException.class,
+        ClinicNotFoundException.class
+    })
+    public ResponseEntity<ErrorResponse> handleNotFound(RuntimeException ex) {
+        ErrorResponse response = ErrorResponse.builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(ex.getMessage())
+                .timestamp(System.currentTimeMillis())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+
+
+
 
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<HttpResponse> notFound(UserNotFoundException exception) {

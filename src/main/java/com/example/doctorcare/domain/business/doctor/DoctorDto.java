@@ -1,10 +1,7 @@
 package com.example.doctorcare.domain.business.doctor;
 
 
-
 import com.example.doctorcare.domain.business.schedule.ScheduleDTO;
-import com.example.doctorcare.model.entity.Schedule;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
