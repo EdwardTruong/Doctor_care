@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
  * @param description   Mô tả chi tiết về vai trò.
  * @param parentRoleId  ID của vai trò cha (tùy chọn), để thiết lập kế thừa quyền.
  */
-public record CreateRoleComand (
+public record CreateRoleCommand (
 
     @NotBlank(message = "Tên vai trò không được để trống")
     @Size(max = 50, message = "Tên vai trò không được vượt quá 50 ký tự")

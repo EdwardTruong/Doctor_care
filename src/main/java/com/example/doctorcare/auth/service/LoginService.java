@@ -7,11 +7,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
+import com.example.doctorcare.auth.service.login.ChangePasswordRequest;
 import com.example.doctorcare.auth.service.login.JwtResponse;
 import com.example.doctorcare.auth.service.login.LoginRequest;
-import com.example.doctorcare.model.dto.request.ChangePasswordRequest;
-import com.example.doctorcare.model.entity.Session;
-import com.example.doctorcare.model.entity.User;
+import com.example.doctorcare.domain.business.session.Session;
+import com.example.doctorcare.domain.system.user.User;
 
 /**
  * Service interface named {@link LoginService} for handling user login

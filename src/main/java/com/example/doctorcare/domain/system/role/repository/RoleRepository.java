@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.doctorcare.core.domain.BaseRepository;
 import com.example.doctorcare.domain.system.role.Role;
-import com.example.doctorcare.domain.system.role.RoleType;
 
 
 public interface RoleRepository extends BaseRepository<Role, Long>, RoleRepositoryCustom{
@@ -16,7 +15,7 @@ public interface RoleRepository extends BaseRepository<Role, Long>, RoleReposito
 
     Optional<Role> findByIdAndDeletedFalse(Long id);
 
-    Optional<Role> findByNameAndDeletedFalse(RoleType id);
+    Optional<Role> findByNameAndDeletedFalse(String name);
 
     /**
      * Tìm tất cả các vai trò con trực tiếp của một vai trò cha.

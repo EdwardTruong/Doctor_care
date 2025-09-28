@@ -19,7 +19,6 @@ public enum RoleType {
      */
 	ROLE_DOCTOR,
 	
-	
     /**
      * Vai trò liên quan đến một người đầu tư đơn lẽ.
      * Ví dụ: Vai trò người đầu tư hoặc là người hỗ trỡ người đầu tư.

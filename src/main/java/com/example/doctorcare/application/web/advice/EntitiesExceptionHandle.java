@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.doctorcare.application.dto.response.ErrorResponse;
 import com.example.doctorcare.application.dto.response.HttpResponse;
+import com.example.doctorcare.application.exception.BadRequestException;
 import com.example.doctorcare.application.exception.notfound.ClinicNotFoundException;
 import com.example.doctorcare.application.exception.notfound.DoctorNotFoundException;
 import com.example.doctorcare.application.exception.notfound.PatientNotFoundException;
@@ -37,68 +38,26 @@ public class EntitiesExceptionHandle {
                 .status(HttpStatus.NOT_FOUND.value())
                 .error(HttpStatus.NOT_FOUND.getReasonPhrase())
                 .message(ex.getMessage())
-                .timestamp(System.currentTimeMillis())
+                .timeStamp(System.currentTimeMillis())
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
 
-
-
-
-	@ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<HttpResponse> notFound(UserNotFoundException exception) {
-		HttpResponse response = HttpResponse.builder().timeStamp(new Date())
-				.httpStatusCode(HttpStatus.NOT_FOUND.value()).httpStatus(HttpStatus.NOT_FOUND)
-				.message(exception.getMessage()).build();
-		;
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-	}
-
-	@ExceptionHandler(DoctorNotFoundException.class)
-	public ResponseEntity<DoctorResponeException> notFound(DoctorNotFoundException exception) {
-		DoctorResponeException a = new DoctorResponeException(HttpStatus.BAD_GATEWAY.value(), exception.getMessage(),
-				System.currentTimeMillis());
-		return new ResponseEntity<>(a, HttpStatus.BAD_GATEWAY);
-	}
-
-	@ExceptionHandler(SpecializationNotFoundException.class)
-	public ResponseEntity<ClinicResponeException> notFound(SpecializationNotFoundException exception) {
-		ClinicResponeException c = new ClinicResponeException(HttpStatus.NOT_FOUND.value(),
-				exception.getMessage(), System.currentTimeMillis());
-		return new ResponseEntity<>(c, HttpStatus.NOT_FOUND);
-	}
-
-	@ExceptionHandler(PatientNotFoundException.class)
-	public ResponseEntity<PatientResponeException> notFound(PatientNotFoundException exception) {
-		PatientResponeException c = new PatientResponeException(HttpStatus.NOT_FOUND.value(),
-				exception.getMessage(), System.currentTimeMillis());
-		return new ResponseEntity<>(c, HttpStatus.NOT_FOUND);
-	}
-
-	@ExceptionHandler(SessionNotFoundException.class)
-	public ResponseEntity<SessionResponeException> notFound(SessionNotFoundException exception) {
-		SessionResponeException s = new SessionResponeException(HttpStatus.NOT_FOUND.value(),
-				exception.getMessage(), System.currentTimeMillis());
-		return new ResponseEntity<>(s, HttpStatus.NOT_FOUND);
-	}
-
-	@ExceptionHandler(ClinicNotFoundException.class)
-	public ResponseEntity<ClinicResponeException> notFound(ClinicNotFoundException exception) {
-		ClinicResponeException c = new ClinicResponeException(HttpStatus.NOT_FOUND.value(),
-				exception.getMessage(), System.currentTimeMillis());
-		return new ResponseEntity<>(c, HttpStatus.NOT_FOUND);
-	}
-
-	/*
-	 * 
-	 */
-	@ExceptionHandler
-	public ResponseEntity<HttpResponse> badRequest(RuntimeException exception) {
-		HttpResponse response = HttpResponse.builder().timeStamp(new Date())
-				.httpStatusCode(HttpStatus.BAD_REQUEST.value()).httpStatus(HttpStatus.BAD_REQUEST)
-				.message(exception.getMessage()).build();
-		;
+	@ExceptionHandler({        
+		UserNotFoundException.class,
+        DoctorNotFoundException.class,
+        SpecializationNotFoundException.class,
+        PatientNotFoundException.class,
+        SessionNotFoundException.class,
+        ClinicNotFoundException.class})
+	public ResponseEntity<ErrorResponse> badRequest(BadRequestException exception) {
+		ErrorResponse response = ErrorResponse.builder()
+ 				.status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(exception.getMessage())
+                .timeStamp(System.currentTimeMillis())
+                .build();
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 }
