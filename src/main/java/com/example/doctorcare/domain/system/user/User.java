@@ -9,7 +9,8 @@ import org.hibernate.annotations.BatchSize;
 
 import com.example.doctorcare.core.domain.BaseEntity;
 import com.example.doctorcare.core.enums.Gender;
-import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.domain.business.clinics.Clinics;
+import com.example.doctorcare.domain.business.doctor.model.Doctor;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;
 
 import jakarta.persistence.CascadeType;
@@ -101,6 +102,9 @@ public class User extends BaseEntity<Long> {
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	Doctor doctor;
+
+	@OneToMany(mappedBy = "owner")
+	Set<Clinics> client;
 
 	@OneToMany(mappedBy = "user")
 	List<Statuses> statuses;

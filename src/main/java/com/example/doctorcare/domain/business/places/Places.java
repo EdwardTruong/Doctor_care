@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.doctorcare.core.domain.BaseEntity;
 import com.example.doctorcare.domain.business.clinics.Clinics;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -20,36 +21,28 @@ import jakarta.persistence.TemporalType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name="places")
-@Data
-public class Places {
+@Getter
+@Setter
+@Builder
+public class Places extends BaseEntity<Long>{
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	Long id;
 
 	@Column(name = "name")
 	String name;
-
-	@Column(name = "create_at")
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	LocalDateTime createAt;
-
-	@Column(name = "update_at")
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	LocalDateTime updateAt;
 
 	@Column(name = "delete_at")
 	@Temporal(value = TemporalType.TIMESTAMP)
@@ -59,6 +52,8 @@ public class Places {
 	@JsonBackReference
 	@OneToMany(mappedBy = "place")
 	List<Clinics> clinic;
+
+	Places parent;
 }
 /*
  * CREATE TABLE `places`( `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

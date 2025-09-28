@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.example.doctorcare.core.domain.BaseEntity;
-import com.example.doctorcare.domain.system.role.Role;
-import com.example.doctorcare.domain.system.role.RoleType;
+import com.example.doctorcare.domain.system.role.model.Role;
+import com.example.doctorcare.domain.system.role.model.RoleType;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

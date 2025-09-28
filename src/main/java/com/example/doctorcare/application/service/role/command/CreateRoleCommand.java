@@ -2,7 +2,7 @@ package com.example.doctorcare.application.service.role.command;
 
 import com.example.doctorcare.application.service.role.dto.RoleDto;
 import com.example.doctorcare.core.cqrs.CommandWithResult;
-import com.example.doctorcare.domain.system.role.RoleType;
+import com.example.doctorcare.domain.system.role.model.RoleType;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

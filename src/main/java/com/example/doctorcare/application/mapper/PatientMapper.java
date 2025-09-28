@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.example.doctorcare.application.dto.response.PatientDtoAdminResponse;
 import com.example.doctorcare.application.dto.response.PatientDtoDoctorResponse;
 import com.example.doctorcare.application.dto.response.PatientDtoUserAppointmentResponse;
-import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.domain.business.doctor.model.Doctor;
 import com.example.doctorcare.domain.business.patients.Patients;
 import com.example.doctorcare.domain.business.schedule.Schedule;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;

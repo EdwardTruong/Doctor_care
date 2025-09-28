@@ -1,6 +1,5 @@
 package com.example.doctorcare.core.security;
 
-
 import java.util.Optional;
 
 import org.springframework.security.core.Authentication;

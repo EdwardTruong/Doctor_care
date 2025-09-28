@@ -4,7 +4,7 @@ package com.example.doctorcare.domain.business.schedule;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.domain.business.doctor.model.Doctor;
 import com.example.doctorcare.domain.business.specializations.Specializations;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -63,10 +63,10 @@ public class Schedule {
 	@Column(name = "delete_at")
 	LocalDateTime deleteAt;
 
+		// @JsonManagedReference // if doctor entity load all schedules i need add this
+	// to json don't call back doctorEntity and show it infinity
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "doctor_id")
-	// @JsonManagedReference // if doctor entity load all schedules i need add this
-	// to json don't call back doctorEntity and show it infinity
 	@JsonIgnore
 	Doctor doctorEntity;
 	

@@ -1,25 +1,18 @@
 package com.example.doctorcare.application.web.advice;
 
-import java.util.Date;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.doctorcare.application.dto.response.ErrorResponse;
-import com.example.doctorcare.application.dto.response.HttpResponse;
 import com.example.doctorcare.application.exception.BadRequestException;
 import com.example.doctorcare.application.exception.notfound.ClinicNotFoundException;
 import com.example.doctorcare.application.exception.notfound.DoctorNotFoundException;
 import com.example.doctorcare.application.exception.notfound.PatientNotFoundException;
 import com.example.doctorcare.application.exception.notfound.SessionNotFoundException;
 import com.example.doctorcare.application.exception.notfound.SpecializationNotFoundException;
-import com.example.doctorcare.application.exception.response.ClinicResponeException;
-import com.example.doctorcare.application.exception.response.DoctorResponeException;
-import com.example.doctorcare.application.exception.response.PatientResponeException;
-import com.example.doctorcare.application.exception.response.SessionResponeException;
-import com.example.doctorcare.auth.exception.UserNotFoundException;
+import com.example.doctorcare.infrastructure.security.old.auth.exception.UserNotFoundException;
 
 
 @RestControllerAdvice

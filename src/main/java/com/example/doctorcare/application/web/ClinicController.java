@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.doctorcare.application.service.baseService.old.ClinicsService;
 import com.example.doctorcare.application.service.baseService.old.ImageService;
-import com.example.doctorcare.model.entity.Clinics;
 
 import jakarta.validation.Valid;
 import lombok.AccessLevel;

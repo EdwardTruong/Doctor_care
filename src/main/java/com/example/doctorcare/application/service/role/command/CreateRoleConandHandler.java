@@ -9,7 +9,7 @@ import com.example.doctorcare.application.service.role.dto.RoleDto;
 import com.example.doctorcare.application.service.role.mapper.RoleMapper;
 import com.example.doctorcare.core.cqrs.annotation.CqrsCommandWithResultHandler;
 import com.example.doctorcare.core.cqrs.handler.CommandWithResultHandler;
-import com.example.doctorcare.domain.system.role.Role;
+import com.example.doctorcare.domain.system.role.model.Role;
 import com.example.doctorcare.domain.system.role.repository.RoleRepository;
 
 import lombok.RequiredArgsConstructor;

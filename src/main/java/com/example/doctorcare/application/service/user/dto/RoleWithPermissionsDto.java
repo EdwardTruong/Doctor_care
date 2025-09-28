@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.auth.service.user.dto;
+package com.example.doctorcare.application.service.user.dto;
 
 
 import java.io.Serializable;

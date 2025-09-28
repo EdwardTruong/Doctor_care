@@ -2,7 +2,7 @@ package com.example.doctorcare.application.service.role.dto;
 
 import java.time.Instant;
 
-import com.example.doctorcare.domain.system.role.RoleType;
+import com.example.doctorcare.domain.system.role.model.RoleType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

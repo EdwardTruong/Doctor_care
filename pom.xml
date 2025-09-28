@@ -182,7 +182,11 @@
 </dependency>
 
 <!-- Tika nội dung file -->
-
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.5.0</version>
+</dependency>
 <!-- Hình ảnh thu nhỏ  -->
 <dependency>
     <groupId>net.coobird</groupId>
@@ -190,6 +194,12 @@
     <version>0.4.20</version>
 </dependency>
 <!-- Hình ảnh thu nhỏ  -->
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>6.3.0</version>
+</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

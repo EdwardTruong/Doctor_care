@@ -12,11 +12,10 @@ import com.example.doctorcare.application.exception.notfound.PatientNotFoundExce
 import com.example.doctorcare.application.exception.old.ActiveException;
 import com.example.doctorcare.application.service.baseService.old.AccountService;
 import com.example.doctorcare.application.service.baseService.old.PatientService;
-import com.example.doctorcare.auth.service.UserService;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;
 import com.example.doctorcare.infrastructure.common.utils.Const.ACTIVE;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
-
+import com.example.doctorcare.infrastructure.security.old.auth.service.UserService;
 
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;

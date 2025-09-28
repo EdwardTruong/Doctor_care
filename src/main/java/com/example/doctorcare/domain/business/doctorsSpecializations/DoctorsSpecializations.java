@@ -1,7 +1,7 @@
 package com.example.doctorcare.domain.business.doctorsSpecializations;
 
 
-import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.domain.business.doctor.model.Doctor;
 import com.example.doctorcare.domain.business.specializations.Specializations;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

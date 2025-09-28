@@ -2,7 +2,7 @@ package com.example.doctorcare.domain.business.patients;
 
 import java.time.LocalDate;
 
-import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.domain.business.doctor.model.Doctor;
 import com.example.doctorcare.domain.business.status_schedule.Statuses;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

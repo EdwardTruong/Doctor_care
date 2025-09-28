@@ -3,8 +3,8 @@ package com.example.doctorcare.domain.system.role.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.example.doctorcare.domain.system.role.Role;
-import com.example.doctorcare.domain.system.role.RoleType;
+import com.example.doctorcare.domain.system.role.model.Role;
+import com.example.doctorcare.domain.system.role.model.RoleType;
 
 /**
  * Interface cho các phương thức truy vấn vai trò tùy chỉnh.

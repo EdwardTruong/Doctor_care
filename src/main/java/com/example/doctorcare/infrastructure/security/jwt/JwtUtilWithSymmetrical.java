@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 
-import com.example.doctorcare.auth.security.custom.UserDetailsCustom;
+import com.example.doctorcare.infrastructure.security.old.auth.security.custom.UserDetailsCustom;
 import com.example.doctorcare.infrastructure.utils.Const.TIME;
 
 import io.jsonwebtoken.ExpiredJwtException;

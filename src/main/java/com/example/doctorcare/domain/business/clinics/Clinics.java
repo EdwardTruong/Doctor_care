@@ -1,11 +1,12 @@
 package com.example.doctorcare.domain.business.clinics;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.doctorcare.domain.business.doctor.Doctor;
+import com.example.doctorcare.core.domain.BaseEntity;
+import com.example.doctorcare.domain.business.doctor.model.Doctor;
 import com.example.doctorcare.domain.business.places.Places;
+import com.example.doctorcare.domain.system.user.User;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_FIELDS_ERROR;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -19,6 +20,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -37,13 +39,13 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Clinics {
+public class Clinics extends BaseEntity<Long> {
 
 	@Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
-	
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
+
 	@NotBlank(message = MESSENGER_FIELDS_ERROR.NAME_ERROR)
 	@Size(min = 6, max = 40)
     @Column(name="name")
@@ -72,26 +74,27 @@ public class Clinics {
     String description;
     
     @Column(name="image")
-    String image;
-    
-	@Column(name="create_at")
-	LocalDateTime createdAt;
+    String imageUrl;
+
 
 	@OneToMany(mappedBy = "clinic" , cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JsonBackReference
-	List<Doctor> listDoctorEntity;
+	List<Doctor> listDoctor;
 	
 	@JsonManagedReference
 	@ManyToOne()
 	@JoinColumn(name="place_id")
 	Places place;
 	
-	
+	@ManyToOne()
+	@JoinColumn(name = "user_id") 
+	User owner;
+
 	public void addDoctor(Doctor doctor) {
-		if(listDoctorEntity == null) {
-			listDoctorEntity =  new ArrayList<>();
+		if(listDoctor == null) {
+			listDoctor =  new ArrayList<>();
 		}
-		this.listDoctorEntity.add(doctor);
+		this.listDoctor.add(doctor);
 		doctor.setClinic(this);
 		
 	}

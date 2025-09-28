@@ -8,7 +8,7 @@ package com.example.doctorcare.core.domain;
  * xử lý việc kiểm tra quyền sở hữu một cách đồng nhất cho nhiều loại tài nguyên khác nhau
  * mà không cần biết chi tiết về loại thực thể cụ thể.
  * <p>
- * Ví dụ, {@link vn.look.infrastructure.security.strategies.AbstractOwnableResourcePermissionStrategy}
+ * Ví dụ, {@link com.example.doctorcare.infrastructure.security.strategies.AbstractOwnableResourcePermissionStrategy}
  * sử dụng interface này để cung cấp một logic kiểm tra quyền sở hữu (isOwner) chung, có thể
  * tái sử dụng cho tất cả các tài nguyên "con" như Thành tựu (Achievement), Chứng chỉ (Certificate), v.v.
  *
@@ -19,7 +19,7 @@ public interface Ownable<T> {
     /**
      * Lấy ID định danh của chủ sở hữu tài nguyên này.
      * <p>
-     * ID này thường là ID của một {@link vn.look.domain.system.user.User}.
+     * ID này thường là ID của một {@link com.example.doctorcare.domain.system.User}.
      *
      * @return ID của chủ sở hữu. Trả về {@code null} nếu không xác định được chủ sở hữu.
      */

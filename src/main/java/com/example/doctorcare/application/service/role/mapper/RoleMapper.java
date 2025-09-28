@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.example.doctorcare.application.service.role.dto.RoleDto;
-import com.example.doctorcare.domain.system.role.Role;
+import com.example.doctorcare.domain.system.role.model.Role;
 
 /**
  * Using mapper to auto mapping user dto -> entity 

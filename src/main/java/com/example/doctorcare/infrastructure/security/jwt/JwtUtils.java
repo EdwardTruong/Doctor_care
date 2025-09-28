@@ -28,7 +28,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-import com.example.doctorcare.auth.security.custom.UserDetailsCustom;
+import com.example.doctorcare.infrastructure.security.old.auth.security.custom.UserDetailsCustom;
 import com.example.doctorcare.infrastructure.utils.Const;
 import com.example.doctorcare.infrastructure.utils.Const.TIME;
 

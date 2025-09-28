@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.doctorcare.application.exception.RoleNotFoundException;
 import com.example.doctorcare.application.service.baseService.old.RoleService;
 import com.example.doctorcare.application.service.baseService.old.dao.RoleRepository;
-import com.example.doctorcare.domain.system.role.Role;
+import com.example.doctorcare.domain.system.role.model.Role;
 import com.example.doctorcare.infrastructure.utils.ERole;
 import com.example.doctorcare.infrastructure.utils.Const.MESSENGER_NOT_FOUND;
 

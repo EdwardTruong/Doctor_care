@@ -2,7 +2,7 @@ package com.example.doctorcare.domain.system.user;
 
 
 import com.example.doctorcare.core.domain.BaseEntity;
-import com.example.doctorcare.domain.system.role.Role;
+import com.example.doctorcare.domain.system.role.model.Role;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

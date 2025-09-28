@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.application.exception.old.ActiveException;
 import com.example.doctorcare.application.service.baseService.old.AccountService;
-import com.example.doctorcare.auth.service.UserService;
 import com.example.doctorcare.domain.system.user.User;
 import com.example.doctorcare.infrastructure.common.utils.ERole;
 import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
+import com.example.doctorcare.infrastructure.security.old.auth.service.UserService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

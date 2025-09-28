@@ -54,6 +54,10 @@ public enum Action {
     MONITOR("monitor", "Giám sát"),
     REPORT("report", "Báo cáo"),
     CONFIGURE("configure", "Cấu hình"),
+    ACCESS("access", "Xác nhận"),
+    DENIDE("denied", "Từ chối"),
+    SAVE_HALF("save half","Lưu tạm"),
+    SAVE_DONE("save done","Lưu xong"),
     RESET_PASSWORD("reset_password", "Đặt lại mật khẩu"),
     IMPERSONATE("impersonate", "Mạo danh"),
     // Dùng cho các hành động tùy chỉnh không phù hợp với các hành động tiêu chuẩn.

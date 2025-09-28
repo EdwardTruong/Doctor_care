@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.doctorcare.core.domain.BaseRepository;
-import com.example.doctorcare.domain.system.role.Role;
+import com.example.doctorcare.domain.system.role.model.Role;
 
 
 public interface RoleRepository extends BaseRepository<Role, Long>, RoleRepositoryCustom{
