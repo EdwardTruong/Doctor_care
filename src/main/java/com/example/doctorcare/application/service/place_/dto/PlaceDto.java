@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.place.dto;
+package com.example.doctorcare.application.service.place_.dto;
 
 import com.example.doctorcare.domain.business.places.Places;
 

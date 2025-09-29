@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.doctorcare.application.service.doctor.command.CreateDoctorCommand;
+import com.example.doctorcare.application.service.doctor.dto.DoctorDetailDto;
 import com.example.doctorcare.core.cqrs.bus.CommandBus;
 import com.example.doctorcare.core.cqrs.bus.CommandWithResultBus;
 import com.example.doctorcare.core.cqrs.bus.PageQueryBus;
@@ -15,13 +17,12 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class DoctorControllerImpl {
+public class DoctorControllerImpl implements DoctorController{
 
     private final QueryBus queryBus;
     private final PageQueryBus pageQueryBus;
     private final CommandWithResultBus commandWithResultBus;
     private final CommandBus commandBus;
-
 
 
     @Override

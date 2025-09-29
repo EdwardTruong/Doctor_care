@@ -1,36 +1,36 @@
-package com.example.doctorcare.application.service.baseService.old;
+// package com.example.doctorcare.application.service.baseService.old;
 
-import java.time.LocalDate;
-import java.util.List;
+// import java.time.LocalDate;
+// import java.util.List;
 
-import com.example.doctorcare.domain.system.user.User;
-import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
-import com.example.doctorcare.model.dto.request.ScheduleInfoTestRequest;
-import com.example.doctorcare.model.dto.request.ScheduleRequest;
-import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.model.entity.DoctorEntity;
-import com.example.doctorcare.model.entity.Schedule;
+// import com.example.doctorcare.domain.system.user.User;
+// import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
+// import com.example.doctorcare.model.dto.request.ScheduleInfoTestRequest;
+// import com.example.doctorcare.model.dto.request.ScheduleRequest;
+// import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
+// import com.example.doctorcare.model.entity.DoctorEntity;
+// import com.example.doctorcare.model.entity.Schedule;
 
-public interface ScheduleService {
+// public interface ScheduleService {
 
-	Schedule findById(Integer id);
-	void save(Schedule schedule);
-	void update(Schedule schedule);
-	void delete(Schedule schedule);
-	Schedule createSchedule (ScheduleRequest request ,User user);
+// 	Schedule findById(Integer id);
+// 	void save(Schedule schedule);
+// 	void update(Schedule schedule);
+// 	void delete(Schedule schedule);
+// 	Schedule createSchedule (ScheduleRequest request ,User user);
 	
-	Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time);
-	Schedule getScheduleOfDoctorAndDate(Doctor doctorEntity, LocalDate date);
+// 	Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time);
+// 	Schedule getScheduleOfDoctorAndDate(Doctor doctorEntity, LocalDate date);
 
-	String getSubStringTimeOfSchedule(String bigTime, String smallTime);
+// 	String getSubStringTimeOfSchedule(String bigTime, String smallTime);
 
-	List<ScheduleDtoResponse> findScheduleByInfo(ScheduleInfoRequest scheduleInfo);
+// 	List<ScheduleDtoResponse> findScheduleByInfo(ScheduleInfoRequest scheduleInfo);
 	
 	
-	/*
-	 * for testing
-	 */
-	List<ScheduleDtoResponse> findScheduleByExactlyPrices(ScheduleInfoTestRequest scheduleInfo);
-	List<ScheduleDtoResponse> getAllSchedulesByDocId(Doctor doc);
+// 	/*
+// 	 * for testing
+// 	 */
+// 	List<ScheduleDtoResponse> findScheduleByExactlyPrices(ScheduleInfoTestRequest scheduleInfo);
+// 	List<ScheduleDtoResponse> getAllSchedulesByDocId(Doctor doc);
 
-}
+// }

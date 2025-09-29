@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.doctorcare.application.dto.response.MessageResponse;
-import com.example.doctorcare.infrastructure.security.old.auth.service.impl.UserDetailsServiceImpl;
+import com.example.doctorcare.infrastructure.security.service.UserDetailsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;

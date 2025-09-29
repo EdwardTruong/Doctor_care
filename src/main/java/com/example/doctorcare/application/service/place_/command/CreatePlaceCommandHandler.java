@@ -1,9 +1,9 @@
-package com.example.doctorcare.application.service.place.command;
+package com.example.doctorcare.application.service.place_.command;
 
 import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.application.exception.ConflictException;
-import com.example.doctorcare.application.service.place.dto.PlaceDto;
+import com.example.doctorcare.application.service.place_.dto.PlaceDto;
 import com.example.doctorcare.core.cqrs.annotation.CqrsCommandWithResultHandler;
 import com.example.doctorcare.core.cqrs.handler.CommandWithResultHandler;
 import com.example.doctorcare.domain.business.places.PlaceRepository;

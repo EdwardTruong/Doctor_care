@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.doctorcare.core.domain.BaseRepository;
 
 public interface ClinicsRepository extends BaseRepository<Clinics, Long>  {
-	Optional<Clinics> findByIdAndDeletedFalse(Integer id);
+	Optional<Clinics> findByIdAndDeleted(Long id, Boolean status);
 
 	Optional<Clinics> findByNameAndDeletedFalse(String name);
 

@@ -1,202 +1,202 @@
-package com.example.doctorcare.application.service.baseService.old.impl;
+// package com.example.doctorcare.application.service.baseService.old.impl;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+// import java.time.LocalDate;
+// import java.time.LocalDateTime;
+// import java.util.List;
+// import java.util.Optional;
+// import java.util.regex.Matcher;
+// import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Service;
 
-import com.example.doctorcare.application.exception.notfound.ScheduleNotFoundException;
-import com.example.doctorcare.application.exception.old.RequestException;
-import com.example.doctorcare.application.service.baseService.old.ScheduleService;
-import com.example.doctorcare.application.service.baseService.old.SpecializationService;
-import com.example.doctorcare.infrastructure.common.utils.ApplicationUtils;
-import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
-import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_NOT_FOUND;
-import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
-import com.example.doctorcare.model.dto.request.ScheduleInfoTestRequest;
-import com.example.doctorcare.model.dto.request.ScheduleRequest;
-import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.model.entity.DoctorEntity;
-import com.example.doctorcare.model.entity.Schedule;
-import com.example.doctorcare.model.entity.Specializations;
-import com.example.doctorcare.model.entity.User;
-import com.example.doctorcare.model.mapper.ScheduleMapper;
-import com.example.doctorcare.repository.ScheduleRepository;
+// import com.example.doctorcare.application.exception.notfound.ScheduleNotFoundException;
+// import com.example.doctorcare.application.exception.old.RequestException;
+// import com.example.doctorcare.application.service.baseService.old.ScheduleService;
+// import com.example.doctorcare.application.service.baseService.old.SpecializationService;
+// import com.example.doctorcare.infrastructure.common.utils.ApplicationUtils;
+// import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_ERROR;
+// import com.example.doctorcare.infrastructure.common.utils.Const.MESSENGER_NOT_FOUND;
+// import com.example.doctorcare.model.dto.request.ScheduleInfoRequest;
+// import com.example.doctorcare.model.dto.request.ScheduleInfoTestRequest;
+// import com.example.doctorcare.model.dto.request.ScheduleRequest;
+// import com.example.doctorcare.model.dto.response.ScheduleDtoResponse;
+// import com.example.doctorcare.model.entity.DoctorEntity;
+// import com.example.doctorcare.model.entity.Schedule;
+// import com.example.doctorcare.model.entity.Specializations;
+// import com.example.doctorcare.model.entity.User;
+// import com.example.doctorcare.model.mapper.ScheduleMapper;
+// import com.example.doctorcare.repository.ScheduleRepository;
 
-import jakarta.transaction.Transactional;
+// import jakarta.transaction.Transactional;
 
-@Service
-public class ScheduleServiceImpl implements ScheduleService {
+// @Service
+// public class ScheduleServiceImpl implements ScheduleService {
 
-	@Autowired
-	ScheduleRepository sDao;
+// 	@Autowired
+// 	ScheduleRepository sDao;
 
-	@Autowired
-	ApplicationUtils appUtils;
+// 	@Autowired
+// 	ApplicationUtils appUtils;
 	
-	@Autowired
-	ScheduleMapper scheduleMapper;
+// 	@Autowired
+// 	ScheduleMapper scheduleMapper;
 	
-	@Autowired
-	SpecializationService specializationService;
+// 	@Autowired
+// 	SpecializationService specializationService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ScheduleServiceImpl.class);
+// 	private static final Logger logger = LoggerFactory.getLogger(ScheduleServiceImpl.class);
 
 	
-	@Override
-	public Schedule findById(Integer id) {
-		Optional<Schedule> result = sDao.findById(id);
-		return result.orElseThrow(() -> new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND));
+// 	@Override
+// 	public Schedule findById(Integer id) {
+// 		Optional<Schedule> result = sDao.findById(id);
+// 		return result.orElseThrow(() -> new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND));
 
-	}
+// 	}
 
-	@Override
-	public Schedule getScheduleOfDoctorAndDate(Doctor doctorEntity, LocalDate date) {
-		Optional<Schedule> result = sDao.findScheduleByDoctor(doctorEntity.getId(), date);
-		return result.orElseThrow(() -> new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND));
-	}
+// 	@Override
+// 	public Schedule getScheduleOfDoctorAndDate(Doctor doctorEntity, LocalDate date) {
+// 		Optional<Schedule> result = sDao.findScheduleByDoctor(doctorEntity.getId(), date);
+// 		return result.orElseThrow(() -> new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND));
+// 	}
 
-	@Override
-	@Transactional
-	public void save(Schedule schedule) {
-		sDao.save(schedule);
+// 	@Override
+// 	@Transactional
+// 	public void save(Schedule schedule) {
+// 		sDao.save(schedule);
 
-	}
+// 	}
 
-	@Override
-	@Transactional
-	public void update(Schedule schedule) {
-		sDao.saveAndFlush(schedule);
+// 	@Override
+// 	@Transactional
+// 	public void update(Schedule schedule) {
+// 		sDao.saveAndFlush(schedule);
 
-	}
+// 	}
 
-	@Override
-	@Transactional
-	public void delete(Schedule schedule) {
-		sDao.delete(schedule);
+// 	@Override
+// 	@Transactional
+// 	public void delete(Schedule schedule) {
+// 		sDao.delete(schedule);
 
-	}
+// 	}
 
-	/*
-	 * comment it for quick testing. However, the fake databale to correct value for the time and the maxBooking	
-	 */
+// 	/*
+// 	 * comment it for quick testing. However, the fake databale to correct value for the time and the maxBooking	
+// 	 */
 
-	@Override
-	public Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time) {
-		Schedule schedule = this.findById(idSchedule);
+// 	@Override
+// 	public Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time) {
+// 		Schedule schedule = this.findById(idSchedule);
 
-		logger.info("Booking doctor calling + Doctor name : "+schedule.getDoctorEntity().getUser().getName());
+// 		logger.info("Booking doctor calling + Doctor name : "+schedule.getDoctorEntity().getUser().getName());
 		
-		if(schedule.getDoctorEntity().getId() != doctor.getId()) {
-			throw new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND);
-		}
+// 		if(schedule.getDoctorEntity().getId() != doctor.getId()) {
+// 			throw new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND);
+// 		}
 		
-		//comment
-		String workHours = schedule.getTime();
-		if(!workHours.contains(time)) {
-			throw new RuntimeException(MESSENGER_ERROR.TIME_BOOK_ERROR);
-		}
-		String timeRemaining = this.getSubStringTimeOfSchedule(workHours,time);
+// 		//comment
+// 		String workHours = schedule.getTime();
+// 		if(!workHours.contains(time)) {
+// 			throw new RuntimeException(MESSENGER_ERROR.TIME_BOOK_ERROR);
+// 		}
+// 		String timeRemaining = this.getSubStringTimeOfSchedule(workHours,time);
 		
-		schedule.setTime(timeRemaining);
-		//comment
+// 		schedule.setTime(timeRemaining);
+// 		//comment
 		
-		schedule.setDoctorEntity(doctor);
-		schedule.setMaxBooking(schedule.getMaxBooking()+ "' "+time+" '");
-		schedule.setSumBooking(schedule.getSumBooking() + 1);
-		this.update(schedule);
+// 		schedule.setDoctorEntity(doctor);
+// 		schedule.setMaxBooking(schedule.getMaxBooking()+ "' "+time+" '");
+// 		schedule.setSumBooking(schedule.getSumBooking() + 1);
+// 		this.update(schedule);
 
-		logger.info("Booking doctor calling finish - schedule after update  : " + schedule.toString());
+// 		logger.info("Booking doctor calling finish - schedule after update  : " + schedule.toString());
 
-		return schedule;
-	}
+// 		return schedule;
+// 	}
 
-	@Override
-	public Schedule createSchedule(ScheduleRequest request, User user) {
-		Doctor doctor = user.getDoctorEntity();
+// 	@Override
+// 	public Schedule createSchedule(ScheduleRequest request, User user) {
+// 		Doctor doctor = user.getDoctorEntity();
 		
-		Specializations specialization = specializationService.findById(request.getSpecializationId());
+// 		Specializations specialization = specializationService.findById(request.getSpecializationId());
 		
-		Schedule schedule = Schedule.builder()
-				.createAt(LocalDateTime.now())
-				.time(request.getTimes())
-				.date(request.getDate())
-				.price(request.getPrice())
-				.maxBooking("")
-				.sumBooking(0)
-				.doctorEntity(doctor)
-				.specialization(specialization)
-				.build();
-		this.save(schedule);
-		return schedule;
-	}
+// 		Schedule schedule = Schedule.builder()
+// 				.createAt(LocalDateTime.now())
+// 				.time(request.getTimes())
+// 				.date(request.getDate())
+// 				.price(request.getPrice())
+// 				.maxBooking("")
+// 				.sumBooking(0)
+// 				.doctorEntity(doctor)
+// 				.specialization(specialization)
+// 				.build();
+// 		this.save(schedule);
+// 		return schedule;
+// 	}
 
-	@Override
-	public String getSubStringTimeOfSchedule(String bigTime, String smallTime) {
-		Pattern pattern = Pattern.compile(Pattern.quote(smallTime));
-		Matcher matcher = pattern.matcher(bigTime);
+// 	@Override
+// 	public String getSubStringTimeOfSchedule(String bigTime, String smallTime) {
+// 		Pattern pattern = Pattern.compile(Pattern.quote(smallTime));
+// 		Matcher matcher = pattern.matcher(bigTime);
 
-		if (matcher.find()) {
-			int start = matcher.start();
-			int end = matcher.end();
-			return bigTime.substring(0, start) + bigTime.substring(end);
-		} else {
-			throw new RuntimeException(MESSENGER_ERROR.TIME_INPUT_ERROR);
-		}
-	}
+// 		if (matcher.find()) {
+// 			int start = matcher.start();
+// 			int end = matcher.end();
+// 			return bigTime.substring(0, start) + bigTime.substring(end);
+// 		} else {
+// 			throw new RuntimeException(MESSENGER_ERROR.TIME_INPUT_ERROR);
+// 		}
+// 	}
 	
 
-	@Override
-	public List<ScheduleDtoResponse> findScheduleByInfo(ScheduleInfoRequest request) {
+// 	@Override
+// 	public List<ScheduleDtoResponse> findScheduleByInfo(ScheduleInfoRequest request) {
     	
-		Integer min, max;
+// 		Integer min, max;
 		
-		if(request.getMinPrice() != null ) {
-			 min = Integer.valueOf(request.getMinPrice()) ;
-		}else {
-			min = 100;
-		}
+// 		if(request.getMinPrice() != null ) {
+// 			 min = Integer.valueOf(request.getMinPrice()) ;
+// 		}else {
+// 			min = 100;
+// 		}
 		
-		if(request.getMaxPrice() != null) {
-			 max = Integer.valueOf(request.getMaxPrice());
-		}else {
-			max = 10000;			
-		}
+// 		if(request.getMaxPrice() != null) {
+// 			 max = Integer.valueOf(request.getMaxPrice());
+// 		}else {
+// 			max = 10000;			
+// 		}
     	
-    	if(min > max) {
-    		throw new RequestException(MESSENGER_ERROR.PRICES_ERROR);     		
-    	}
+//     	if(min > max) {
+//     		throw new RequestException(MESSENGER_ERROR.PRICES_ERROR);     		
+//     	}
     
     	
-    	List<Schedule> result = sDao.findScheduleTimeByPriceRangeUsingConcat(request.getSearchString(), request.getDate(),min,max);
+//     	List<Schedule> result = sDao.findScheduleTimeByPriceRangeUsingConcat(request.getSearchString(), request.getDate(),min,max);
     	
-    	return scheduleMapper.toBasicListDto(result);
-	}
+//     	return scheduleMapper.toBasicListDto(result);
+// 	}
 	
 
 
-	/*
-	 * For testing 
-	 */
-	@Override
-	public List<ScheduleDtoResponse> findScheduleByExactlyPrices(ScheduleInfoTestRequest request) {
-		List<Schedule> schedules = sDao.findScheduleTimeByPriceRange(request.getPlaceId(), request.getSpecializationId(), request.getClinicId(), request.getPricesList());
-		return scheduleMapper.toBasicListDto(schedules);
-	}
+// 	/*
+// 	 * For testing 
+// 	 */
+// 	@Override
+// 	public List<ScheduleDtoResponse> findScheduleByExactlyPrices(ScheduleInfoTestRequest request) {
+// 		List<Schedule> schedules = sDao.findScheduleTimeByPriceRange(request.getPlaceId(), request.getSpecializationId(), request.getClinicId(), request.getPricesList());
+// 		return scheduleMapper.toBasicListDto(schedules);
+// 	}
 	
-	@Override
-	public List<ScheduleDtoResponse> getAllSchedulesByDocId(Doctor doc){
-		List<Schedule> schedules = sDao.getSchedulesOfDoctorId(doc.getId());
-		return scheduleMapper.toBasicListDto(schedules);
+// 	@Override
+// 	public List<ScheduleDtoResponse> getAllSchedulesByDocId(Doctor doc){
+// 		List<Schedule> schedules = sDao.getSchedulesOfDoctorId(doc.getId());
+// 		return scheduleMapper.toBasicListDto(schedules);
 
-	}
+// 	}
 
 	
-}
+// }

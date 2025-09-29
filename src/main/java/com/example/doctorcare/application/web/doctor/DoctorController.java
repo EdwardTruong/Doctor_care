@@ -1,6 +1,19 @@
 package com.example.doctorcare.application.web.doctor;
 // package com.example.doctorcare.application.web;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.doctorcare.application.service.doctor.command.CreateDoctorCommand;
+import com.example.doctorcare.application.service.doctor.dto.DoctorDetailDto;
+import com.example.doctorcare.application.service.place_.command.CreatePlaceCommand;
+import com.example.doctorcare.application.service.place_.dto.PlaceDto;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+
 // import java.io.IOException;
 // import java.time.LocalDate;
 // import java.util.List;
@@ -42,11 +55,12 @@ package com.example.doctorcare.application.web.doctor;
 // import lombok.RequiredArgsConstructor;
 // import lombok.experimental.FieldDefaults;
 
-// @RestController
-// @RequestMapping("/api/doctor")
-// @RequiredArgsConstructor
-// @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-// public class DoctorController {
+@Tag(name = "[Admin] Thêm mới doctor", description = "APIs vùng của ông nội supper admin")
+@RequestMapping("/api/v1/doctor")
+public interface DoctorController {
+
+    @PostMapping()
+    ResponseEntity<DoctorDetailDto> createMembership(@Valid @RequestBody CreateDoctorCommand command);
 
 // 	ScheduleService scheduleService;
 
@@ -132,5 +146,5 @@ package com.example.doctorcare.application.web.doctor;
 // 		User user = userService.findByEmail(email);
 // 		List<ScheduleDtoResponse> result = scheduleService.getAllSchedulesByDocId(user.getDoctorEntity());
 // 		return ResponseEntity.ok(result);
-// 	}
-// }
+	// }
+}

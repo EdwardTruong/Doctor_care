@@ -9,9 +9,9 @@ import java.security.cert.CertificateException;
 
 import com.example.doctorcare.domain.business.session.Session;
 import com.example.doctorcare.domain.system.user.User;
-import com.example.doctorcare.infrastructure.security.old.auth.service.login.ChangePasswordRequest;
-import com.example.doctorcare.infrastructure.security.old.auth.service.login.JwtResponse;
-import com.example.doctorcare.infrastructure.security.old.auth.service.login.LoginRequest;
+import com.example.doctorcare.infrastructure.security.old.auth.service.login.ChangePasswordCommand;
+import com.example.doctorcare.infrastructure.security.old.auth.service.login.JwtCommand;
+import com.example.doctorcare.infrastructure.security.old.auth.service.login.LoginCommand;
 
 /**
  * Service interface named {@link LoginService} for handling user login
@@ -26,12 +26,12 @@ public interface LoginService {
          * @return The token representing the user's session.
          */
 
-        JwtResponse userLogin(LoginRequest loginRequest)
+        JwtCommand userLogin(LoginCommand loginRequest)
                         throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException,
                         KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException,
                         IOException;
 
-        User changingPassword(ChangePasswordRequest request, Session session)
+        User changingPassword(ChangePasswordCommand request, Session session)
                         throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
                         NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException;
  }

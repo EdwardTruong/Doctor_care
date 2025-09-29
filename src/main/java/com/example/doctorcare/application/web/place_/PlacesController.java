@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.web.place;
+package com.example.doctorcare.application.web.place_;
 
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import com.example.doctorcare.application.service.place.command.CreatePlaceCommand;
-import com.example.doctorcare.application.service.place.command.UpdatePlaceCommand;
-import com.example.doctorcare.application.service.place.dto.PlaceDto;
+import com.example.doctorcare.application.service.place_.command.CreatePlaceCommand;
+import com.example.doctorcare.application.service.place_.command.UpdatePlaceCommand;
+import com.example.doctorcare.application.service.place_.dto.PlaceDto;
 import com.example.doctorcare.core.cqrs.utils.Page;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;

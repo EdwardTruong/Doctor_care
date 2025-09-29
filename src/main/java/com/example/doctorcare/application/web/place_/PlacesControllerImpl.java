@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.web.place;
+package com.example.doctorcare.application.web.place_;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -6,12 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.doctorcare.application.service.place.command.CreatePlaceCommand;
-import com.example.doctorcare.application.service.place.command.DeletePlaceCommand;
-import com.example.doctorcare.application.service.place.command.GetPlaceQuery;
-import com.example.doctorcare.application.service.place.command.UpdatePlaceCommand;
-import com.example.doctorcare.application.service.place.dto.PlaceDto;
-import com.example.doctorcare.application.service.place.querry.GetPlaceDetailQuery;
+import com.example.doctorcare.application.service.place_.command.CreatePlaceCommand;
+import com.example.doctorcare.application.service.place_.command.DeletePlaceCommand;
+import com.example.doctorcare.application.service.place_.command.GetPlaceQuery;
+import com.example.doctorcare.application.service.place_.command.UpdatePlaceCommand;
+import com.example.doctorcare.application.service.place_.dto.PlaceDto;
+import com.example.doctorcare.application.service.place_.querry.GetPlaceDetailQuery;
 import com.example.doctorcare.core.cqrs.bus.CommandBus;
 import com.example.doctorcare.core.cqrs.bus.CommandWithResultBus;
 import com.example.doctorcare.core.cqrs.bus.PageQueryBus;

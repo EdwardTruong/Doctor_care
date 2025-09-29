@@ -38,6 +38,7 @@ public class FileStoreServiceImpl implements FileStoreService {
     private final FileStoreRepository fileStoreRepository;
     private final FileContentStore fileContentStore;
 
+
     @Value("${application.file.max-size-mb:5}")
     private long maxSizeInMb;
 

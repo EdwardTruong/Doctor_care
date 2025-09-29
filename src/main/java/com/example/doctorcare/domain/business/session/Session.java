@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.example.doctorcare.core.domain.BaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,12 +28,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Session {
+public class Session extends BaseEntity<Long>{
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	int id;
+	Long id;
 	
     @Column(name="s_key")
 	String key;
@@ -43,15 +45,5 @@ public class Session {
 
 	@Column(name = "data")
 	String data;
-
-	@Column(name = "create_at")
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	LocalDateTime createAt;
-
-	@Column(name = "update_at")
-	@Temporal(value = TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	LocalDateTime updateAt;
 
 }

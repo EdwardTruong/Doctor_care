@@ -21,6 +21,9 @@ import com.example.doctorcare.domain.system.user.User;
 import com.example.doctorcare.domain.system.user.UserRepository;
 import com.example.doctorcare.infrastructure.security.old.auth.security.custom.UserDetailsCustom;
 import com.example.doctorcare.infrastructure.security.old.auth.security.jwt.JwtUtils;
+import com.example.doctorcare.infrastructure.security.old.auth.service.login.ChangePasswordCommand;
+import com.example.doctorcare.infrastructure.security.old.auth.service.login.JwtCommand;
+import com.example.doctorcare.infrastructure.security.old.auth.service.login.LoginCommand;
 import com.example.doctorcare.infrastructure.security.service.LoginService;
 
 import io.jsonwebtoken.io.IOException;
@@ -36,17 +39,16 @@ public class LoginServiceImpl implements LoginService {
 
         JwtUtils jwtUtils;
         AuthenticationManager authenticationManager;
-        UserService userService;
         UserRepository userRepository;
-        SessionService sessionService;
+        SessionRegistry sessionRegistry;
         PasswordEncoder encoder;
 
         @Override
-        public JwtResponse userLogin(LoginRequest loginRequest)
+        public JwtCommand userLogin(LoginCommand loginRequest)
                         throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
                         NoSuchAlgorithmException, CertificateException, IOException, java.io.IOException {
                 UsernamePasswordAuthenticationToken userTryLogin = new UsernamePasswordAuthenticationToken(
-                                loginRequest.getUsername(), loginRequest.getPassword());
+                                loginRequest.username(), loginRequest.password());
                 Authentication authentication = authenticationManager.authenticate(userTryLogin);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -56,26 +58,31 @@ public class LoginServiceImpl implements LoginService {
                 UserDetailsCustom userDetails = (UserDetailsCustom) authentication.getPrincipal();
                 List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
                                 .collect(Collectors.toList());
-
-                JwtResponse newJwt = JwtResponse.builder().token(jwt).email(userDetails.getUsername()).type("Bearer")
-                                .id(userDetails.getId()).roles(roles).build();
+                String bearer = "Bearer"; 
+                JwtCommand newJwt = new JwtCommand(
+                        jwt,
+                        userDetails.getUsername(),
+                        bearer,
+                        userDetails.getId(),
+                        roles);
 
                 return newJwt;
         }
 
         @Override
         @Transactional
-        public User changingPassword(ChangePasswordRequest request, Session session)
+        public User changingPassword(ChangePasswordCommand request, Session session)
                         throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
                         NoSuchAlgorithmException, CertificateException, IOException, java.io.IOException {
 
                 String email = jwtUtils.getUserNameFromJwt(session.getData());
 
                 User entity = userRepository.findByEmailAndDeletedFalse(email).orElseThrow(()-> new BadRequestException("Không tìm thấy email",email,"403"));
-                entity.setPassword(encoder.encode(request.getPassword()));
+                String newPassword = encoder.encode(request.password());               
+                entity.setEncryptedPassword(newPassword);
                 userRepository.save(entity);
 
-                sessionService.delete(session);
+                sessionRegistry.delete(session);
 
                 return entity;
         }
