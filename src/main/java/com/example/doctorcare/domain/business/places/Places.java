@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.doctorcare.core.domain.BaseEntity;
-import com.example.doctorcare.domain.business.clinics.Clinics;
+import com.example.doctorcare.domain.business.clinics_.Clinics;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;

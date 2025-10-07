@@ -71,8 +71,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       response.setContentType("application/json");
       ObjectMapper objectMapper = new ObjectMapper();
       String errorMessage = "Unauthorized";
-      MessageResponse errorResponse = new MessageResponse(errorMessage);
-      String errorResponseJson = objectMapper.writeValueAsString(errorResponse);
+      String errorResponseJson = objectMapper.writeValueAsString(errorMessage);
       response.getWriter().write(errorResponseJson);
     }
 

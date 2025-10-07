@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.application.exception.EntityNotFoundException;
 import com.example.doctorcare.domain.system.user.User;
-import com.example.doctorcare.domain.system.user.UserRepository;
+import com.example.doctorcare.domain.system.user.repo.UserRepository;
 import com.example.doctorcare.infrastructure.security.old.auth.security.custom.UserDetailsCustom;
 import com.example.doctorcare.infrastructure.utils.Const.*;
 

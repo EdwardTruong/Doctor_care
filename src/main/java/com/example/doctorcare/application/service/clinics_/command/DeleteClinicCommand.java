@@ -1,4 +1,4 @@
-package com.example.doctorcare.application.service.clinics.command;
+package com.example.doctorcare.application.service.clinics_.command;
 
 import com.example.doctorcare.core.cqrs.Command;
 

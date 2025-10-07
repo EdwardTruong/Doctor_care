@@ -2,7 +2,7 @@ package com.example.doctorcare.domain.system.role.repository;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,6 +16,8 @@ public interface RoleRepository extends BaseRepository<Role, Long>, RoleReposito
     Optional<Role> findByIdAndDeletedFalse(Long id);
 
     Optional<Role> findByNameAndDeletedFalse(String name);
+    
+    Optional<Role> findByName(String name);
 
     /**
      * Tìm tất cả các vai trò con trực tiếp của một vai trò cha.
@@ -65,5 +67,7 @@ public interface RoleRepository extends BaseRepository<Role, Long>, RoleReposito
         SELECT id FROM role_descendants
     """, nativeQuery = true)
     List<Long> findAllDescendantRoleIdsIncludingSelf(@Param("roleId") Long roleId);
+
+    Set<Role> findAllByIdInAndIsActiveTrue(Set<Long> roleIds);
 
 }

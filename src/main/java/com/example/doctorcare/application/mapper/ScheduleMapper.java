@@ -21,13 +21,13 @@ public class ScheduleMapper {
 		
 		// return ScheduleDtoResponse.builder()
 		// 					.scheduleId(schedule.getId()) 
-		// 					.doctorName(schedule.getDoctorEntity().getUser().getName())
+		// 					.doctorName(schedule.getDoctor().getUser().getName())
 		// 					.time(schedule.getTime())
-		// 					.address(schedule.getDoctorEntity().getClinic().getAddress())
+		// 					.address(schedule.getDoctor().getClinic().getAddress())
 		// 					.price(appUtils.convertToVND(schedule.getPrice()))
 		// 					.maxBooking(schedule.getMaxBooking())
-		// 					.placeName(schedule.getDoctorEntity().getClinic().getPlace().getName())
-		// 					.clinicName(schedule.getDoctorEntity().getClinic().getName())
+		// 					.placeName(schedule.getDoctor().getClinic().getPlace().getName())
+		// 					.clinicName(schedule.getDoctor().getClinic().getName())
 		// 					.specializationName(schedule.getSpecialization().getName())
 		// 					.date(schedule.getDate())
 		// 					.build();

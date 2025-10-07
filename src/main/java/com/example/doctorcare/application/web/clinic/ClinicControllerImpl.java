@@ -5,12 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.doctorcare.application.service.clinics.command.CreateClinicCommand;
-import com.example.doctorcare.application.service.clinics.command.DeleteClinicCommand;
-import com.example.doctorcare.application.service.clinics.command.GetClinicQuery;
-import com.example.doctorcare.application.service.clinics.command.UpdateClientCommand;
-import com.example.doctorcare.application.service.clinics.dto.ClinicsDto;
-import com.example.doctorcare.application.service.clinics.query.GetClinicDetailQuery;
+import com.example.doctorcare.application.service.clinics_.command.CreateClinicCommand;
+import com.example.doctorcare.application.service.clinics_.command.DeleteClinicCommand;
+import com.example.doctorcare.application.service.clinics_.command.GetClinicQuery;
+import com.example.doctorcare.application.service.clinics_.command.UpdateClientCommand;
+import com.example.doctorcare.application.service.clinics_.dto.ClinicsDto;
+import com.example.doctorcare.application.service.clinics_.query.GetClinicDetailQuery;
 import com.example.doctorcare.core.cqrs.bus.CommandBus;
 import com.example.doctorcare.core.cqrs.bus.CommandWithResultBus;
 import com.example.doctorcare.core.cqrs.bus.PageQueryBus;

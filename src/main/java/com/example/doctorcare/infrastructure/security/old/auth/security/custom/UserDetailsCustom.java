@@ -49,10 +49,10 @@ public class UserDetailsCustom implements UserDetails {
 			//     		.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 			//     		.collect(Collectors.toList());
 			    		
-			//   if(user.getDoctorEntity() != null) {
+			//   if(user.getDoctor() != null) {
 			// 	  return new UserDetailsCustom(
 			// 		        user.getId(), 
-			// 		        user.getDoctorEntity().getId(),	
+			// 		        user.getDoctor().getId(),	
 			// 		        user.getEmail(),
 			// 		        user.getPassword(), 
 			// 		        user.getActive(),

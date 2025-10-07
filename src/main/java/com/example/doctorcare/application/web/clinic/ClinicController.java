@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.doctorcare.application.service.clinics.command.CreateClinicCommand;
-import com.example.doctorcare.application.service.clinics.command.UpdateClientCommand;
-import com.example.doctorcare.application.service.clinics.dto.ClinicsDto;
+import com.example.doctorcare.application.service.clinics_.command.CreateClinicCommand;
+import com.example.doctorcare.application.service.clinics_.command.UpdateClientCommand;
+import com.example.doctorcare.application.service.clinics_.dto.ClinicsDto;
 import com.example.doctorcare.core.cqrs.utils.Page;
 
 import io.swagger.v3.oas.annotations.Operation;

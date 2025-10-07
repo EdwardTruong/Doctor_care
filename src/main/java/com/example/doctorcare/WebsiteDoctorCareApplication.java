@@ -1,11 +1,9 @@
 package com.example.doctorcare;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.doctorcare.infrastructure.common.configuration.StorageProperties;
-
-@EnableConfigurationProperties(StorageProperties.class)
+@SpringBootApplication
 public class WebsiteDoctorCareApplication {
 
 	public static void main(String[] args) {

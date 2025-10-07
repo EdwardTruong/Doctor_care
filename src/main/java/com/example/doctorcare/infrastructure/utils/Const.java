@@ -159,4 +159,107 @@ public class Const {
 				Arrays.asList('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+'));
 
 	}
+
+	/**
+	 * Error codes for Manager operations
+	 */
+	public final static class MANAGER_ERROR {
+		public final static String MANAGER_NOT_FOUND = "Manager not found with given ID";
+		public final static String MANAGER_EMAIL_EXISTS = "Manager email already exists";
+		public final static String MANAGER_EMPLOYEE_CODE_EXISTS = "Manager employee code already exists";
+		public final static String MANAGER_HAS_CHILDREN = "Cannot delete manager with child managers";
+		public final static String MANAGER_MANAGING_DOCTORS = "Cannot delete manager who is managing doctors";
+		public final static String MANAGER_CIRCULAR_REFERENCE = "Circular reference detected in manager hierarchy";
+		public final static String MANAGER_INVALID_PARENT = "Invalid parent manager assignment";
+		public final static String MANAGER_SELF_PARENT = "Manager cannot be parent of itself";
+	}
+
+	/**
+	 * Error codes for Doctor operations
+	 */
+	public final static class DOCTOR_ERROR {
+		public final static String DOCTOR_NOT_FOUND = "Doctor not found with given ID";
+		public final static String DOCTOR_EMAIL_EXISTS = "Doctor email already exists";
+		public final static String DOCTOR_NOT_AVAILABLE = "Doctor is not available for appointment";
+		public final static String DOCTOR_SCHEDULE_CONFLICT = "Doctor schedule has conflict";
+	}
+
+	/**
+	 * Error codes for Patient operations
+	 */
+	public final static class PATIENT_ERROR {
+		public final static String PATIENT_NOT_FOUND = "Patient not found with given ID";
+		public final static String PATIENT_EMAIL_EXISTS = "Patient email already exists";
+		public final static String PATIENT_HAS_APPOINTMENTS = "Cannot delete patient with active appointments";
+	}
+
+	/**
+	 * Error codes for Role operations
+	 */
+	public final static class ROLE_ERROR {
+		public final static String ROLE_NOT_FOUND = "Role not found with given ID";
+		public final static String ROLE_NAME_EXISTS = "Role name already exists";
+		public final static String ROLE_IN_USE = "Role is currently assigned to users";
+	}
+
+	/**
+	 * Success messages for Manager operations
+	 */
+	public final static class MANAGER_SUCCESS {
+		public final static String MANAGER_CREATED = "Manager created successfully";
+		public final static String MANAGER_UPDATED = "Manager updated successfully";
+		public final static String MANAGER_DELETED = "Manager deleted successfully";
+		public final static String MANAGER_ASSIGNED = "Manager assigned to parent successfully";
+	}
+
+	/**
+	 * Validation messages
+	 */
+	public final static class VALIDATION_ERROR {
+		public final static String REQUIRED_FIELD = "Required field is missing";
+		public final static String INVALID_EMAIL = "Invalid email format";
+		public final static String INVALID_PHONE = "Invalid phone number format";
+		public final static String INVALID_DATE = "Invalid date format";
+		public final static String PASSWORD_TOO_SHORT = "Password must be at least 6 characters";
+		public final static String INVALID_INPUT_FORMAT = "Invalid input format";
+	}
+
+	/**
+	 * Error codes for Schedule operations
+	 */
+	public final static class SCHEDULE_ERROR {
+		public final static String SCHEDULE_NOT_FOUND = "Schedule not found with given ID";
+		public final static String SCHEDULE_CONFLICT = "Doctor already has a schedule at this date and time";
+		public final static String SCHEDULE_HAS_BOOKINGS = "Cannot delete schedule with active bookings";
+		public final static String INVALID_TIME_FORMAT = "Invalid time format. Expected HH:mm or HH:mm-HH:mm";
+		public final static String INVALID_MAX_BOOKING = "Max booking must be a positive number";
+		public final static String BOOKING_EXCEEDS_LIMIT = "Sum booking cannot exceed max booking";
+		public final static String SCHEDULE_IN_PAST = "Schedule date cannot be in the past";
+		public final static String SCHEDULE_NOT_AVAILABLE = "Schedule is not available for booking";
+	}
+
+	/**
+	 * Success messages for Schedule operations
+	 */
+	public final static class SCHEDULE_SUCCESS {
+		public final static String SCHEDULE_CREATED = "Schedule created successfully";
+		public final static String SCHEDULE_UPDATED = "Schedule updated successfully";
+		public final static String SCHEDULE_DELETED = "Schedule deleted successfully";
+		public final static String SCHEDULE_BOOKING_UPDATED = "Schedule booking updated successfully";
+	}
+
+	/**
+	 * HTTP Status constants
+	 */
+	public final static class HTTP_STATUS {
+		public final static int OK = 200;
+		public final static int CREATED = 201;
+		public final static int NO_CONTENT = 204;
+		public final static int BAD_REQUEST = 400;
+		public final static int UNAUTHORIZED = 401;
+		public final static int FORBIDDEN = 403;
+		public final static int NOT_FOUND = 404;
+		public final static int CONFLICT = 409;
+		public final static int INTERNAL_SERVER_ERROR = 500;
+	}
 }

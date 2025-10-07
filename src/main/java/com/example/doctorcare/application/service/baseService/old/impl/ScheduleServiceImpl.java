@@ -92,9 +92,9 @@
 // 	public Schedule getScheduleOfDoctor(Doctor doctor, Integer idSchedule, String time) {
 // 		Schedule schedule = this.findById(idSchedule);
 
-// 		logger.info("Booking doctor calling + Doctor name : "+schedule.getDoctorEntity().getUser().getName());
+// 		logger.info("Booking doctor calling + Doctor name : "+schedule.getDoctor().getUser().getName());
 		
-// 		if(schedule.getDoctorEntity().getId() != doctor.getId()) {
+// 		if(schedule.getDoctor().getId() != doctor.getId()) {
 // 			throw new ScheduleNotFoundException(MESSENGER_NOT_FOUND.SCHEDULE_NOT_FOUND);
 // 		}
 		
@@ -108,7 +108,7 @@
 // 		schedule.setTime(timeRemaining);
 // 		//comment
 		
-// 		schedule.setDoctorEntity(doctor);
+// 		schedule.setDoctor(doctor);
 // 		schedule.setMaxBooking(schedule.getMaxBooking()+ "' "+time+" '");
 // 		schedule.setSumBooking(schedule.getSumBooking() + 1);
 // 		this.update(schedule);
@@ -120,7 +120,7 @@
 
 // 	@Override
 // 	public Schedule createSchedule(ScheduleRequest request, User user) {
-// 		Doctor doctor = user.getDoctorEntity();
+// 		Doctor doctor = user.getDoctor();
 		
 // 		Specializations specialization = specializationService.findById(request.getSpecializationId());
 		

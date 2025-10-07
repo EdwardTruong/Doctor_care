@@ -14,7 +14,7 @@ public record UserSimpleDto(
     Long id,
     String username,
     String fullName,
-    String email,
+    String addressEmail,
     String avatarUrl
 ) implements Serializable {
 
@@ -22,6 +22,6 @@ public record UserSimpleDto(
         if (user == null) {
             return null;
         }
-        return new UserSimpleDto(user.getId(), user.getUsername(), user.getFullName(), user.getEmail(), user.getAvatarUrl());
+        return new UserSimpleDto(user.getId(), user.getUsername(), user.getFullName(), user.getAddressEmail(), user.getAvatarUrl());
     }
 }

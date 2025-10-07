@@ -114,7 +114,7 @@
 
 // 	@Override
 // 	public DoctorDtoResponse getDoctorInfo(User entity) {
-// 		return doctorMapper.toDto(entity.getDoctorEntity(), MESSENGER.DOCTOR_INFO);
+// 		return doctorMapper.toDto(entity.getDoctor(), MESSENGER.DOCTOR_INFO);
 // 	}
 
 // 	@Override
@@ -127,7 +127,7 @@
 // 	public DoctorDtoResponse updateDoctor(String email, DoctorUpdateRequest request) {
 // 		UserUpdateRequest userRequest = requestMapper.toUserEditRequest(request);
 // 		User user = userService.findByEmail(email);
-// 		Doctor doc = user.getDoctorEntity();
+// 		Doctor doc = user.getDoctor();
 // 		doc.setDescription(request.getDescription());
 // 		doc.setAchievement(request.getAchievement());
 // 		doc.setTrainingProcess(request.getTrainingProcess());

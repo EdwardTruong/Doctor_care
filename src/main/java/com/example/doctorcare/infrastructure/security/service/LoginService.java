@@ -14,8 +14,7 @@ import com.example.doctorcare.infrastructure.security.old.auth.service.login.Jwt
 import com.example.doctorcare.infrastructure.security.old.auth.service.login.LoginCommand;
 
 /**
- * Service interface named {@link LoginService} for handling user login
- * operations.
+ * Service interface named {@link LoginService} for handling user login operations.
  */
 public interface LoginService {
 
@@ -26,12 +25,11 @@ public interface LoginService {
          * @return The token representing the user's session.
          */
 
-        JwtCommand userLogin(LoginCommand loginRequest)
-                        throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException,
-                        KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException,
-                        IOException;
+        JwtCommand userLogin(LoginCommand loginRequest) throws io.jsonwebtoken.io.IOException,
+                        UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException,
+                        CertificateException, FileNotFoundException, IOException;
 
-        User changingPassword(ChangePasswordCommand request, Session session)
-                        throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
-                        NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException;
- }
+        // User changingPassword(ChangePasswordCommand request, Session session)
+        // throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
+        // NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException;
+}

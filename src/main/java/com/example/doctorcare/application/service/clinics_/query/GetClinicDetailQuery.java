@@ -1,6 +1,6 @@
-package com.example.doctorcare.application.service.clinics.query;
+package com.example.doctorcare.application.service.clinics_.query;
 
-import com.example.doctorcare.application.service.clinics.dto.ClinicsDto;
+import com.example.doctorcare.application.service.clinics_.dto.ClinicsDto;
 import com.example.doctorcare.core.cqrs.Query;
 
 /**

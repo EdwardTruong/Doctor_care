@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.example.doctorcare.core.domain.BaseEntity;
+import com.example.doctorcare.domain.business.manager.Manager;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -16,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -23,16 +25,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "role") // Đổi tên bảng thành "role" cho nhất quán với các entity khác
-@Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = { "id" }, callSuper = true)
+@Builder
+@Data
 public class Role extends BaseEntity<Long> {
 
     @Id
@@ -84,6 +88,16 @@ public class Role extends BaseEntity<Long> {
     @JsonIgnore // Bỏ qua trường này khi serialize/deserialize để tránh LazyInitializationException khi đọc từ cache
     private Set<Role> children = new HashSet<>();
 
+    /**
+     * Danh sách các manager có vai trò này.
+     * Quan hệ many-to-many với Manager.
+     */
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<Manager> managers = new HashSet<>();
+
     public Role(String roleName, String description) {
         if (roleName == null || roleName.isEmpty()) {
             throw new IllegalArgumentException("Role name cannot be null or empty");
@@ -113,5 +127,30 @@ public class Role extends BaseEntity<Long> {
     public void removeChild(Role child) {
         children.remove(child);
         child.setParentRole(null);
+    }
+
+    /**
+     * Thêm manager vào vai trò này.
+     * Phương thức này đảm bảo tính nhất quán của mối quan hệ hai chiều.
+     *
+     * @param manager Manager cần thêm.
+     */
+    public void addManager(Manager manager) {
+        if (manager != null) {
+            managers.add(manager);
+            manager.getRoles().add(this);
+        }
+    }
+
+    /**
+     * Xóa manager khỏi vai trò này.
+     *
+     * @param manager Manager cần xóa.
+     */
+    public void removeManager(Manager manager) {
+        if (manager != null) {
+            managers.remove(manager);
+            manager.getRoles().remove(this);
+        }
     }
 }

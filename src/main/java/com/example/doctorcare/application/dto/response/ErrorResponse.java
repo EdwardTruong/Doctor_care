@@ -2,9 +2,7 @@ package com.example.doctorcare.application.dto.response;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ErrorResponse {
 
-    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss dd/MM/yyyy", timezone = "Asia/Ho_Chi_Minh")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss dd/MM/yyyy",
+            timezone = "Asia/Ho_Chi_Minh")
     private long timeStamp;
     private int httpStatusCode;
-    private HttpStatus httpStatus;
     private String message;
     private List<String> details;
-    private int status;
     private String error;
 }

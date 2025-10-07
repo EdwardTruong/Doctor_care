@@ -6,6 +6,7 @@ import com.example.doctorcare.core.domain.BaseRepository;
 
 public interface PlaceRepository extends BaseRepository<Places, Long>{
    Optional<Places> findByNameAndDeleted(String name, boolean status);
+   Optional<Places> findByIdAndDeleted(Long placesId, boolean status);
 
    void deledeleteBy(Long id);
 }

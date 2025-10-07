@@ -21,11 +21,20 @@ public class CreatePlaceCommandHandler implements CommandWithResultHandler<Creat
     
     @Override
     public PlaceDto handle(CreatePlaceCommand command) {
-        Places place =  placeRepository.findByNameAndDeleted(command.name(), false)
-            .orElseThrow(()-> new ConflictException(MESSENGER,"409")) // Xóa i18 rồi
-        ;
-        placeRepository.save(place);
-       return PlaceDto.form(place);
+        // Kiểm tra xem place đã tồn tại chưa
+        placeRepository.findByNameAndDeleted(command.name(), false)
+            .ifPresent(existingPlace -> {
+                throw new ConflictException(MESSENGER, "409");
+            });
+        
+        // Tạo place mới
+        Places newPlace = Places.builder()
+                .name(command.name())
+                .build();
+        
+        Places savedPlace = placeRepository.save(newPlace);
+        
+        return PlaceDto.form(savedPlace);
     }
 
 

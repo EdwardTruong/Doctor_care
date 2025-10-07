@@ -15,7 +15,7 @@ public class ClinicNotFoundException extends RuntimeException {
 			""";
 
 	/**
-	 * Constructs a new {@link UserNotFoundException} with the default message.
+	 * Constructs a new {@link ClinicNotFoundException} with the default message.
 	 */
 	public ClinicNotFoundException() {
 		super(DEFAULT_MESSAGE);

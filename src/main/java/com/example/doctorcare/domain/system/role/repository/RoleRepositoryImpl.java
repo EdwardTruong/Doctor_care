@@ -10,10 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.example.doctorcare.core.domain.BaseEntity;
+import com.example.doctorcare.core.domain.BaseEntity_;
 import com.example.doctorcare.domain.system.role.model.Role;
 import com.example.doctorcare.domain.system.role.model.RoleType;
-
+import com.example.doctorcare.domain.system.role.model.Role_;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;

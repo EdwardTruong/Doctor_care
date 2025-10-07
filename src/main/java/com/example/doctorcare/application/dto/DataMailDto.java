@@ -2,13 +2,6 @@ package com.example.doctorcare.application.dto;
 
 import java.util.Map;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
-
 /*
  *  Fields :
  *  1. The 'from' field is the person who send email 
@@ -19,16 +12,13 @@ import lombok.experimental.FieldDefaults;
  *  
  */
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class DataMailDto {
+public record DataMailDto (
+        String from,
+        String to,
+        String subject,
+        String content,
+        Map<String, Object> props
+) {
 
-	String from;
-	String to;
-	String subject;
-	String content;
-	Map<String, Object> props;
+
 }

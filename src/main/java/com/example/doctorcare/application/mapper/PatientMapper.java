@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import com.example.doctorcare.application.dto.response.PatientDtoAdminResponse;
 import com.example.doctorcare.application.dto.response.PatientDtoDoctorResponse;
 import com.example.doctorcare.application.dto.response.PatientDtoUserAppointmentResponse;
-import com.example.doctorcare.domain.business.doctor.model.Doctor;
+import com.example.doctorcare.domain.business.appointment.Appointment;
+import com.example.doctorcare.domain.business.doctor.Doctor;
 import com.example.doctorcare.domain.business.patients.Patients;
 import com.example.doctorcare.domain.business.schedule.Schedule;
-import com.example.doctorcare.domain.business.status_schedule.Statuses;
 import com.example.doctorcare.domain.system.user.User;
 
 import com.example.doctorcare.infrastructure.utils.ApplicationUtils;
@@ -65,7 +65,7 @@ public class PatientMapper {
 	
 	
 	public PatientDtoUserAppointmentResponse toDtoForUser(Doctor doctor, Schedule schedule, User user,
-		Statuses status, Patients newPatien) {
+		Appointment  status, Patients newPatien) {
 	// return	PatientDtoUserAppointmentResponse.builder()
 	// 		.idUser(user.getId())
 	// 		.nameUser(user.getName())

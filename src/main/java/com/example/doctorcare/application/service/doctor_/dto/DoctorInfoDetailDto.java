@@ -1,0 +1,30 @@
+package com.example.doctorcare.application.service.doctor_.dto;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
+
+public record DoctorInfoDetailDto (
+	String message,
+	Integer userId, // Show it for testing
+	Integer docId,	// Show it for testing
+	String docName,
+	String docEmail,
+	LocalDate docDob,
+	LocalDateTime createAt,
+	String genderl,
+	String phone,
+	String address,
+	String achievement,
+	String docDescription,
+	String trainingProcess,
+	String active,
+	String accountDescription,
+	String clinicName,
+	Set<String> specializationsName
+	
+	) {
+
+	
+	
+}

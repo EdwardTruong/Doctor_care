@@ -2,9 +2,7 @@ package com.example.doctorcare.application.dto.response;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import com.example.doctorcare.domain.business.status_schedule.Statuses;
-
+import com.example.doctorcare.domain.business.appointment.Appointment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +35,6 @@ public class UserDtoPatientResponse {
 
 	String isActive;
 
-	List<Statuses> statuses;
+	List<Appointment> appointment;
 
 }

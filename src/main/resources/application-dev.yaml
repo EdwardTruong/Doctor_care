@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: Website_DoctorCare
+
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT} # bạn có thể thêm vào .env nếu muốn tách MariaDB/PostgreSQL
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  main:
+    banner-mode: off
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    isSSL: false
+
+server:
+  servlet:
+    session:
+      timeout: 1800s
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    jwtCookieName: ${JWT_COOKIE_NAME}
+    expiration: ${JWT_EXPIRATION} # milliseconds
+
+springdoc:
+  api-docs:
+    path: /v2/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

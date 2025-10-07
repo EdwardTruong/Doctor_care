@@ -9,10 +9,9 @@ import org.hibernate.annotations.BatchSize;
 
 import com.example.doctorcare.core.domain.BaseEntity;
 import com.example.doctorcare.core.enums.Gender;
-import com.example.doctorcare.domain.business.clinics.Clinics;
-import com.example.doctorcare.domain.business.doctor.model.Doctor;
-import com.example.doctorcare.domain.business.status_schedule.Statuses;
-
+import com.example.doctorcare.domain.business.appointment.Appointment;
+import com.example.doctorcare.domain.business.clinics_.Clinics;
+import com.example.doctorcare.domain.business.doctor.Doctor;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,22 +28,19 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import lombok.Setter;
 
-@Entity
 @Table(name = "users")
-@Data
-@Builder
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User extends BaseEntity<Long> {
 
 	public static final int MAX_LENGTH_USERNAME = 50;
@@ -56,64 +52,57 @@ public class User extends BaseEntity<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+	private Long id;
 
 	@Column(name = "email")
 	@NotBlank(message = "Nhập địa chỉ mail")
 	@Email(message = "Địa chỉ mail không đúng định dạng !", regexp = "^[\\w-\\+]+(\\.[\\w-\\+]+)*@[\\w-]+(\\.[\\w-]+)*\\.[a-zA-Z]{2,6}$")
-	String email;
+	private String addressEmail;
 
 	@NotNull
 	@Column(name = "username", nullable = false, length = MAX_LENGTH_USERNAME)
-	String username;
+	private String username;
 
 	@Column(name = "encrypted_password", length = MAX_LENGTH_PASSWORD)
-	String encryptedPassword;
+	private String encryptedPassword;
 
 	@Column(name = "address")
-	String address;
+	private String address;
 
 	@Column(name = "fullname")
-	String fullName;
+	private String fullName;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender", length = 10, columnDefinition = "VARCHAR(20)")
-	Gender gender;
+	private Gender gender;
 
 	@Column(name = "phone")
-	String phone;
+	private String phone;
 
 	@Column(name = "description")
-	String description;
+	private String description;
 
 	@Column(name = "avatarUrl")
-	String avatarUrl;
+	private String avatarUrl;
 
 	@Column(name = "date_of_birth")
 	@Temporal(value = TemporalType.DATE)
-	LocalDate dateOfbirth;
+	private LocalDate dateOfbirth;
 
 	@Column(name = "active", nullable = false)
-	boolean active;
+	private boolean active;
 
     @OneToMany(mappedBy = "user")
     @BatchSize(size = 20) // Tối ưu hóa cho các trường hợp không dùng JOIN FETCH
     private Set<UserRole> userRoles;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	Doctor doctor;
+	private Doctor doctor;
 
 	@OneToMany(mappedBy = "owner")
-	Set<Clinics> client;
+	private Set<Clinics> client;
 
 	@OneToMany(mappedBy = "user")
-	List<Statuses> statuses;
+	private List<Appointment> appointment;
 
-	public void addStatus(Statuses status) {
-		if (statuses == null) {
-			statuses = new ArrayList<>();
-		}
-		statuses.add(status);
-		status.setUser(this);
-	}
 }

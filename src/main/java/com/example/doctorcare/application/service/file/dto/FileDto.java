@@ -1,5 +1,6 @@
 package com.example.doctorcare.application.service.file.dto;
 
+import com.example.doctorcare.core.domain.BaseDto;
 import com.example.doctorcare.domain.file.FileStore;
 
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Builder
 @EqualsAndHashCode(callSuper = false)
-public class FileDto extends com.example.doctorcare.core.domain.BaseDto<Long>{
+public class FileDto extends BaseDto<Long>{
 
     private Long id;
     private String contentId;

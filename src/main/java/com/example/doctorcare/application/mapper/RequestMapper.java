@@ -1,11 +1,10 @@
 package com.example.doctorcare.application.mapper;
 
 import org.springframework.stereotype.Component;
-
-import com.example.doctorcare.application.dto.request.DoctorUpdateRequest;
 import com.example.doctorcare.application.dto.request.SignupDoctorRequest;
 import com.example.doctorcare.application.dto.request.SignupRequest;
 import com.example.doctorcare.application.dto.request.UserUpdateRequest;
+import com.example.doctorcare.application.service.doctor_.command.UpdateDoctorCommand;
 
 
 @Component
@@ -25,7 +24,7 @@ public class RequestMapper {
 		
 		return null;
 	}
-	public UserUpdateRequest toUserEditRequest(DoctorUpdateRequest doc) {
+	public UserUpdateRequest toUserEditRequest(UpdateDoctorCommand doc) {
 	// 	return UserUpdateRequest.builder()
 	// 			.name(doc.getName())
 	// 			.address(doc.getAddress())

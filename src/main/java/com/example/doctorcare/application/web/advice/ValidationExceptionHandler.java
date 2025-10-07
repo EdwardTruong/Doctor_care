@@ -32,12 +32,8 @@ public class ValidationExceptionHandler {
 			}
 		}
 
-		return ErrorResponse.builder()
-				.status(HttpStatus.BAD_REQUEST.value())
-				.error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-				.message(MESSAGE)
-				.details(errors)
-				.timeStamp(System.currentTimeMillis())
+		return ErrorResponse.builder().httpStatusCode(HttpStatus.BAD_REQUEST.value())
+				.error(HttpStatus.BAD_REQUEST.getReasonPhrase()).message(MESSAGE).details(errors)
 				.build();
 
 	}

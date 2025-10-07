@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+import com.example.doctorcare.core.domain.BaseEntity;
 import com.example.doctorcare.domain.business.doctorsSpecializations.DoctorsSpecializations;
 import com.example.doctorcare.domain.business.schedule.Schedule;
 
@@ -30,11 +30,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Specializations {
+public class Specializations extends BaseEntity<Long> {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
 
     @Column(name = "name")
     String name;

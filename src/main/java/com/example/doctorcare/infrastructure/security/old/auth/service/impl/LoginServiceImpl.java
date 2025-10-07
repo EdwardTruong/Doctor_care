@@ -17,8 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.application.exception.BadRequestException;
+import com.example.doctorcare.domain.business.session.Session;
+import com.example.doctorcare.domain.business.session.SessionRepository;
 import com.example.doctorcare.domain.system.user.User;
-import com.example.doctorcare.domain.system.user.UserRepository;
+import com.example.doctorcare.domain.system.user.repo.UserRepository;
 import com.example.doctorcare.infrastructure.security.old.auth.security.custom.UserDetailsCustom;
 import com.example.doctorcare.infrastructure.security.old.auth.security.jwt.JwtUtils;
 import com.example.doctorcare.infrastructure.security.old.auth.service.login.ChangePasswordCommand;
@@ -40,15 +42,17 @@ public class LoginServiceImpl implements LoginService {
         JwtUtils jwtUtils;
         AuthenticationManager authenticationManager;
         UserRepository userRepository;
-        SessionRegistry sessionRegistry;
+        SessionRepository sessionRepository;
         PasswordEncoder encoder;
 
         @Override
         public JwtCommand userLogin(LoginCommand loginRequest)
-                        throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
-                        NoSuchAlgorithmException, CertificateException, IOException, java.io.IOException {
-                UsernamePasswordAuthenticationToken userTryLogin = new UsernamePasswordAuthenticationToken(
-                                loginRequest.username(), loginRequest.password());
+                        throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException,
+                        KeyStoreException, NoSuchAlgorithmException, CertificateException,
+                        IOException, java.io.IOException {
+                UsernamePasswordAuthenticationToken userTryLogin =
+                                new UsernamePasswordAuthenticationToken(loginRequest.username(),
+                                                loginRequest.password());
                 Authentication authentication = authenticationManager.authenticate(userTryLogin);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -56,35 +60,32 @@ public class LoginServiceImpl implements LoginService {
                 String jwt = jwtUtils.generateJwt(authentication);
 
                 UserDetailsCustom userDetails = (UserDetailsCustom) authentication.getPrincipal();
-                List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-                                .collect(Collectors.toList());
-                String bearer = "Bearer"; 
-                JwtCommand newJwt = new JwtCommand(
-                        jwt,
-                        userDetails.getUsername(),
-                        bearer,
-                        userDetails.getId(),
-                        roles);
+                List<String> roles = userDetails.getAuthorities().stream()
+                                .map(item -> item.getAuthority()).collect(Collectors.toList());
+                String bearer = "Bearer";
+                JwtCommand newJwt = new JwtCommand(jwt, userDetails.getUsername(), bearer,
+                                userDetails.getId(), roles);
 
                 return newJwt;
         }
 
-        @Override
-        @Transactional
-        public User changingPassword(ChangePasswordCommand request, Session session)
-                        throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
-                        NoSuchAlgorithmException, CertificateException, IOException, java.io.IOException {
+        // @Override
+        // @Transactional
+        // public User changingPassword(ChangePasswordCommand request, Session session)
+        // throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException,
+        // NoSuchAlgorithmException, CertificateException, IOException, java.io.IOException {
 
-                String email = jwtUtils.getUserNameFromJwt(session.getData());
+        // String email = jwtUtils.getUserNameFromJwt(session.getData());
 
-                User entity = userRepository.findByEmailAndDeletedFalse(email).orElseThrow(()-> new BadRequestException("Không tìm thấy email",email,"403"));
-                String newPassword = encoder.encode(request.password());               
-                entity.setEncryptedPassword(newPassword);
-                userRepository.save(entity);
+        // User entity = userRepository.findByEmailAndDeletedFalse(email).orElseThrow(()-> new
+        // BadRequestException("Không tìm thấy email",email,"403"));
+        // String newPassword = encoder.encode(request.password());
+        // entity.setEncryptedPassword(newPassword);
+        // userRepository.save(entity);
 
-                sessionRegistry.delete(session);
+        // sessionRepository.delete(session);
 
-                return entity;
-        }
+        // return entity;
+        // }
 
 }

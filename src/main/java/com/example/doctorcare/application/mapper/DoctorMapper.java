@@ -5,10 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.doctorcare.application.dto.response.DoctorDtoResponse;
 import com.example.doctorcare.application.dto.response.DoctorWithSchedulesResponse;
 import com.example.doctorcare.application.dto.response.ScheduleDtoResponse;
-import com.example.doctorcare.domain.business.doctor.model.Doctor;
+import com.example.doctorcare.domain.business.doctor.Doctor;
 import com.example.doctorcare.infrastructure.utils.ApplicationUtils;
 
 @Component
@@ -17,32 +16,32 @@ public class DoctorMapper {
 	@Autowired
 	ApplicationUtils appUtils;
 	
-	public DoctorDtoResponse toDto(Doctor entity, String message) {
-		// return  DoctorDtoResponse.builder()
-		// 		.userId(entity.getUser().getId()) 			// Show it for testing
-		// 		.docId(entity.getId())						// Show it for testing
-		// 		.docName(entity.getUser().getName())
-		// 		.docEmail(entity.getUser().getEmail())
-		// 		.docDob(entity.getUser().getDateOfbirth())
-		// 		.createAt(entity.getCreateAt())
-		// 		.genderl(entity.getUser().getGenderl())
-		// 		.phone(entity.getUser().getPhone())
-		// 		.address(entity.getUser().getAddress())
-		// 		.specializationsName(entity.getSpecializations().stream().map(Specializations::getName).collect(Collectors.toSet()))
-		// 		.clinicName(entity.getClinic().getName())
-		// 		.accountDescription(entity.getUser().getDescription())
-		// 		.docDescription(entity.getDescription())
-		// 		.trainingProcess(entity.getTrainingProcess())
-		// 		.active(appUtils.converActiveUserToString(entity.getUser().getActive()))
-		// 		.achievement(entity.getAchievement())
-		// 		.message(message)
-		// 		.build();
-		return null;
-	}
+	// public DoctorDetailDto toDto(Doctor entity, String message) {
+	// 	// return  DoctorDtoResponse.builder()
+	// 	// 		.userId(entity.getUser().getId()) 			// Show it for testing
+	// 	// 		.docId(entity.getId())						// Show it for testing
+	// 	// 		.docName(entity.getUser().getName())
+	// 	// 		.docEmail(entity.getUser().getEmail())
+	// 	// 		.docDob(entity.getUser().getDateOfbirth())
+	// 	// 		.createAt(entity.getCreateAt())
+	// 	// 		.genderl(entity.getUser().getGenderl())
+	// 	// 		.phone(entity.getUser().getPhone())
+	// 	// 		.address(entity.getUser().getAddress())
+	// 	// 		.specializationsName(entity.getSpecializations().stream().map(Specializations::getName).collect(Collectors.toSet()))
+	// 	// 		.clinicName(entity.getClinic().getName())
+	// 	// 		.accountDescription(entity.getUser().getDescription())
+	// 	// 		.docDescription(entity.getDescription())
+	// 	// 		.trainingProcess(entity.getTrainingProcess())
+	// 	// 		.active(appUtils.converActiveUserToString(entity.getUser().getActive()))
+	// 	// 		.achievement(entity.getAchievement())
+	// 	// 		.message(message)
+	// 	// 		.build();
+	// 	return null;
+	// }
 
 	
 
-	public DoctorWithSchedulesResponse toDoctorDtoWithSchedulesDtoForAdmin(Doctor entity,List<ScheduleDtoResponse> listSchdulesOfDoctor) {
+	// public DoctorWithSchedulesResponse toDoctorDtoWithSchedulesDtoForAdmin(Doctor entity,List<ScheduleDtoResponse> listSchdulesOfDoctor) {
 		
 	// 	return DoctorWithSchedulesResponse.builder()
 	// 			.idDoctor(entity.getId()) 				// Show it for testing
@@ -53,8 +52,8 @@ public class DoctorMapper {
 	// 			.description(entity.getUser().getDescription())
 	// 			.listSchdulesOfDoctor(listSchdulesOfDoctor)
 	// 			.build();
-	return null;
-	}
+	// return null;
+	// }
 	
 
 }

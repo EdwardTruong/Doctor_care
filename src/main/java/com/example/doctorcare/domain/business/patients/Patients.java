@@ -1,66 +1,93 @@
 package com.example.doctorcare.domain.business.patients;
 
-import java.time.LocalDate;
+import java.util.List;
 
-import com.example.doctorcare.domain.business.doctor.model.Doctor;
-import com.example.doctorcare.domain.business.status_schedule.Statuses;
+import com.example.doctorcare.core.domain.BaseEntity;
+import com.example.doctorcare.core.enums.AppointmentStatus;
+import com.example.doctorcare.domain.business.appointment.Appointment;
+import com.example.doctorcare.domain.system.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+/**
+ * Patient entity - Đại diện cho bệnh nhân trong hệ thống
+ * Một User trở thành Patient khi đặt lịch khám với bác sỹ
+ */
 @Table(name = "patients")
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Patients {
+public class Patients extends BaseEntity<Long> {
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-	@Column(name = "time")
-	String time;
+    // Reference tới User (không duplicate data)
+    @ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    User user;
 
-	@Column(name = "system_note")
-	String note;
+    // 4 trường Patient-specific data
+    
+    /**
+     * Tên người đi khám - có thể khác với User nếu đăng ký hộ
+     */
+    @Column(name = "patient_name", nullable = false)
+    String patientName;
 
-	@Column(name = "active")
-	int active;
-	
-	@Column(name="price")
-	Integer price;
-	
-	@Column(name = "date")
-	LocalDate date;
-	
+    /**
+     * Nội dung khám trước khi khám
+     */
+    @Column(name = "pre_exam_content", columnDefinition = "TEXT")
+    String preExamContent;
 
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	@JoinColumn(name = "doctor_id")
-	@JsonIgnore // dùng để không hiển thị lúc load toàn bộ bệnh nhân.
-	Doctor doctor;
+    /**
+     * Chi tiết bệnh sau khi khám
+     */
+    @Column(name = "post_exam_details", columnDefinition = "TEXT")
+    String postExamDetails;
 
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	@JoinColumn(name = "status_id")
-	@JsonManagedReference
-	Statuses status;
+    /**
+     * Trạng thái cuộc hẹn
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    @Builder.Default
+    AppointmentStatus status = AppointmentStatus.PENDING;
+
+    // Relationships
+    
+    /**
+     * Danh sách các cuộc hẹn của bệnh nhân
+     */
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    List<Appointment> appointments;
 }
 

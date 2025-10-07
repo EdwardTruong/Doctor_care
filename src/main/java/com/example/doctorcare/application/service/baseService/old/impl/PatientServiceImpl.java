@@ -81,7 +81,7 @@
 // 	@Override
 // 	public Integer getDoctorIdByEmail(String email) {
 // 		User user = userService.findByEmail(email);
-// 		return user.getDoctorEntity().getId();
+// 		return user.getDoctor().getId();
 // 	}
 
 // 	@Override

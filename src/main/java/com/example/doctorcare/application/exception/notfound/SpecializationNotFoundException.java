@@ -15,14 +15,14 @@ public class SpecializationNotFoundException extends RuntimeException {
 			""";
 
 	/**
-	 * Constructs a new {@link SpecializationNotFound} with the default message.
+	 * Constructs a new {@link SpecializationNotFoundException} with the default message.
 	 */
 	public SpecializationNotFoundException() {
 		super(DEFAULT_MESSAGE);
 	}
 
 	/**
-	 * Constructs a new {@link SpecializationNotFound} with the default message and
+	 * Constructs a new {@link SpecializationNotFoundException} with the default message and
 	 * an additional message.
 	 *
 	 * @param message the additional message to include.

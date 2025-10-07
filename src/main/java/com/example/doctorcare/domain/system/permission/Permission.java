@@ -1,7 +1,6 @@
 package com.example.doctorcare.domain.system.permission;
 
 import java.util.Objects;
-
 import com.example.doctorcare.core.domain.BaseEntity;
 import com.example.doctorcare.core.enums.Action;
 import com.example.doctorcare.core.enums.Resource;
@@ -41,6 +40,7 @@ import lombok.ToString;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Permission extends BaseEntity<Long> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

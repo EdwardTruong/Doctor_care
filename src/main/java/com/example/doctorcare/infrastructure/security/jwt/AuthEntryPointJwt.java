@@ -40,12 +40,8 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 				
 		response.setContentType(APPLICATION_JSON_VALUE);
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
-		HttpResponse httpResponse = HttpResponse.builder()
-					.timeStamp(new Date())
-					.httpStatusCode(HttpStatus.UNAUTHORIZED.value())
-					.httpStatus(HttpStatus.UNAUTHORIZED)
-					.message(MESSENGER_ERROR.SECURITY_ERROR)
-				.build();
+		HttpResponse httpResponse = new HttpResponse(new Date(),HttpStatus.UNAUTHORIZED.value(),HttpStatus.UNAUTHORIZED,MESSENGER_ERROR.SECURITY_ERROR);
+
 				
 		OutputStream outputStream = response.getOutputStream();
 		ObjectMapper mapper = new ObjectMapper();
