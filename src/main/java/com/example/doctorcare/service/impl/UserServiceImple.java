@@ -27,7 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.dao.UserRepository;
-import com.example.doctorcare.dto.DataMailDto;
+import com.example.doctorcare.model.dto.DataMailDto;
 import com.example.doctorcare.dto.request.ChangePasswordRequest;
 import com.example.doctorcare.dto.request.LoginRequest;
 import com.example.doctorcare.dto.request.SignupDoctorRequest;
@@ -37,7 +37,7 @@ import com.example.doctorcare.dto.response.JwtResponse;
 import com.example.doctorcare.dto.response.UserDtoPatientResponse;
 import com.example.doctorcare.dto.response.UserDtoResponse;
 import com.example.doctorcare.entity.RoleEntity;
-import com.example.doctorcare.entity.Session;
+import com.example.doctorcare.model.entity.Session;
 import com.example.doctorcare.entity.Statuses;
 import com.example.doctorcare.entity.UserEntity;
 import com.example.doctorcare.exception.ActiveException;

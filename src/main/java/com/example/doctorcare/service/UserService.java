@@ -18,7 +18,7 @@ import com.example.doctorcare.dto.response.JwtResponse;
 import com.example.doctorcare.dto.response.UserDtoPatientResponse;
 import com.example.doctorcare.dto.response.UserDtoResponse;
 import com.example.doctorcare.entity.RoleEntity;
-import com.example.doctorcare.entity.Session;
+import com.example.doctorcare.model.entity.Session;
 import com.example.doctorcare.entity.Statuses;
 import com.example.doctorcare.entity.UserEntity;
 

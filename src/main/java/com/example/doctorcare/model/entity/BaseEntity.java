@@ -6,9 +6,7 @@ import java.util.Optional;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 
-import com.example.doctorcare.common.utils.TokenClaims;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +20,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Data;
 import lombok.Getter;
 
@@ -44,48 +43,48 @@ public class BaseEntity {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     @Temporal(value = TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime createAt;
+    protected LocalDateTime createdAt;
 
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     @Temporal(value = TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime updatedAt;
-
-    @Column(name = "create_at")
-    LocalDateTime createdAt;
+    protected LocalDateTime updatedAt;
 
     @Column(name = "created_by")
-    private String createdBy;
+    protected String createdBy;
 
     @Column(name = "updated_by")
-    private String updatedBy;
+    protected String updatedBy;
 
-    @Column(name = "delete_at")
-    LocalDateTime deleteAt;
+    @Column(name = "deleted_at")
+    protected LocalDateTime deletedAt;
 
     @PrePersist
     public void prePersist() {
-        this.createdBy = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .map(Authentication::getPrincipal)
-                .filter(user -> !"anonymousUser".equals(user))
-                .map(Jwt.class::cast)
-                .map(jwt -> jwt.getClaim(TokenClaims.USER_EMAIL.getValue()).toString())
-                .orElse("anonymousUser");
+        this.createdBy = getCurrentUsername();
         this.createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.updatedBy = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .map(Authentication::getPrincipal)
-                .filter(user -> !"anonymousUser".equals(user))
-                .map(Jwt.class::cast)
-                .map(jwt -> jwt.getClaim(TokenClaims.USER_EMAIL.getValue()).toString())
-                .orElse("anonymousUser");
+        this.updatedBy = getCurrentUsername();
         this.updatedAt = LocalDateTime.now();
+    }
+    
+    private String getCurrentUsername() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated() 
+                && !"anonymousUser".equals(authentication.getPrincipal())) {
+                return authentication.getName();
+            }
+        } catch (Exception e) {
+            // Log error if needed, but don't break the flow
+        }
+        return "system";
     }
 
 }
