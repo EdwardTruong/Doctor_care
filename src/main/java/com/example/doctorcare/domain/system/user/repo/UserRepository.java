@@ -15,7 +15,7 @@ import com.example.doctorcare.domain.system.user.User;
  */
 
 public interface UserRepository extends BaseRepository<User, Long> {
-    Optional<User> findByEmailAndDeletedFalse(String email);
+    Optional<User> findByEmailAndDeleted(String email, boolean deleted);
     
     Boolean existsByEmail(String email);
 

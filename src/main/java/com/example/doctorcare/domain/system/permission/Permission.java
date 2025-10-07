@@ -1,6 +1,9 @@
 package com.example.doctorcare.domain.system.permission;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 import com.example.doctorcare.core.domain.BaseEntity;
 import com.example.doctorcare.core.enums.Action;
 import com.example.doctorcare.core.enums.Resource;
@@ -10,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,6 +24,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -72,6 +77,16 @@ public class Permission extends BaseEntity<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", nullable = true)
     private Permission parent;
+    
+    /**
+     * Relationship with RolePermission for role assignments.
+     * This allows fetching all roles that have this permission.
+     */
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<com.example.doctorcare.domain.system.role.model.RolePermission> rolePermissions = new HashSet<>();
 
     public Permission(Action action, Resource resource, Scope scope) {
         if (action == null) {

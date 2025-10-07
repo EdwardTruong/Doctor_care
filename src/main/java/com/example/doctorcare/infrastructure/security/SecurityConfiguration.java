@@ -14,9 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.example.doctorcare.infrastructure.security.jwt.AuthEntryPointJwt;
-import com.example.doctorcare.infrastructure.security.jwt.AuthTokenFilter;
+import com.example.doctorcare.infrastructure.security.domain.jwt.AuthEntryPointJwt;
+import com.example.doctorcare.infrastructure.security.domain.jwt.AuthTokenFilter;
 import com.example.doctorcare.infrastructure.security.service.UserDetailsServiceImpl;
 
 @Configuration

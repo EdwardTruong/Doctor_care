@@ -97,6 +97,16 @@ public class Role extends BaseEntity<Long> {
     @ToString.Exclude
     @JsonIgnore
     private Set<Manager> managers = new HashSet<>();
+    
+    /**
+     * Relationship with RolePermission for permission assignments.
+     * This allows fetching all permissions assigned to this role.
+     */
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    @JsonIgnore
+    private Set<RolePermission> rolePermissions = new HashSet<>();
 
     public Role(String roleName, String description) {
         if (roleName == null || roleName.isEmpty()) {

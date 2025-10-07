@@ -18,6 +18,16 @@ public interface RoleRepository extends BaseRepository<Role, Long>, RoleReposito
     Optional<Role> findByNameAndDeletedFalse(String name);
     
     Optional<Role> findByName(String name);
+    
+    /**
+     * Find role by system key (for default system roles)
+     */
+    Optional<Role> findBySystemKey(String systemKey);
+    
+    /**
+     * Find role by system key and not deleted
+     */
+    Optional<Role> findBySystemKeyAndDeletedFalse(String systemKey);
 
     /**
      * Tìm tất cả các vai trò con trực tiếp của một vai trò cha.
@@ -69,5 +79,15 @@ public interface RoleRepository extends BaseRepository<Role, Long>, RoleReposito
     List<Long> findAllDescendantRoleIdsIncludingSelf(@Param("roleId") Long roleId);
 
     Set<Role> findAllByIdInAndIsActiveTrue(Set<Long> roleIds);
+    
+    /**
+     * Find role by ID with permissions eagerly loaded.
+     * This method fetches the role along with its associated permissions.
+     * 
+     * @param roleId The role ID
+     * @return Role with permissions loaded
+     */
+    @Query("SELECT r FROM Role r LEFT JOIN FETCH r.rolePermissions rp LEFT JOIN FETCH rp.permission WHERE r.id = :roleId AND r.deleted = false")
+    Role findByIdWithPermissions(@Param("roleId") Long roleId);
 
 }
