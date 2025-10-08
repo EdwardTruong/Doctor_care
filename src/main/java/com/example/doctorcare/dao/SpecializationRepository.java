@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import com.example.doctorcare.model.entity.Specializations;
 
-import com.example.doctorcare.entity.Specializations;
 
 @Repository
 public interface SpecializationRepository extends JpaRepository<Specializations, Integer> {
-	Optional<Specializations> findById(Integer id);
+	Optional<Specializations> findByIdAndDeleted(Integer id, Boolean deleted);
 	Optional<Specializations> findByName(String name);
 
 	

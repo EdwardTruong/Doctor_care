@@ -1,5 +1,4 @@
 package com.example.doctorcare.model.entity;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

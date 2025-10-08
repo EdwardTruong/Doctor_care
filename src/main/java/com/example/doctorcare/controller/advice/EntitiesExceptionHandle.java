@@ -15,12 +15,10 @@ import com.example.doctorcare.exception.notfound.SessionNotFoundException;
 import com.example.doctorcare.exception.notfound.SpecializationNotFoundException;
 import com.example.doctorcare.exception.response.ClinicResponeException;
 import com.example.doctorcare.exception.response.DoctorResponeException;
-import com.example.doctorcare.exception.response.EntityResponeException;
 import com.example.doctorcare.exception.response.PatientResponeException;
 import com.example.doctorcare.exception.response.SessionResponeException;
 import com.example.doctorcare.model.dto.response.HttpResponse;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class EntitiesExceptionHandle {

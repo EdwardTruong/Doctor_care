@@ -29,7 +29,6 @@ import com.example.doctorcare.model.mapper.ScheduleMapper;
 import com.example.doctorcare.repository.ScheduleRepository;
 import com.example.doctorcare.service.ScheduleService;
 import com.example.doctorcare.service.SpecializationService;
-
 import jakarta.transaction.Transactional;
 
 @Service

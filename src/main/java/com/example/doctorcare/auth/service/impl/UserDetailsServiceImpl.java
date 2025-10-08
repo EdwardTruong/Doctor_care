@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import com.example.doctorcare.auth.exception.UserNotFoundException;
 import com.example.doctorcare.auth.security.custom.UserDetailsCustom;
 import com.example.doctorcare.common.utils.Const.*;

@@ -81,11 +81,11 @@ public class UserServiceImpl implements UserService {
                 // Create a new UserEntity using the builder pattern
                 .email(signUpRequest.getEmail())
                 .name(signUpRequest.getFullName())
-                .genderl(signUpRequest.getGender())
+                .gender(signUpRequest.getGender())
                 .password(encoder.encode(signUpRequest.getPassword()))
                 .phone(signUpRequest.getPhone())
                 .address(signUpRequest.getAddress())
-                .dateOfbirth(signUpRequest.getDateOfbirth())
+                .dateOfBirth(signUpRequest.getDateOfBirth())
                 .active(0)
                 .roles(roles)
                 .build();
@@ -147,8 +147,8 @@ public class UserServiceImpl implements UserService {
                 .name(userRequest.getName())
                 .address(userRequest.getAddress())
                 .phone(userRequest.getPhone())
-                .genderl(userRequest.getGender())
-                .dateOfbirth(userRequest.getDateOfbirth())
+                .gender(userRequest.getGender())
+                .dateOfBirth(userRequest.getDateOfBirth())
                 .updatedAt(LocalDateTime.now())
                 .build();
     }
@@ -159,8 +159,8 @@ public class UserServiceImpl implements UserService {
         user.setName(request.getName());
         user.setAddress(request.getAddress());
         user.setPhone(request.getPhone());
-        user.setGenderl(request.getGender());
-        user.setDateOfbirth(request.getDateOfbirth());
+        user.setGender(request.getGender());
+        user.setDateOfBirth(request.getDateOfBirth());
         user.setUpdatedAt(LocalDateTime.now());
         return userMapper.toDto(userRepository.saveAndFlush(user), MESSENGER.UPDATE_INFO);
     }
@@ -170,8 +170,8 @@ public class UserServiceImpl implements UserService {
         entity.setName(request.getName());
         entity.setAddress(request.getAddress());
         entity.setPhone(request.getPhone());
-        entity.setGenderl(request.getGender());
-        entity.setDateOfbirth(request.getDateOfbirth());
+        entity.setGender(request.getGender());
+        entity.setDateOfBirth(request.getDateOfBirth());
         entity.setUpdatedAt(LocalDateTime.now());
         return userRepository.saveAndFlush(entity);
     }

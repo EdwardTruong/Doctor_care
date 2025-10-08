@@ -8,27 +8,25 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.Map;
-
-import com.example.doctorcare.dto.request.ChangePasswordRequest;
-import com.example.doctorcare.dto.request.LoginRequest;
-import com.example.doctorcare.dto.request.SignupDoctorRequest;
-import com.example.doctorcare.dto.request.SignupRequest;
-import com.example.doctorcare.dto.request.UserUpdateRequest;
-import com.example.doctorcare.dto.response.JwtResponse;
-import com.example.doctorcare.dto.response.UserDtoPatientResponse;
-import com.example.doctorcare.dto.response.UserDtoResponse;
-import com.example.doctorcare.entity.RoleEntity;
+import com.example.doctorcare.model.dto.request.ChangePasswordRequest;
+import com.example.doctorcare.model.dto.request.LoginRequest;
+import com.example.doctorcare.model.dto.request.SignupDoctorRequest;
+import com.example.doctorcare.model.dto.request.SignupRequest;
+import com.example.doctorcare.model.dto.request.UserUpdateRequest;
+import com.example.doctorcare.model.dto.response.JwtResponse;
+import com.example.doctorcare.model.dto.response.UserDtoPatientResponse;
+import com.example.doctorcare.model.dto.response.UserDtoResponse;
+import com.example.doctorcare.model.entity.RoleEntity;
 import com.example.doctorcare.model.entity.Session;
-import com.example.doctorcare.entity.Statuses;
-import com.example.doctorcare.entity.UserEntity;
-
+import com.example.doctorcare.model.entity.Statuses;
+import com.example.doctorcare.model.entity.UserEntity;
 import jakarta.mail.MessagingException;
 
 public interface UserService {
 		
-	List<UserEntity> loadAll();
+	List<UserDtoResponse> loadAll();
 		
-	UserEntity findById(Integer id);
+	UserDtoResponse findById(Integer id);
 	
 	void save(UserEntity entity);
 	
@@ -50,7 +48,7 @@ public interface UserService {
 	
 	Map<String, String> sendEmailRestPassword(String email, String tokenUrl, String data) throws MessagingException, IOException;
 
-	UserEntity createrUser(SignupRequest signUpRequest, RoleEntity role);
+	UserEntity createUser(SignupRequest signUpRequest, RoleEntity role);
 
 	UserEntity changingPassword(ChangePasswordRequest request,Session session) throws io.jsonwebtoken.io.IOException, UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException, CertificateException, FileNotFoundException, IOException;
 	
@@ -66,9 +64,8 @@ public interface UserService {
 	
 	UserDtoResponse createUserEntity(SignupRequest signUpRequest, RoleEntity role);
 
-	UserEntity createrUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role);
+	UserEntity createUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role);
 
-	int passworRegisterdErrors(String password);
+	int passwordRegisteredErrors(String password);
 
-	
 }	

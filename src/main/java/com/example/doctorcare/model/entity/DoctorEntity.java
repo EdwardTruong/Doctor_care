@@ -3,7 +3,6 @@ package com.example.doctorcare.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

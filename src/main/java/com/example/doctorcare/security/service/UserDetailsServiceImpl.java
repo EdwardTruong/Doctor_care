@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.dao.UserRepository;
-import com.example.doctorcare.entity.UserEntity;
 import com.example.doctorcare.exception.UserNotFoundException;
+import com.example.doctorcare.model.entity.UserEntity;
 import com.example.doctorcare.security.custom.UserDetailsCustom;
 import com.example.doctorcare.utils.Const.*;
 

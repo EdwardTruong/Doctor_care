@@ -15,10 +15,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.bouncycastle.openssl.PasswordException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,31 +24,29 @@ import org.springframework.stereotype.Service;
 
 import com.example.doctorcare.dao.UserRepository;
 import com.example.doctorcare.model.dto.DataMailDto;
-import com.example.doctorcare.dto.request.ChangePasswordRequest;
-import com.example.doctorcare.dto.request.LoginRequest;
-import com.example.doctorcare.dto.request.SignupDoctorRequest;
-import com.example.doctorcare.dto.request.SignupRequest;
-import com.example.doctorcare.dto.request.UserUpdateRequest;
-import com.example.doctorcare.dto.response.JwtResponse;
-import com.example.doctorcare.dto.response.UserDtoPatientResponse;
-import com.example.doctorcare.dto.response.UserDtoResponse;
-import com.example.doctorcare.entity.RoleEntity;
+import com.example.doctorcare.model.dto.request.ChangePasswordRequest;
+import com.example.doctorcare.model.dto.request.LoginRequest;
+import com.example.doctorcare.model.dto.request.SignupDoctorRequest;
+import com.example.doctorcare.model.dto.request.SignupRequest;
+import com.example.doctorcare.model.dto.request.UserUpdateRequest;
+import com.example.doctorcare.model.dto.response.JwtResponse;
+import com.example.doctorcare.model.dto.response.UserDtoPatientResponse;
+import com.example.doctorcare.model.dto.response.UserDtoResponse;
+import com.example.doctorcare.model.entity.RoleEntity;
 import com.example.doctorcare.model.entity.Session;
-import com.example.doctorcare.entity.Statuses;
-import com.example.doctorcare.entity.UserEntity;
+import com.example.doctorcare.model.entity.Statuses;
+import com.example.doctorcare.model.entity.UserEntity;
+import com.example.doctorcare.model.mapper.RequestMapper;
+import com.example.doctorcare.model.mapper.UserMapper;
 import com.example.doctorcare.exception.ActiveException;
 import com.example.doctorcare.exception.EmailExistException;
 import com.example.doctorcare.exception.PasswordRegisterErrors;
 import com.example.doctorcare.exception.UserNotFoundException;
-import com.example.doctorcare.mapper.RequestMapper;
-import com.example.doctorcare.mapper.UserMapper;
 import com.example.doctorcare.security.custom.UserDetailsCustom;
 import com.example.doctorcare.security.jwt.JwtUtils;
 import com.example.doctorcare.service.MailService;
-import com.example.doctorcare.service.RoleService;
 import com.example.doctorcare.service.SessionService;
 import com.example.doctorcare.service.UserService;
-import com.example.doctorcare.utils.ApplicationUtils;
 import com.example.doctorcare.utils.Const.ACTIVE;
 import com.example.doctorcare.utils.Const.MESSENGER;
 import com.example.doctorcare.utils.Const.MESSENGER_ERROR;
@@ -62,52 +56,49 @@ import com.example.doctorcare.utils.Const.VIEW;
 
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
-public class UserServiceImple implements UserService {
+@Transactional
+@Slf4j
+@RequiredArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
+public class UserServiceImpl implements UserService {
 
-	@Autowired
 	UserRepository userDao;
 
-	@Autowired
 	AuthenticationManager authenticationManager;
 
-	@Autowired
 	JwtUtils jwtUtils;
 
-	@Autowired
 	MailService mailService;
 
-	@Autowired
 	PasswordEncoder encoder;
 
-	@Autowired
-	RoleService roleService;
-
-	@Autowired
 	SessionService sService;
 
-	@Autowired
 	UserMapper userMapper;
 
-	@Autowired
 	RequestMapper signupMapper;
 
-	@Autowired
-	ApplicationUtils appUtils;
-
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceImple.class);
 
 	@Override
-	public List<UserEntity> loadAll() {
-		return userDao.findAll();
+	public List<UserDtoResponse> loadAll() {
+		return userDao.findAllAndDeleted(false).stream()
+				.map(user -> userMapper.toDto(user, MESSENGER.SUCCESS)).toList();
 	}
 
 	@Override
-	public UserEntity findById(Integer id) {
-		Optional<UserEntity> resutl = userDao.findById(id);
-		return resutl.orElseThrow(
-				() -> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_ID + ": (" + id + ")."));
+	public UserDtoResponse findById(Integer id) {
+		Optional<UserEntity> result = userDao.findByIdAndDeleted(id, false);
+		if (result.isPresent()) {
+			return userMapper.toDto(result.get(), MESSENGER.SUCCESS + ": (" + id + ").");
+		} else {
+			throw new UserNotFoundException(
+					MESSENGER_NOT_FOUND.USER_NOT_FOUND_ID + ": (" + id + ").");
+		}
 	}
 
 	@Override
@@ -125,15 +116,31 @@ public class UserServiceImple implements UserService {
 		entity.setName(request.getName());
 		entity.setAddress(request.getAddress());
 		entity.setPhone(request.getPhone());
-		entity.setGenderl(request.getGender());
-		entity.setDateOfbirth(request.getDateOfbirth());
-		entity.setUpdateAt(LocalDateTime.now());
+		entity.setGender(request.getGender());
+		entity.setDateOfBirth(request.getDateOfBirth());
+		entity.setUpdatedAt(LocalDateTime.now());
 		return userDao.saveAndFlush(entity);
 	}
 
 	@Override
 	public void delete(UserEntity entity) {
-		userDao.delete(entity);
+		Optional<UserEntity> userFound = userDao.findById(entity.getId());
+
+		if (userFound.isEmpty()) {
+			throw new UserNotFoundException(
+					MESSENGER_NOT_FOUND.USER_NOT_FOUND_ID + ": (" + entity.getId() + ").");
+		}
+
+		UserEntity user = userFound.get();
+
+		if (Boolean.TRUE.equals(user.getDeleted())) {
+			throw new UserNotFoundException(
+					MESSENGER_NOT_FOUND.ENTITY_DELETED + ": (" + entity.getId() + ").");
+		}
+
+		user.setDeleted(true);
+		userDao.save(user);
+
 	}
 
 	@Override
@@ -145,14 +152,15 @@ public class UserServiceImple implements UserService {
 
 	@Override
 	public boolean emailExist(String email) {
-		Optional<UserEntity> resutl = userDao.findUserByEmail(email);
-		return resutl.isPresent();
+		Optional<UserEntity> result = userDao.findUserByEmail(email);
+		return result.isPresent();
 	}
 
 	@Override
 	public UserEntity findByEmail(String email) {
 		Optional<UserEntity> result = userDao.findUserByEmail(email);
-		return result.orElseThrow(() -> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL));
+		return result.orElseThrow(
+				() -> new UserNotFoundException(MESSENGER_NOT_FOUND.USER_NOT_FOUND_EMAIL));
 	}
 
 	@Override
@@ -168,12 +176,8 @@ public class UserServiceImple implements UserService {
 		Map<String, Object> props = new HashMap<>();
 		props.put("tokenUrl", tokenUrl);
 
-		DataMailDto dataMail = DataMailDto.builder()
-				.to(email)
-				.subject(MESSENGER.HEADER_MAIL_PASSWORD)
-				.content(tokenUrl)
-				.props(props)
-				.build();
+		DataMailDto dataMail = DataMailDto.builder().to(email)
+				.subject(MESSENGER.HEADER_MAIL_PASSWORD).content(tokenUrl).props(props).build();
 
 		mailService.sendHtmlMail(dataMail, VIEW.EMAIL_PASSWORD, null);
 
@@ -187,45 +191,39 @@ public class UserServiceImple implements UserService {
 	}
 
 	@Override
-	public UserEntity createrUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role) {
+	public UserEntity createUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role) {
 		SignupRequest userRegister = signupMapper.toSignupUser(docRequest);
-		return this.createrUser(userRegister, role);
+		return this.createUser(userRegister, role);
 	}
 
 	@Override
 	@Transactional
-	public UserEntity createrUser(SignupRequest signUpRequest, RoleEntity role) {
+	public UserEntity createUser(SignupRequest signUpRequest, RoleEntity role) {
 
 		if (this.emailExist(signUpRequest.getEmail())) {
 			throw new EmailExistException(MESSENGER_ERROR.USER_EXIST);
 		}
 
-		if (passworRegisterdErrors(signUpRequest.getPassword()) != 0) {
-			throw new PasswordRegisterErrors(MESSENGER_ERROR.PASSOWRD_REGISTER_ERROR);
+		if (passwordRegisteredErrors(signUpRequest.getPassword()) != 0) {
+			throw new PasswordRegisterErrors(MESSENGER_ERROR.PASSWORD_REGISTER_ERROR);
 		}
 
 		Set<RoleEntity> roles = new HashSet<>();
 		roles.add(role);
 
-		UserEntity user = UserEntity.builder()
-				.email(signUpRequest.getEmail())
-				.name(signUpRequest.getFullName())
-				.genderl(signUpRequest.getGender())
+		UserEntity user = UserEntity.builder().email(signUpRequest.getEmail())
+				.name(signUpRequest.getFullName()).gender(signUpRequest.getGender())
 				.password(encoder.encode(signUpRequest.getPassword()))
-				.phone(signUpRequest.getPhone())
-				.address(signUpRequest.getAddress())
-				.dateOfbirth(signUpRequest.getDateOfbirth())
-				.createdAt(LocalDateTime.now())
-				.active(0)
-				.roles(roles)
-				.build();
+				.phone(signUpRequest.getPhone()).address(signUpRequest.getAddress())
+				.dateOfBirth(signUpRequest.getDateOfBirth()).createdAt(LocalDateTime.now())
+				.active(0).roles(roles).build();
 		this.save(user);
 		return user;
 	}
 
 	@Override
 	public UserDtoResponse createUserEntity(SignupRequest signUpRequest, RoleEntity role) {
-		UserEntity user = this.createrUser(signUpRequest, role);
+		UserEntity user = this.createUser(signUpRequest, role);
 		return userMapper.toDto(user, MESSENGER.CREATE_USER);
 	}
 
@@ -239,7 +237,7 @@ public class UserServiceImple implements UserService {
 
 		UserEntity entity = this.findByEmail(email);
 		entity.setPassword(encoder.encode(request.getPassword()));
-		entity.setUpdateAt(LocalDateTime.now());
+		entity.setUpdatedAt(LocalDateTime.now());
 		this.update(entity);
 
 		sService.delete(session);
@@ -251,48 +249,53 @@ public class UserServiceImple implements UserService {
 	public UserDtoResponse lockPatient(Integer id, String reason) {
 
 		String result = "";
-		UserEntity userEntity = this.findById(id);
+		UserEntity userFound =
+				userDao.findByIdAndDeleted(id, false).orElseThrow(() -> new UserNotFoundException(
+						MESSENGER_NOT_FOUND.USER_NOT_FOUND_ID + ": (" + id + ")."));
+
 
 		if (id == 1) {
 			throw new ActiveException(MESSENGER_ERROR.CANT_LOCK_ADMIN);
 		}
 
-		if (userEntity.getDoctorEntity() != null) {
+		if (userFound.getDoctorEntity() != null) {
 			throw new ActiveException(MESSENGER_ERROR.CANT_LOCK_DOC);
 		}
 
-		if (userEntity.getActive() == ACTIVE.NONE) {
+		if (userFound.getActive() == ACTIVE.NONE) {
 			throw new ActiveException(MESSENGER_ERROR.CANT_LOCK);
 		} else {
-			userEntity.setActive(ACTIVE.NONE);
+			userFound.setActive(ACTIVE.NONE);
 			result = MESSENGER.LOCKED_SUCCESS;
 		}
-		userEntity.setDescription(reason);
-		userEntity.setUpdateAt(LocalDateTime.now());
-		this.update(userEntity);
+		userFound.setDescription(reason);
+		userFound.setUpdatedAt(LocalDateTime.now());
+		this.update(userFound);
 
-		logger.info(result);
+		log.info(result);
 
-		return userMapper.toDto(userEntity, result);
+		return userMapper.toDto(userFound, result);
 	}
 
 	@Override
 	public UserDtoResponse unlockPatient(Integer id, String reason) {
 		String result = "";
-		UserEntity userEntity = this.findById(id);
-		if (userEntity.getActive() == ACTIVE.ACCEPT) {
+		UserEntity userFound =
+				userDao.findByIdAndDeleted(id, false).orElseThrow(() -> new UserNotFoundException(
+						MESSENGER_NOT_FOUND.USER_NOT_FOUND_ID + ": (" + id + ")."));
+		if (userFound.getActive() == ACTIVE.ACCEPT) {
 			throw new ActiveException(MESSENGER_ERROR.CANT_UNLOCK);
 		} else {
-			userEntity.setActive(ACTIVE.ACCEPT);
+			userFound.setActive(ACTIVE.ACCEPT);
 			result = MESSENGER.UNLOCK_SUCCESS;
 		}
-		userEntity.setDescription(reason);
-		userEntity.setUpdateAt(LocalDateTime.now());
-		this.update(userEntity);
+		userFound.setDescription(reason);
+		userFound.setUpdatedAt(LocalDateTime.now());
+		this.update(userFound);
 
-		logger.info(result);
+		log.info(result);
 
-		return userMapper.toDto(userEntity, result);
+		return userMapper.toDto(userFound, result);
 
 	}
 
@@ -333,14 +336,14 @@ public class UserServiceImple implements UserService {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		JwtResponse newJwt = JwtResponse.builder().token(jwt).email(userDetails.getUsername()).type("Bearer")
-				.id(userDetails.getId()).roles(roles).build();
+		JwtResponse newJwt = JwtResponse.builder().token(jwt).email(userDetails.getUsername())
+				.type("Bearer").id(userDetails.getId()).roles(roles).build();
 
 		return newJwt;
 	}
 
 	@Override
-	public int passworRegisterdErrors(String password) {
+	public int passwordRegisteredErrors(String password) {
 		boolean isNumberInside = false;
 		boolean isLowerCaseInside = false;
 		boolean isUpperCaseInside = false;

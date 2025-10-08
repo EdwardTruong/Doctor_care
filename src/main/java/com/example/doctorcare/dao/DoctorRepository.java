@@ -9,12 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.doctorcare.dto.DoctorDto;
-import com.example.doctorcare.entity.DoctorEntity;
+import com.example.doctorcare.model.dto.response.DoctorDtoResponse;
+import com.example.doctorcare.model.entity.DoctorEntity;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<DoctorEntity, Integer> {
-	Optional<DoctorEntity> findById(Integer id);
+	Optional<DoctorDtoResponse> findByIdAndDeleted(Integer id, Boolean deleted);
 	
 	
     //Find the doctor(s) with schedule :
@@ -25,7 +25,7 @@ public interface DoctorRepository extends JpaRepository<DoctorEntity, Integer> {
 		    + "JOIN Specializations s 			ON s.id = ds.specializations.id "
 		    + "JOIN Schedule sch	 			ON sch.doctorEntity.id = d.id "
 			+ "WHERE s.name = :inputName AND sch.date = :inputDate")
-		List<DoctorDto> listDoctorSpecializationWithSchedule(@Param("inputName") String name, @Param("inputDate") LocalDate date);
+		List<DoctorDtoResponse> listDoctorSpecializationWithSchedule(@Param("inputName") String name, @Param("inputDate") LocalDate date);
 
 	
 	/*

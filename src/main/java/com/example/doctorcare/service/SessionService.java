@@ -5,10 +5,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-
 import com.example.doctorcare.model.entity.Session;
 import com.example.doctorcare.model.entity.UserEntity;
-
 import io.jsonwebtoken.io.IOException;
 
 public interface SessionService {

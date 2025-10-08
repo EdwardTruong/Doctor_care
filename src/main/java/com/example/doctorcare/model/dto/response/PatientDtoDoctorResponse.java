@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PatientDtoDoctorResponse {
 	String name;
-	String genderl;
+	String gender;
 	String address;
 	String time;
 	String statusName;

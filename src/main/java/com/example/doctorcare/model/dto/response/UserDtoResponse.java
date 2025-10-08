@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDtoResponse {
 
-	 Integer id; // Not allow showing but for now show it to test funtion success or not.
+	 Integer id; // Not allow showing but for now show it to test function success or not.
 	 String email;
 	 String name;
 	 String address;
@@ -31,7 +31,7 @@ public class UserDtoResponse {
 	 String accountDescription;
 	 LocalDateTime createdAt;
 	 LocalDateTime updateAt;
-	 LocalDate dateOfbirth;
+	 LocalDate dateOfBirth;
 	 String isActive;
 	 Set<ERole> role;
 	 String message;

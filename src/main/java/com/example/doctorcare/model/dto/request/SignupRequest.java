@@ -51,7 +51,7 @@ public class SignupRequest {
 
 	@NotNull(message = MESSENGER_FIELDS_ERROR.DOB_MISSING)
 	@Past(message = MESSENGER_FIELDS_ERROR.DOB_ERROR)
-	LocalDate dateOfbirth;
+	LocalDate dateOfBirth;
 	
 	
 	private Set<String> role;

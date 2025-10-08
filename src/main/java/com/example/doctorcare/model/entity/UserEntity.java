@@ -1,5 +1,4 @@
 package com.example.doctorcare.model.entity;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class UserEntity extends BaseEntity {
 	String name;
 
 	@Column(name = "gender")
-	String genderl;
+	String gender;
 
 	@Column(name = "phone")
 	String phone;
@@ -79,7 +78,7 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "date_of_birth")
 	@Temporal(value = TemporalType.DATE)
-	LocalDate dateOfbirth;
+	LocalDate dateOfBirth;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
@@ -102,12 +101,5 @@ public class UserEntity extends BaseEntity {
 		status.setUser(this);
 	}
 
-	@Override
-	public String toString() {
-		return "UserEntity [email=" + email + ", password=" + password + ", address=" + address + ", name=" + name
-				+ ", genderl=" + genderl + ", phone=" + phone + ", description=" + description + ", avatar="
-				+ avatar + ", active=" + active + ", createdAt=" + createdAt + ", updateAt=" + updatedAt
-				+ ", doctorEntity=" + doctorEntity + ", statuses=" + statuses + "]";
-	}
 
 }

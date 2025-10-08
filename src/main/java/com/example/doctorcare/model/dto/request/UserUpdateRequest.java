@@ -37,6 +37,6 @@ public class UserUpdateRequest {
 	String gender;
 
 	@NotNull(message = MESSENGER_FIELDS_ERROR.DOB_MISSING)
-	LocalDate dateOfbirth;
+	LocalDate dateOfBirth;
 
 }

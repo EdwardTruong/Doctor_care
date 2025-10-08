@@ -1,7 +1,6 @@
 package com.example.doctorcare.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -10,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -21,7 +21,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -61,6 +60,10 @@ public class BaseEntity {
 
     @Column(name = "deleted_at")
     protected LocalDateTime deletedAt;
+
+    @Column(name = "deleted")
+    @Builder.Default
+    protected Boolean deleted = false;
 
     @PrePersist
     public void prePersist() {

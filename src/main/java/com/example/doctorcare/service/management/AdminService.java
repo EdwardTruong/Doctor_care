@@ -6,11 +6,11 @@ import com.example.doctorcare.model.entity.UserEntity;
 
 /*
  * Admin function : 
- * Manager DocterEntity (CRUD)
+ * Manager DoctorEntity (CRUD)
  * Lock(active) any UserEntity(User or Doctor) without admin 
  * 
  */
 
 public interface AdminService {
-    UserEntity createrUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role);
+    UserEntity createUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role);
 }

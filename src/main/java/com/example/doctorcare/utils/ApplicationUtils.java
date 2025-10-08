@@ -44,7 +44,7 @@ public class ApplicationUtils {
 
 	}
 
-	public String converActivePatienToString(int statusNumber) {
+	public String convertActivePatineToString(int statusNumber) {
 
 		String result = "";
 
@@ -78,9 +78,9 @@ public class ApplicationUtils {
 	public String convertToVND(int number) {
 		String stringNumber = String.valueOf(number);
 		stringNumber = stringNumber + "000";
-		Integer converToInt = Integer.parseInt(stringNumber);
+		Integer convertToInt = Integer.parseInt(stringNumber);
 		NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-		String formattedNumber = numberFormat.format(converToInt);
+		String formattedNumber = numberFormat.format(convertToInt);
 		return formattedNumber;
 	}
 
@@ -152,7 +152,7 @@ public class ApplicationUtils {
 		return dateStart.isAfter(dateEnd);
 	}
 
-	public String generateDateTimeToStirng() {
+	public String generateDateTimeToString() {
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		return currentDateTime.toString().replace("T", " ");
 	}

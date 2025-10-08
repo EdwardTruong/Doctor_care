@@ -37,7 +37,6 @@ import com.example.doctorcare.model.entity.Specializations;
 import com.example.doctorcare.model.entity.UserEntity;
 import com.example.doctorcare.model.mapper.DoctorMapper;
 import com.example.doctorcare.model.mapper.RequestMapper;
-import com.example.doctorcare.model.mapper.ScheduleMapper;
 import com.example.doctorcare.repository.DoctorRepository;
 import com.example.doctorcare.service.DoctorService;
 import com.example.doctorcare.service.MailService;

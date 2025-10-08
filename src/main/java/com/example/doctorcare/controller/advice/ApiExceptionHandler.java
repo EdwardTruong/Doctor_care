@@ -11,7 +11,7 @@ import com.example.doctorcare.exception.EmailException;
 import com.example.doctorcare.model.dto.response.HttpResponse;
 
 @RestControllerAdvice
-public class ApiExceptionHander {
+public class ApiExceptionHandler {
 
 	@ExceptionHandler(EmailException.class)
 	public ResponseEntity<HttpResponse> emailExistException(EmailException exception) {

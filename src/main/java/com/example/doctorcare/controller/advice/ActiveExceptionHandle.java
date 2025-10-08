@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.doctorcare.dto.response.HttpResponse;
 import com.example.doctorcare.exception.ActiveException;
+import com.example.doctorcare.model.dto.response.HttpResponse;
 
 @RestControllerAdvice
 public class ActiveExceptionHandle {

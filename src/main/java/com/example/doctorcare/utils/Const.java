@@ -89,7 +89,7 @@ public class Const {
 		public final static String CANT_LOCK = "This account lock already !";
 		public final static String CANT_UNLOCK = "The account was previously locked !";
 		public final static String CANT_LOCK_DOC = "This is doctor account.";
-		public final static String PASSOWRD_REGISTER_ERROR = "Password need have ";
+		public final static String PASSWORD_REGISTER_ERROR = "Password need have ";
 		public final static String FORBIDDEN_MESSENGER = "The password needs to be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character.";
 
 	}
@@ -124,6 +124,7 @@ public class Const {
 		public final static String SPECIALIZATION_NOTFOUND = "Error: Specialization cannot be found!";
 		public final static String USER_NOT_FOUND_EMAIL = "The account cannot be found with email : ";
 		public final static String USER_NOT_FOUND_ID = "The account cannot be found with id";
+		public final static String ENTITY_DELETED = "The account has been deleted";
 		public final static String KEY_NOT_FOUND = "Key not found !";
 		public final static String DOCTOR_NOT_FOUND = "Doctor not found !";
 		public final static String SESSION_NOT_FOUND = "Session doesn't exit !";

@@ -5,38 +5,31 @@ import java.util.List;
 
 import com.example.doctorcare.model.entity.Statuses;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /*
- * The UserDtoPatientResponse used to return personal information 
- * 	and list of diseases that the user has registered for examination
+ * The UserDtoPatientResponse used to return personal information and list of diseases that the user
+ * has registered for examination
  */
 
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-public class UserDtoPatientResponse {
+public record UserDtoPatientResponse(String name,
 
-	String name;
+		String email,
 
-	String email;
+		String address,
 
-	String address;
+		String gender,
 
-	String gender;
+		String phone,
 
-	String phone;
+		String avatar,
 
-	String avatar;
+		LocalDate dateOfBirth,
 
-	LocalDate dateOfbirth;
+		String isActive,
 
-	String isActive;
+		List<Statuses> statuses
 
-	List<Statuses> statuses;
-
+) {
 }

@@ -13,8 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-
-import com.example.doctorcare.dto.response.HttpResponse;
+import com.example.doctorcare.model.dto.response.HttpResponse;
 import com.example.doctorcare.utils.Const.MESSENGER_ERROR;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

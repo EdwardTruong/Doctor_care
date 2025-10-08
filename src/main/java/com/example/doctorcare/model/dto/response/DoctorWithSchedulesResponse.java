@@ -1,29 +1,24 @@
 package com.example.doctorcare.model.dto.response;
 
 import java.util.List;
-
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class DoctorWithSchedulesResponse {
+public record DoctorWithSchedulesResponse (
+	Integer idDoctor,//show for testing (Lưu ý: Đi kèm với tham số là trường id của bác sĩ.)
+	
+	String nameDoctor,
 
-	Integer idDoctor; //show for testing (Lưu ý: Đi kèm với tham số là trường id của bác sĩ.)
+	String email,
 	
-	String nameDoctor;
+	String nameClinic,
 
-	String email;
+	String active,
+
+	String description,
 	
-	String nameClinic;
-	
-	String active;
-	
-	String description;
-	
-	List<ScheduleDtoResponse> listSchdulesOfDoctor;
+	List<ScheduleDtoResponse> listSchedulesOfDoctor
+) {
+
+
 }

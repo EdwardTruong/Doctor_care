@@ -12,7 +12,6 @@ import com.example.doctorcare.common.utils.Const.MESSENGER_ERROR;
 import com.example.doctorcare.exception.ActiveException;
 import com.example.doctorcare.model.dto.response.UserDtoResponse;
 import com.example.doctorcare.model.entity.UserEntity;
-import com.example.doctorcare.model.mapper.RequestMapper;
 import com.example.doctorcare.model.mapper.UserMapper;
 import com.example.doctorcare.service.AccountService;
 

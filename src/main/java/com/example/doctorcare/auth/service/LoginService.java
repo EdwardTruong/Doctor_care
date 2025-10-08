@@ -6,7 +6,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-
 import com.example.doctorcare.model.dto.request.ChangePasswordRequest;
 import com.example.doctorcare.model.dto.request.LoginRequest;
 import com.example.doctorcare.model.dto.response.JwtResponse;

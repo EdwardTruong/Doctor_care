@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.example.doctorcare.entity.RoleEntity;
+import com.example.doctorcare.model.dto.response.RoleDtoResponse;
+import com.example.doctorcare.model.entity.RoleEntity;
 import com.example.doctorcare.utils.ERole;
 
 /*
@@ -14,6 +14,6 @@ import com.example.doctorcare.utils.ERole;
 
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Integer> {
-	
-	Optional<RoleEntity> findByName (ERole name);
+
+	Optional<RoleEntity> findByNameAndDeleted(ERole name, Boolean deleted);
 }

@@ -51,7 +51,7 @@ public class SignupDoctorRequest {
 
 	@NotNull(message = MESSENGER_FIELDS_ERROR.DOB_MISSING)
 	@Past(message = MESSENGER_FIELDS_ERROR.DOB_ERROR)
-	LocalDate dateOfbirth;
+	LocalDate dateOfBirth;
 	
 	@NotBlank(message = MESSENGER_FIELDS_ERROR.DOC_ACHIEVEMENT)
 	String achievement;

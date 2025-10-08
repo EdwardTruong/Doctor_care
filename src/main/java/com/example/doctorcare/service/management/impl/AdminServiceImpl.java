@@ -23,10 +23,9 @@ public class AdminServiceImpl implements AdminService {
     RequestMapper signupMapper;
 
     @Override
-    public UserEntity createrUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role) {
+    public UserEntity createUserForDoctorAccount(SignupDoctorRequest docRequest, RoleEntity role) {
         SignupRequest userRegister = signupMapper.toSignupUser(docRequest);
         UserEntity user = userService.createUser(userRegister, role);
         return user;
     }
-
 }

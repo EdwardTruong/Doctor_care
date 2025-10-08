@@ -2,7 +2,6 @@ package com.example.doctorcare.service;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import com.example.doctorcare.model.dto.request.SeeDoctorRequest;
 import com.example.doctorcare.model.dto.response.PatientDtoAdminResponse;
 import com.example.doctorcare.model.dto.response.PatientDtoDoctorResponse;

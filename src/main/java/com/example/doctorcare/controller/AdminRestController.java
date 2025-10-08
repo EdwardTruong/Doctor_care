@@ -45,6 +45,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 /*
  * This project have 3 roles :
@@ -61,6 +62,7 @@ import lombok.experimental.FieldDefaults;
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class AdminRestController {
 
 	AdminService adminService;
@@ -79,7 +81,6 @@ public class AdminRestController {
 
 	AccountService accountService;
 
-	private static Logger logger = LoggerFactory.getLogger(AdminRestController.class);
 
 	/*
 	 * 5.3.4. Thêm tài khoản của bác sĩ. DONE
@@ -89,9 +90,9 @@ public class AdminRestController {
 		Set<Specializations> specializations = specializationService.findByIds(signUpRequest.getIdsSpecializations());
 		Clinics clinic = clinicsService.findById(signUpRequest.getIdClinic());
 		RoleEntity role = roleService.findByName(ERole.ROLE_DOCTOR);
-		UserEntity userEntity = adminService.createrUserForDoctorAccount(signUpRequest, role);
+		UserEntity userEntity = adminService.createUserForDoctorAccount(signUpRequest, role);
 		DoctorDtoResponse newDoc = doctorService.createNewDoctor(signUpRequest, userEntity, specializations, clinic);
-		logger.info(newDoc.getDocEmail());
+		log.info(newDoc.docEmail());
 
 		return new ResponseEntity<>(newDoc, HttpStatus.CREATED);
 	}
@@ -134,7 +135,7 @@ public class AdminRestController {
 	public ResponseEntity<List<PatientDtoAdminResponse>> getPatientInfo(@PathVariable("id") Integer id) {
 		UserEntity user = userService.findById(id);
 		List<PatientDtoAdminResponse> result = patientService.getPatientDtoForAdmin(user);
-		logger.info(user.getEmail());
+		log.info(user.getEmail());
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 

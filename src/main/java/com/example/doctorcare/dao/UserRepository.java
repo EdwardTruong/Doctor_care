@@ -1,11 +1,13 @@
 package com.example.doctorcare.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.example.doctorcare.model.dto.response.UserDtoResponse;
+import com.example.doctorcare.model.entity.UserEntity;
 
-import com.example.doctorcare.entity.UserEntity;
 
 
 
@@ -20,7 +22,7 @@ import com.example.doctorcare.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findUserByEmail(String email);
-    
+    Optional<UserEntity> findByIdAndDeleted(Integer id, Boolean deleted);
     Boolean existsByEmail(String email);
-    
+    List<UserEntity> findAllAndDeleted(Boolean deleted);
 }

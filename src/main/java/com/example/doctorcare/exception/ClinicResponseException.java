@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ClinicResponeException {
+public class ClinicResponseException {
 
 	private int status;
 	private String messenger;
